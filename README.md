@@ -22,3 +22,6 @@ TasteBud is a
 - Julie Ngo, j33ngo@uwaterloo.ca
 - Lavan Nithianandarajah, lnithian@uwaterloo.ca
 - Neel Shah, n79shah@uwaterloo.ca
+
+## Project Proposal
+https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Proposal
