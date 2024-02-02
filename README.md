@@ -3,19 +3,21 @@
 
 
 ## Project Description
-TasteBud is a 
+TasteBud is an application that teaches beginner cooks how to cook recipes from different cuisines, but are unsure where to start. This project is being developed for the CS 346 course project in Winter 2024. It differs from other similar applications by using a progression learning method where users can learn the basics of cooking a specific cuisine and gradually increase their expertise. 
 
 ## Essential Product Features
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
-7. 
-8. 
-9. 
-10. 
+1. Developed for the Android platform
+2. Progression story and search
+3. Random recipe generator 
+4. Select ingredients generator
+5. User profile 
+6. Information flashcards
+7. Transition animations
+8. Visuals of cooking steps
+9. Post and share pictures of food
+10. Dietary restrictions on user profile
+11. List of ingredient substitutions
+12. Trending and seasonal food page
 
 ## Team Members
 - Ayush Shah, a248shah@uwaterloo.ca
