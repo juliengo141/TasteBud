@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.tastebudnew'
+    namespace 'com.example.tastebud'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.tastebudnew"
+        applicationId "com.example.tastebud"
         minSdk 24
         targetSdk 33
         versionCode 1

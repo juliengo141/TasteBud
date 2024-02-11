@@ -1,4 +1,4 @@
-package com.example.tastebudnew
+package com.example.tastebud
 
 import org.junit.Test
 

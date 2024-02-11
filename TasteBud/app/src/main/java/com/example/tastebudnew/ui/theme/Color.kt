@@ -1,4 +1,4 @@
-package com.example.tastebudnew.ui.theme
+package com.example.tastebud.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
