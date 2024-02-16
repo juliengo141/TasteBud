@@ -3,27 +3,27 @@ package com.example.tastebud
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.tastebud.controller.UserController
 import com.example.tastebud.ui.theme.TasteBudTheme
+import org.example.model.UserModel
+import org.example.userinterface.UserView
+import org.example.userinterface.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val userModel = UserModel()
+        val userViewModel = UserViewModel(userModel)
+        val userController = UserController(userModel)
+
         setContent {
             TasteBudTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                UserView(userViewModel, userController)
             }
         }
     }
