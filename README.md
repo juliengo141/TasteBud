@@ -28,5 +28,16 @@ TasteBud is an application that teaches beginner cooks how to cook recipes from 
 ## Project Proposal
 https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Proposal
 
+## Release Notes
+16-Feb-2023
+V1.0.0
+
+- Chose mongoDB as our noSQL database to be used for our users in the app
+- Created db in MongoDB
+- Attempted connecting the DB to MongoDB compass and the app, could not finish as we ran into a few issues documented within the issue itself and the respective development journals 
+- Created a variety of high-fidelity Figma diagrams, including the user profile, cuisine progression screen, sign-in page, home screen, menu bar, and flash cards for individual recipes
+
+Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
+
 ## APK
 [Taste Bud Installer](./TasteBud.apk)
