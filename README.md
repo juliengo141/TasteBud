@@ -43,5 +43,4 @@ V1.0.0
 
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
 
-## APK
-[Taste Bud Installer](./TasteBud.apk)
+- [Taste Bud Installer](./TasteBud.apk)
