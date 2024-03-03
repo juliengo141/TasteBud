@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class Recipe(
     @PrimaryKey @ColumnInfo(name = "id") val recipeId: String,
     val name: String,
-    val imageUrl: String = ""
+    val imageUrl: String,
+    val estimatedTime: String
 ) { }
