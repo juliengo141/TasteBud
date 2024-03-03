@@ -1,85 +1,40 @@
 package com.example.tastebud.compose.home
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    ScaffoldHome(navController)
+    NavBarScaffold(navController) { HomeContent(navController, it) }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldHome(navController: NavController) {
-    var presses by remember { mutableIntStateOf(0) }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text("TasteBud")
-                }
-            )
-        },
-        bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-            ) {
-                var text = remember { mutableStateOf("Home") }
-                Button(onClick = {
-                    navController.navigate("homeScreen")
-                }) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        text = text.value,
-                    )
-                }
-            }
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { presses++ }) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text =
-                """
+fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
+    Column(
+        modifier = Modifier.padding(innerPadding),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = """
                     This is the HOMESCREEN
-                    You have pressed the floating action button $presses times.
                 """.trimIndent(),
+        )
+        var text = remember { mutableStateOf("Recipe") }
+        Button(onClick = {
+            navController.navigate("recipeDetailsScreen")
+        }) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                text = text.value,
             )
-            var text = remember { mutableStateOf("Recipe") }
-            Button(onClick = {
-                navController.navigate("recipeDetailsScreen")
-            }) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    text = text.value,
-                )
-            }
         }
     }
 }
