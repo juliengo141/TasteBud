@@ -39,6 +39,23 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
             Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
         )
 
+        val steps = listOf(
+            listOf("1", "Chop pumpkin using a food processor until rice-like."),
+            listOf("2", "Saut pumpkin in hot olive oil for 3 minutes. Set aside and let cool."),
+            listOf("3", "Mix feta and mozzarella; add, one at a time, eggs."),
+            listOf("4", "Mix and combine."),
+            listOf("5", "Add pumpkin and spices, mix well until well blended."),
+            listOf(
+                "6",
+                "Evenly spoon the mixture into the greased muffin tin molds. Press pizza dough down evenly and firmly (the pressing down firmly is very important to make sure they stick together)."
+            ),
+            listOf("7", "Place in the oven and bake for 30 minutes at 200C."),
+            listOf(
+                "8",
+                "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
+            )
+        )
+
         val testRecipe = Recipe(
             "656329",
             "Pizza bites with pumpkin",
@@ -46,7 +63,9 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
             "20 min",
             "vegetarian",
             testIngredientList,
-        )
+            steps,
+
+            )
         val dietaryRestrictionsBundle = Bundle()
         dietaryRestrictionsBundle.putString("dietaryRestrictions", testRecipe.dietaryRestrictions)
 
@@ -61,12 +80,21 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
                 text = "Dietary Restrictions and Substitutions",
             )
         }
+        Button(onClick = {
+            navController.navigate("flashcardsScreen/${testRecipe.recipeId}")
+        }) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                text = "Start",
+            )
+        }
     }
 }
 
 @Composable
 fun RecipeInfo(recipe: Recipe) {
-    Text(recipe.name, modifier = Modifier.padding(15.dp, 0.dp), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+    Text(recipe.title, modifier = Modifier.padding(15.dp, 0.dp), fontSize = 20.sp, fontWeight = FontWeight.Bold)
     Text("Estimated Time: " + recipe.estimatedTime, modifier = Modifier.padding(15.dp, 0.dp))
     AsyncImage(
         model = recipe.imageUrl,

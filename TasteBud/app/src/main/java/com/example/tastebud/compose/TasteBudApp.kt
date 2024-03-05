@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.tastebud.compose.home.HomeScreen
 import com.example.tastebud.compose.recipeDetail.DietaryRestrictionsScreen
+import com.example.tastebud.compose.recipeDetail.FlashcardsScreen
 import com.example.tastebud.compose.recipeDetail.RecipeDetailScreen
 
 @Composable
@@ -25,6 +26,12 @@ fun TasteBudApp() {
             arguments = listOf(navArgument("recipeId") { type = NavType.StringType })
         ) { backStackEntry ->
             DietaryRestrictionsScreen(navController = navController, backStackEntry.arguments?.getString("recipeId"))
+        }
+        composable(
+            "flashcardsScreen/{recipeId}",
+            arguments = listOf(navArgument("recipeId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            FlashcardsScreen(navController = navController, backStackEntry.arguments?.getString("recipeId"))
         }
     }
 }
