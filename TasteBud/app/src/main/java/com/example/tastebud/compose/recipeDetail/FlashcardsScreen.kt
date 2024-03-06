@@ -19,6 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
+import com.example.tastebud.data.Equipment
+import com.example.tastebud.data.Ingredient
+import com.example.tastebud.data.Instruction
 
 @Composable
 fun FlashcardsScreen(navController: NavController, recipeId: String?) {
@@ -40,21 +43,34 @@ fun FlashcardContent(navController: NavController, recipeId: String?, innerPaddi
         if (recipeId != null) {
             // TODO: use the recipeId to query the database and retrieve the steps for that recipe.
             // Use dummy data for now
+//            val steps = listOf(
+//                listOf("1", "Chop pumpkin using a food processor until rice-like."),
+//                listOf("2", "Saut pumpkin in hot olive oil for 3 minutes. Set aside and let cool."),
+//                listOf("3", "Mix feta and mozzarella; add, one at a time, eggs."),
+//                listOf("4", "Mix and combine."),
+//                listOf("5", "Add pumpkin and spices, mix well until well blended."),
+//                listOf(
+//                    "6",
+//                    "Evenly spoon the mixture into the greased muffin tin molds. Press pizza dough down evenly and firmly (the pressing down firmly is very important to make sure they stick together)."
+//                ),
+//                listOf("7", "Place in the oven and bake for 30 minutes at 200C."),
+//                listOf(
+//                    "8",
+//                    "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
+//                )
+//            )
             val steps = listOf(
-                listOf("1", "Chop pumpkin using a food processor until rice-like."),
-                listOf("2", "Saut pumpkin in hot olive oil for 3 minutes. Set aside and let cool."),
-                listOf("3", "Mix feta and mozzarella; add, one at a time, eggs."),
-                listOf("4", "Mix and combine."),
-                listOf("5", "Add pumpkin and spices, mix well until well blended."),
-                listOf(
-                    "6",
-                    "Evenly spoon the mixture into the greased muffin tin molds. Press pizza dough down evenly and firmly (the pressing down firmly is very important to make sure they stick together)."
-                ),
-                listOf("7", "Place in the oven and bake for 30 minutes at 200C."),
-                listOf(
-                    "8",
-                    "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
-                )
+                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
+                    Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+                ), listOf(
+                    Equipment("1","Pan","")
+                )),
+                Instruction(2,"Chop pumpkin using a food processor until rice-like.", listOf(
+                    Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+                ), listOf(Equipment("2","Pan",""))),
+                Instruction(3,"Chop pumpkin using a food processor until rice-like.", listOf(
+                    Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+                ), listOf(Equipment("2","Pan","")))
             )
 
             RecipeStepsPager(steps = steps)
@@ -63,7 +79,7 @@ fun FlashcardContent(navController: NavController, recipeId: String?, innerPaddi
 }
 
 @Composable
-fun RecipeStepsPager(steps: List<List<String>>) {
+fun RecipeStepsPager(steps: List<Instruction>) {
     val pageCount = steps.size
     val pagerState = rememberPagerState(pageCount = { pageCount })
     val indicatorScrollState = rememberLazyListState()
@@ -96,7 +112,7 @@ fun RecipeStepsPager(steps: List<List<String>>) {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "${steps[page][0]}: ${steps[page][1]}")
+                Text(text = "${steps[page].stepNumber}: ${steps[page].step}")
             }
         }
 
@@ -107,7 +123,7 @@ fun RecipeStepsPager(steps: List<List<String>>) {
             state = indicatorScrollState
         ) {
             items(steps) { step ->
-                val stepNumber = step[0].toInt()
+                val stepNumber = step.stepNumber
                 val color = if (pagerState.currentPage == stepNumber - 1) Color.DarkGray else Color.LightGray
                 Box(
                     modifier = Modifier.padding(8.dp)

@@ -18,8 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tastebud.compose.TasteBudApp
 import com.example.tastebud.ui.theme.TasteBudTheme
-import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import com.mongodb.kotlin.client.coroutine.MongoClient
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
@@ -40,7 +38,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-fun getDatabase(): MongoDatabase{
-    val client = MongoClient.create(connectionString = "mongodb+srv://tastebuddev102:<TasteBud102>@cluster0.n4b5xe3.mongodb.net/?retryWrites=true&w=majority")
-    return client.getDatabase(databaseName = "sample_restaurants")
-}
