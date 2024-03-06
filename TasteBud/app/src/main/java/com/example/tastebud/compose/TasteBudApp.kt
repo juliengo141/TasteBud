@@ -1,5 +1,6 @@
 package com.example.tastebud.compose
 
+import RecipeDetailScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,7 +10,7 @@ import androidx.navigation.navArgument
 import com.example.tastebud.compose.home.HomeScreen
 import com.example.tastebud.compose.recipeDetail.DietaryRestrictionsScreen
 import com.example.tastebud.compose.recipeDetail.FlashcardsScreen
-import com.example.tastebud.compose.recipeDetail.RecipeDetailScreen
+
 
 @Composable
 fun TasteBudApp() {

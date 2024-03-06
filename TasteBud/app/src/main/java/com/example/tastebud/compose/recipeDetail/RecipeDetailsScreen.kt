@@ -1,6 +1,3 @@
-package com.example.tastebud.compose.recipeDetail
-
-import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,7 +14,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
+import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
+import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 
 @Composable
@@ -40,34 +39,46 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
         )
 
         val steps = listOf(
-            listOf("1", "Chop pumpkin using a food processor until rice-like."),
-            listOf("2", "Saut pumpkin in hot olive oil for 3 minutes. Set aside and let cool."),
-            listOf("3", "Mix feta and mozzarella; add, one at a time, eggs."),
-            listOf("4", "Mix and combine."),
-            listOf("5", "Add pumpkin and spices, mix well until well blended."),
-            listOf(
-                "6",
-                "Evenly spoon the mixture into the greased muffin tin molds. Press pizza dough down evenly and firmly (the pressing down firmly is very important to make sure they stick together)."
-            ),
-            listOf("7", "Place in the oven and bake for 30 minutes at 200C."),
-            listOf(
-                "8",
-                "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
-            )
+            Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
+                Equipment("1","Pan","")
+            )),
+            Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(Equipment("2","Pan","")))
         )
+
+
+
+//        val steps = listOf(
+//            listOf("1", "Chop pumpkin using a food processor until rice-like."),
+//            listOf("2", "Saut pumpkin in hot olive oil for 3 minutes. Set aside and let cool."),
+//            listOf("3", "Mix feta and mozzarella; add, one at a time, eggs."),
+//            listOf("4", "Mix and combine."),
+//            listOf("5", "Add pumpkin and spices, mix well until well blended."),
+//            listOf(
+//                "6",
+//                "Evenly spoon the mixture into the greased muffin tin molds. Press pizza dough down evenly and firmly (the pressing down firmly is very important to make sure they stick together)."
+//            ),
+//            listOf("7", "Place in the oven and bake for 30 minutes at 200C."),
+//            listOf(
+//                "8",
+//                "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
+//            )
+//        )
 
         val testRecipe = Recipe(
             "656329",
             "Pizza bites with pumpkin",
             "https://spoonacular.com/recipeImages/656329-312x231.jpg",
             "20 min",
+            2,
+            listOf("Nordic"),
             true,
             false,
             true,
             false,
+            false,
+            true,
             testIngredientList,
             steps,
-
             )
 
         RecipeInfo(testRecipe)
