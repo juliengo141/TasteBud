@@ -61,13 +61,14 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
             "Pizza bites with pumpkin",
             "https://spoonacular.com/recipeImages/656329-312x231.jpg",
             "20 min",
-            "vegetarian",
+            true,
+            false,
+            true,
+            false,
             testIngredientList,
             steps,
 
             )
-        val dietaryRestrictionsBundle = Bundle()
-        dietaryRestrictionsBundle.putString("dietaryRestrictions", testRecipe.dietaryRestrictions)
 
         RecipeInfo(testRecipe)
         IngredientsCard(testRecipe.ingredients)

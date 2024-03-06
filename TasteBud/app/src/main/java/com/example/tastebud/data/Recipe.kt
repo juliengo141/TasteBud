@@ -10,7 +10,10 @@ data class Recipe(
     val title: String,
     val imageUrl: String,
     val estimatedTime: String,
-    val dietaryRestrictions: String,
+    val vegetarian: Boolean,
+    val vegan: Boolean,
+    val glutenFree: Boolean,
+    val dairyFree: Boolean,
     val ingredients: List<Ingredient>,
     val steps: List<List<String>>,
 ) {}

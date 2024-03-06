@@ -31,8 +31,14 @@ fun DietaryRestrictionsContent(navController: NavController, recipeId: String?, 
         )
         if (recipeId != null) {
             // TODO: using the recipeId, query the database to retrieve the dietaryRestrictions
-            val dietaryRestrictions = "vegetarian"
-            Text(dietaryRestrictions, modifier = Modifier.padding(15.dp, 0.dp))
+            val vegetarian: Boolean = true
+            val vegan: Boolean = false
+            val glutenFree: Boolean = true
+            val dairyFree: Boolean = false
+            if (vegetarian) {Text("Vegetarian", modifier = Modifier.padding(15.dp, 0.dp))}
+            if (vegan) {Text("Vegan", modifier = Modifier.padding(15.dp, 0.dp))}
+            if (glutenFree) {Text("Gluten free", modifier = Modifier.padding(15.dp, 0.dp))}
+            if (dairyFree) {Text("Dairy Free", modifier = Modifier.padding(15.dp, 0.dp))}
         }
         Button(onClick = {
             navController.navigate("recipeDetailsScreen")
