@@ -8,17 +8,22 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
+import kotlinx.coroutines.launch
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
@@ -65,12 +70,12 @@ fun FlashcardContent(navController: NavController, recipeId: String?, innerPaddi
                 ), listOf(
                     Equipment("1","Pan","")
                 )),
-                Instruction(2,"Chop pumpkin using a food processor until rice-like.", listOf(
+                Instruction(2,"Combine sugar, syrup, and honey to get a sweet taste. Mix until you get a pudding consistency.", listOf(
                     Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
                 ), listOf(Equipment("2","Pan",""))),
-                Instruction(3,"Chop pumpkin using a food processor until rice-like.", listOf(
-                    Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(Equipment("2","Pan","")))
+                Instruction(3,"Top off the pudding with some whipping cream and strawberries. Serve for 2 and enjoy your meal!!", listOf(
+                    Ingredient("3", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+                ), listOf(Equipment("3","Pan","")))
             )
 
             RecipeStepsPager(steps = steps)
@@ -102,23 +107,30 @@ fun RecipeStepsPager(steps: List<Instruction>) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp) // Add left and right padding
+            //.height(100.dp)
     ) {
         // Horizontal pager for recipe steps
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize().weight(1f)
+            modifier = Modifier.fillMaxSize().weight(3f)
+
         ) { page ->
             Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+                    .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
             ) {
-                Text(text = "${steps[page].stepNumber}: ${steps[page].step}")
+                Text(text = "${steps[page].stepNumber}: ${steps[page].step}",lineHeight = 30.sp, fontFamily = FontFamily.SansSerif, fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier
+                    .padding(20.dp)
+
+                    )
             }
         }
 
         // Indicator dots
         LazyRow(
-            modifier = Modifier.height(50.dp).fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().weight(2f),
             horizontalArrangement = Arrangement.Center,
             state = indicatorScrollState
         ) {
@@ -132,5 +144,32 @@ fun RecipeStepsPager(steps: List<Instruction>) {
                 )
             }
         }
+
+        // Back and forward buttons
+        Row(
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        )
+        {
+            val coroutineScope = rememberCoroutineScope()
+            Button(
+                onClick = { coroutineScope.launch{
+                    pagerState.animateScrollToPage(pagerState.currentPage - 1)}},
+                enabled = pagerState.currentPage > 0
+            ) {
+                Text("Back", fontSize = 24.sp,modifier = Modifier
+                    .padding(15.dp))
+            }
+            Button(
+                onClick = {coroutineScope.launch{
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)} },
+                enabled = pagerState.currentPage < pageCount - 1
+            ) {
+                Text("Next",fontSize = 24.sp, modifier = Modifier
+                    .padding(15.dp))
+            }
+        }
     }
 }
+
