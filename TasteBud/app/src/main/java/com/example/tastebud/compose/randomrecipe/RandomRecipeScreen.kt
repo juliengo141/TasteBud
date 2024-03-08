@@ -17,5 +17,17 @@ fun RandomRecipeScreen(navController: NavController) {
 
 @Composable
 fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValues) {
-    Text("THIS IS THE RANDOM RECIPE SCREEN")
+    Column(
+        modifier = Modifier.padding(innerPadding),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = """
+                    This is the Recipe Roulette
+                """.trimIndent(),
+        )
+
+
+    }
 }

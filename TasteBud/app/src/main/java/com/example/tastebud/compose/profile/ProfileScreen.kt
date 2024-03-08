@@ -18,5 +18,17 @@ fun ProfileScreen(navController: NavController) {
 
 @Composable
 fun ProfileContent(navController: NavController, innerPadding: PaddingValues) {
-    Text("THIS IS THE PROFILE SCREEN")
+    Column(
+        modifier = Modifier.padding(innerPadding),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = """
+                    This is the PROFILESCREEN
+                """.trimIndent(),
+        )
+
+
+    }
 }

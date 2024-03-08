@@ -18,5 +18,17 @@ fun SelectIngredientScreen(navController: NavController) {
 
 @Composable
 fun selectContent(navController: NavController, innerPadding: PaddingValues) {
-    Text("THIS IS THE SELECT INGREDIENT SCREEN")
+    Column(
+        modifier = Modifier.padding(innerPadding),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = """
+                    This is the FRIDGE
+                """.trimIndent(),
+        )
+
+
+    }
 }
