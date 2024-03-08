@@ -1,5 +1,6 @@
 package com.example.tastebud.compose.home
 
+import NavBarScaffold
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -7,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
 
 @Composable
 fun HomeScreen(navController: NavController) {

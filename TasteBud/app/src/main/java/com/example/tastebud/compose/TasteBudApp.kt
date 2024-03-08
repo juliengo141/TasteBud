@@ -7,6 +7,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.tastebud.compose.home.HomeScreen
+import com.example.tastebud.compose.home.ProfileScreen
+import com.example.tastebud.compose.home.RandomRecipeScreen
+import com.example.tastebud.compose.home.SelectIngredientScreen
 import com.example.tastebud.compose.recipeDetail.DietaryRestrictionsScreen
 import com.example.tastebud.compose.recipeDetail.FlashcardsScreen
 import com.example.tastebud.compose.recipeDetail.RecipeDetailScreen
@@ -17,6 +20,15 @@ fun TasteBudApp() {
     NavHost(navController = navController, startDestination = "homeScreen") {
         composable("homeScreen") {
             HomeScreen(navController = navController)
+        }
+        composable("RandomRecipeScreen") {
+            RandomRecipeScreen(navController = navController)
+        }
+        composable("SelectIngredientScreen") {
+            SelectIngredientScreen(navController = navController)
+        }
+        composable("profileScreen") {
+            ProfileScreen(navController = navController)
         }
         composable("recipeDetailsScreen") {
             RecipeDetailScreen(navController = navController)

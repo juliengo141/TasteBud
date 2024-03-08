@@ -1,5 +1,6 @@
 package com.example.tastebud.compose.recipeDetail
 
+import NavBarScaffold
 import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Recipe
 
