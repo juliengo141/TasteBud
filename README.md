@@ -44,3 +44,15 @@ V1.0.0
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
 
 - [Taste Bud Installer](./TasteBud.apk)
+
+V1.1.0
+
+- Designed and implemented flashcard to display recipes
+- Created the schema for the recipe
+- Animation to swtich between instructions
+- Navigation of the app from the home screen to recipe
+- Loaded recipes to database for each cuisine
+
+Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
+
+- [Taste Bud Installer](./TasteBud.apk)
