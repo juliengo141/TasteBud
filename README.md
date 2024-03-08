@@ -45,6 +45,7 @@ Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
 
 - [Taste Bud Installer](./TasteBud.apk)
 
+3-Mar-2023
 V1.1.0
 
 - Designed and implemented flashcard to display recipes
