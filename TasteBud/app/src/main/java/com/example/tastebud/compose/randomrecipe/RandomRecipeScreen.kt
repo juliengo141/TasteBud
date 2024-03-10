@@ -9,13 +9,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+
 @Composable
-fun HomeScreen(navController: NavController) {
-    NavBarScaffold(navController) { HomeContent(navController, it) }
+fun RandomRecipeScreen(navController: NavController) {
+    NavBarScaffold(navController) { RandomRecipeContent(navController, it) }
 }
 
 @Composable
-fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
+fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValues) {
     Column(
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -23,18 +24,10 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
         Text(
             modifier = Modifier.padding(8.dp),
             text = """
-                    This is the HOMESCREEN
+                    This is the Recipe Roulette
                 """.trimIndent(),
         )
-        var text = remember { mutableStateOf("Recipe") }
-        Button(onClick = {
-            navController.navigate("recipeDetailsScreen")
-        }) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                text = text.value,
-            )
-        }
+
+
     }
 }
