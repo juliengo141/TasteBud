@@ -1,5 +1,6 @@
 package com.example.tastebud.compose.recipeDetail
 
+import NavBarScaffold
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -22,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
+
 import kotlinx.coroutines.launch
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
