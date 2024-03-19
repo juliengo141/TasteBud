@@ -1,12 +1,15 @@
 package com.example.tastebud.data
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "recipes")
+
+@kotlinx.parcelize.Parcelize
 data class Recipe(
-    @PrimaryKey @ColumnInfo(name = "id") val recipeId: String,
+    val recipeId: String,
     val title: String,
     val imageUrl: String,
     val estimatedTime: String,
@@ -20,4 +23,4 @@ data class Recipe(
     val cheap: Boolean,
     val ingredients: List<Ingredient>,
     val steps: List<Instruction>,
-) {}
+): Parcelable

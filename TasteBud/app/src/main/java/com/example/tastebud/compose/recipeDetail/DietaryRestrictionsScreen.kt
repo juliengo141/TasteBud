@@ -11,14 +11,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import NavBarScaffold
+import com.example.tastebud.compose.SharedViewModel
 
 @Composable
-fun DietaryRestrictionsScreen(navController: NavController, recipeId: String?) {
-    NavBarScaffold(navController) { DietaryRestrictionsContent(navController, recipeId, it) }
+fun DietaryRestrictionsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
+    NavBarScaffold(navController) { DietaryRestrictionsContent(navController ,it, sharedViewModel) }
 }
 
 @Composable
-fun DietaryRestrictionsContent(navController: NavController, recipeId: String?, innerPadding: PaddingValues) {
+fun DietaryRestrictionsContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     Column(
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -29,7 +30,7 @@ fun DietaryRestrictionsContent(navController: NavController, recipeId: String?, 
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
-        if (recipeId != null) {
+        if (sharedViewModel.recipe != null) {
             // TODO: using the recipeId, query the database to retrieve the dietaryRestrictions
             val vegetarian: Boolean = true
             val vegan: Boolean = false
