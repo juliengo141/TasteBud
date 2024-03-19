@@ -17,36 +17,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.tastebud.compose.SharedViewModel
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 
 @Composable
-fun RecipeDetailScreen(navController: NavController) {
-    NavBarScaffold(navController) { RecipeDetailContent(navController, it) }
+fun RecipeDetailScreen(navController: NavController, sharedViewModel: SharedViewModel) {
+    NavBarScaffold(navController) { RecipeDetailContent(navController, it, sharedViewModel) }
 }
 
 @Composable
-fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValues) {
+fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     Column(
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val testIngredientList = listOf(
-            Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-            Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-            Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-            Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-            Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-        )
-
-        val steps = listOf(
-            Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                Equipment("1","Pan","")
-            )),
-            Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(Equipment("2","Pan","")))
-        )
 
 
 
@@ -67,27 +54,11 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
 //            )
 //        )
 
-        val testRecipe = Recipe(
-            "656329",
-            "Pizza bites with pumpkin",
-            "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-            "20 min",
-            2,
-            listOf("Nordic"),
-            true,
-            false,
-            true,
-            false,
-            false,
-            true,
-            testIngredientList,
-            steps,
-            )
 
-        RecipeInfo(testRecipe)
-        IngredientsCard(testRecipe.ingredients)
+        sharedViewModel.recipe?.let { RecipeInfo(it) }
+        sharedViewModel.recipe?.let { IngredientsCard(it.ingredients) }
         Button(onClick = {
-            navController.navigate("dietaryRestrictionsScreen/${testRecipe.recipeId}")
+            navController.navigate("dietaryRestrictionsScreen")
         }) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -96,7 +67,7 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
             )
         }
         Button(onClick = {
-            navController.navigate("flashcardsScreen/${testRecipe.recipeId}")
+            navController.navigate("flashcardsScreen")
         }) {
             Text(
                 modifier = Modifier.fillMaxWidth(),

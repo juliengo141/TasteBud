@@ -9,10 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.tastebud.compose.SharedViewModel
 
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, sharedViewModel: SharedViewModel) {
     NavBarScaffold(navController) { ProfileContent(navController, it) }
 }
 

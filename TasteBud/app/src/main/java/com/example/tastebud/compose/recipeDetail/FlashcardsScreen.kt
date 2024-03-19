@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.tastebud.compose.SharedViewModel
 
 import kotlinx.coroutines.launch
 import com.example.tastebud.data.Equipment
@@ -30,12 +31,12 @@ import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 
 @Composable
-fun FlashcardsScreen(navController: NavController, recipeId: String?) {
-    NavBarScaffold(navController) { FlashcardContent(navController, recipeId, it) }
+fun FlashcardsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
+    NavBarScaffold(navController) { FlashcardContent(navController, it, sharedViewModel) }
 }
 
 @Composable
-fun FlashcardContent(navController: NavController, recipeId: String?, innerPadding: PaddingValues) {
+fun FlashcardContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     Column(
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -46,7 +47,7 @@ fun FlashcardContent(navController: NavController, recipeId: String?, innerPaddi
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
-        if (recipeId != null) {
+        if (sharedViewModel.recipe != null) {
             // TODO: use the recipeId to query the database and retrieve the steps for that recipe.
             // Use dummy data for now
 //            val steps = listOf(
@@ -65,21 +66,12 @@ fun FlashcardContent(navController: NavController, recipeId: String?, innerPaddi
 //                    "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
 //                )
 //            )
-            val steps = listOf(
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
-                    Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(
-                    Equipment("1","Pan","")
-                )),
-                Instruction(2,"Combine sugar, syrup, and honey to get a sweet taste. Mix until you get a pudding consistency.", listOf(
-                    Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(Equipment("2","Pan",""))),
-                Instruction(3,"Top off the pudding with some whipping cream and strawberries. Serve for 2 and enjoy your meal!!", listOf(
-                    Ingredient("3", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(Equipment("3","Pan","")))
-            )
+            val steps = sharedViewModel.recipe?.steps
+            if(steps != null){
+                RecipeStepsPager(steps = steps)
+            }
 
-            RecipeStepsPager(steps = steps)
+
         }
     }
 }

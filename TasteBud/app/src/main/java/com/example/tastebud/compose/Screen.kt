@@ -11,11 +11,11 @@ sealed class Screen(
     object Home : Screen("home")
 
     object RecipeDetail : Screen(
-        route = "recipeDetail/{recipeId}",
+        route = "recipeDetail",
         navArguments = listOf(navArgument("recipeId") {
             type = NavType.StringType
         })
     ) {
-        fun createRoute(recipeId: String) = "recipeDetail/${recipeId}"
+        fun createRoute() = "recipeDetail"
     }
 }

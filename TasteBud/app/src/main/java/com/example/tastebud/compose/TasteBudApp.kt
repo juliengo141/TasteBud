@@ -2,6 +2,7 @@ package com.example.tastebud.compose
 
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,34 +19,33 @@ import com.example.tastebud.compose.recipeDetail.RecipeDetailScreen
 
 @Composable
 fun TasteBudApp() {
+    val sharedViewModel: SharedViewModel =  viewModel()
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "homeScreen") {
         composable("homeScreen") {
-            HomeScreen(navController = navController)
+            HomeScreen(navController = navController, sharedViewModel)
         }
         composable("RandomRecipeScreen") {
-            RandomRecipeScreen(navController = navController)
+            RandomRecipeScreen(navController = navController, sharedViewModel)
         }
         composable("SelectIngredientScreen") {
-            SelectIngredientScreen(navController = navController)
+            SelectIngredientScreen(navController = navController, sharedViewModel)
         }
         composable("profileScreen") {
-            ProfileScreen(navController = navController)
+            ProfileScreen(navController = navController, sharedViewModel)
         }
         composable("recipeDetailsScreen") {
-            RecipeDetailScreen(navController = navController)
+            RecipeDetailScreen(navController = navController, sharedViewModel)
         }
         composable(
-            "dietaryRestrictionsScreen/{recipeId}",
-            arguments = listOf(navArgument("recipeId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            DietaryRestrictionsScreen(navController = navController, backStackEntry.arguments?.getString("recipeId"))
+            "dietaryRestrictionsScreen"
+        ) {
+            DietaryRestrictionsScreen(navController = navController,sharedViewModel)
         }
         composable(
-            "flashcardsScreen/{recipeId}",
-            arguments = listOf(navArgument("recipeId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            FlashcardsScreen(navController = navController, backStackEntry.arguments?.getString("recipeId"))
+            "flashcardsScreen"
+        ) {
+            FlashcardsScreen(navController = navController, sharedViewModel)
         }
     }
 }
