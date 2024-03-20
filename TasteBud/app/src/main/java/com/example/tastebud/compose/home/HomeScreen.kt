@@ -14,7 +14,6 @@ import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
-import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 
@@ -22,13 +21,13 @@ data class Dish(val name: String, val cuisine: String)
 
 @Composable
 fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { HomeContent(navController, it, sharedViewModel ) }
+    NavBarScaffold(navController) { HomeContent(navController, it, sharedViewModel) }
 }
+
 
 @Composable
 fun HomeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     CreateRecipe(sharedViewModel = sharedViewModel)
-fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
     val dishes = listOf(
         Dish("Pani Puri", "Indian"),
         Dish("Chow Mein", "Chinese"),
@@ -42,7 +41,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
     ) {
         Text(
             text = "Our Weekly Picks",
-            style = MaterialTheme.typography.,
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(start = 8.dp, top = 8.dp)
         )
 
@@ -53,12 +52,12 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
             ) {
                 Text(
                     text = dish.name,
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.displayMedium,
                     modifier = Modifier.padding(top = 8.dp)
                 )
                 Text(
                     text = dish.cuisine,
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
             }
