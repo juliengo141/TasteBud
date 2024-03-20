@@ -4,8 +4,8 @@ import NavBarScaffold
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
@@ -14,6 +14,11 @@ import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
+import com.example.tastebud.compose.navBarScaffold.NavBarScaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+
+data class Dish(val name: String, val cuisine: String)
 
 @Composable
 fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
@@ -23,25 +28,40 @@ fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
 @Composable
 fun HomeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     CreateRecipe(sharedViewModel = sharedViewModel)
+fun HomeContent(navController: NavController, innerPadding: PaddingValues) {
+    val dishes = listOf(
+        Dish("Pani Puri", "Indian"),
+        Dish("Chow Mein", "Chinese"),
+        Dish("Baklava", "Middle Eastern"),
+        Dish("Gnocchi", "Italian")
+    )
+
     Column(
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            modifier = Modifier.padding(8.dp),
-            text = """
-                    This is the HOMESCREEN
-                """.trimIndent(),
+            text = "Our Weekly Picks",
+            style = MaterialTheme.typography.,
+            modifier = Modifier.padding(start = 8.dp, top = 8.dp)
         )
-        var text = remember { mutableStateOf("Recipe") }
-        Button(onClick = {
-            navController.navigate("recipeDetailsScreen")
-        }) {
-            Text(
+
+        dishes.forEach { dish ->
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                text = text.value,
-            )
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = dish.name,
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                Text(
+                    text = dish.cuisine,
+                    style = MaterialTheme.typography.body2,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
         }
     }
 }
