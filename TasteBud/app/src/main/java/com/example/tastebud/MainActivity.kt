@@ -22,13 +22,6 @@ import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        //val database = getDatabase()
-
-//        runBlocking{
-//            database.listCollectionNames().collect{
-//                //println(it)
-//            }
-//        }
         super.onCreate(savedInstanceState)
         setContent {
             TasteBudTheme {
