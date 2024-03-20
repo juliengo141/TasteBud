@@ -67,15 +67,17 @@ fun SignInContent(navController: NavController, innerPadding: PaddingValues, sha
             modifier = Modifier
                 .fillMaxWidth(),
             onClick = {
-                auth.createUserWithEmailAndPassword(
+                auth.signInWithEmailAndPassword(
                     emailValue.value.text.trim(),
                     passwordValue.value.text.trim()
                 )
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            Log.d("AUTH", "Success!")
+                            Log.d("AUTH", "Login Success!")
+                            val user = auth.currentUser
+                            navController.navigate("profileScreen")
                         } else {
-                            Log.d("AUTH", "Failed: ${task.exception}")
+                            Log.d("AUTH", "Login Failed: ${task.exception}")
                         }
                     }
             }) {

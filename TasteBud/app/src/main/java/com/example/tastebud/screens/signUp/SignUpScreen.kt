@@ -1,4 +1,4 @@
-package com.example.tastebud.screens.home
+package com.example.tastebud.screens.signUp
 
 import NavBarScaffold
 import android.util.Log
@@ -98,9 +98,11 @@ fun SignUpContent(navController: NavController, innerPadding: PaddingValues, sha
                 )
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            Log.d("AUTH", "Success!")
+                            Log.d("AUTH", "Sign Up Success!")
+                            val user = auth.currentUser
+                            navController.navigate("profileScreen")
                         } else {
-                            Log.d("AUTH", "Failed: ${task.exception}")
+                            Log.d("AUTH", "Sign Up Failed: ${task.exception}")
                         }
                     }
             }) {

@@ -10,6 +10,7 @@ import com.example.tastebud.screens.home.*
 import com.example.tastebud.screens.recipeDetail.DietaryRestrictionsScreen
 import com.example.tastebud.screens.recipeDetail.FlashcardsScreen
 import com.example.tastebud.screens.recipeDetail.RecipeDetailScreen
+import com.example.tastebud.screens.signUp.SignUpScreen
 
 @Composable
 fun TasteBudApp() {
