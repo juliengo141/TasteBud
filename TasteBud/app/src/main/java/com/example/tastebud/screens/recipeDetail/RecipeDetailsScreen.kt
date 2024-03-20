@@ -1,4 +1,4 @@
-package com.example.tastebud.compose.recipeDetail
+package com.example.tastebud.screens.recipeDetail
 
 import NavBarScaffold
 import androidx.compose.foundation.clickable
@@ -17,10 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.tastebud.compose.SharedViewModel
-import com.example.tastebud.data.Equipment
+import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.data.Ingredient
-import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 
 @Composable

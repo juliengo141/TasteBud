@@ -1,4 +1,4 @@
-package com.example.tastebud.compose.recipeDetail
+package com.example.tastebud.screens.recipeDetail
 
 import NavBarScaffold
 import androidx.compose.foundation.background
@@ -23,11 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.tastebud.compose.SharedViewModel
+import com.example.tastebud.screens.SharedViewModel
 
 import kotlinx.coroutines.launch
-import com.example.tastebud.data.Equipment
-import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 
 @Composable

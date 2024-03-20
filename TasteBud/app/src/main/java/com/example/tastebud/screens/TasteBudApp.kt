@@ -1,4 +1,4 @@
-package com.example.tastebud.compose
+package com.example.tastebud.screens
 
 
 import androidx.compose.runtime.Composable
@@ -6,20 +6,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.tastebud.compose.home.HomeScreen
-import com.example.tastebud.compose.home.ProfileScreen
-import com.example.tastebud.compose.home.RandomRecipeScreen
-import com.example.tastebud.compose.home.SelectIngredientScreen
-import com.example.tastebud.compose.home.SignInScreen
-import com.example.tastebud.compose.recipeDetail.DietaryRestrictionsScreen
-import com.example.tastebud.compose.recipeDetail.FlashcardsScreen
-import com.example.tastebud.compose.recipeDetail.RecipeDetailScreen
+import com.example.tastebud.screens.home.*
+import com.example.tastebud.screens.recipeDetail.DietaryRestrictionsScreen
+import com.example.tastebud.screens.recipeDetail.FlashcardsScreen
+import com.example.tastebud.screens.recipeDetail.RecipeDetailScreen
 
 @Composable
 fun TasteBudApp() {
     val sharedViewModel: SharedViewModel = viewModel()
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "signInScreen") {
+    NavHost(navController = navController, startDestination = "signUpScreen") {
+        composable("signUpScreen") {
+            SignUpScreen(navController = navController, sharedViewModel)
+        }
         composable("signInScreen") {
             SignInScreen(navController = navController, sharedViewModel)
         }

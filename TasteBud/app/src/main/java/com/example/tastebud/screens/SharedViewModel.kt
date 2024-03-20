@@ -1,4 +1,4 @@
-package com.example.tastebud.compose
+package com.example.tastebud.screens
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

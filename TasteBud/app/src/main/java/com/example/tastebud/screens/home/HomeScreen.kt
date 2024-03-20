@@ -1,4 +1,4 @@
-package com.example.tastebud.compose.home
+package com.example.tastebud.screens.home
 
 import NavBarScaffold
 import androidx.compose.foundation.layout.*
@@ -7,9 +7,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.tastebud.compose.SharedViewModel
+import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
