@@ -10,6 +10,7 @@ import com.example.tastebud.screens.home.*
 import com.example.tastebud.screens.recipeDetail.DietaryRestrictionsScreen
 import com.example.tastebud.screens.recipeDetail.FlashcardsScreen
 import com.example.tastebud.screens.recipeDetail.RecipeDetailScreen
+import com.example.tastebud.screens.reciperoad.RecipeRoadScreen
 import com.example.tastebud.screens.signUp.SignUpScreen
 
 @Composable
@@ -31,6 +32,9 @@ fun TasteBudApp() {
         }
         composable("SelectIngredientScreen") {
             SelectIngredientScreen(navController = navController, sharedViewModel)
+        }
+        composable("RecipeRoadScreen") {
+            RecipeRoadScreen(navController = navController, sharedViewModel)
         }
         composable("profileScreen") {
             ProfileScreen(navController = navController, sharedViewModel)

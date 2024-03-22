@@ -100,6 +100,10 @@ fun SignUpContent(navController: NavController, innerPadding: PaddingValues, sha
                         if (task.isSuccessful) {
                             Log.d("AUTH", "Sign Up Success!")
                             val user = auth.currentUser
+                            if (user != null) {
+                                sharedViewModel.addUser(user)
+                                Log.d("AUTH", "${sharedViewModel.user?.email}")
+                            }
                             navController.navigate("profileScreen")
                         } else {
                             Log.d("AUTH", "Sign Up Failed: ${task.exception}")

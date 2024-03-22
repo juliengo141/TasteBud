@@ -21,6 +21,7 @@ data class Recipe(
     val dairyFree: Boolean,
     val veryHealthy: Boolean,
     val cheap: Boolean,
+    val difficulty: String,
     val ingredients: List<Ingredient>,
     val steps: List<Instruction>,
 ): Parcelable

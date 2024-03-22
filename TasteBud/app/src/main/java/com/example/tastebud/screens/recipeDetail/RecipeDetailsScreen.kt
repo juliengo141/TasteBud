@@ -83,7 +83,7 @@ fun RecipeInfo(recipe: Recipe) {
     AsyncImage(
         model = recipe.imageUrl,
         contentDescription = "Translated description of what the image contains",
-        modifier = Modifier.padding(15.dp, 0.dp)
+        modifier = Modifier.padding(15.dp, 0.dp).size(175.dp)
         // TODO: add a placeholder and error image
     )
 }

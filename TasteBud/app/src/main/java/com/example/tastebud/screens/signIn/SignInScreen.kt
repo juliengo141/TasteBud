@@ -75,6 +75,10 @@ fun SignInContent(navController: NavController, innerPadding: PaddingValues, sha
                         if (task.isSuccessful) {
                             Log.d("AUTH", "Login Success!")
                             val user = auth.currentUser
+                            if (user != null) {
+                                sharedViewModel.addUser(user)
+                                Log.d("AUTH", "${sharedViewModel.user?.email}")
+                            }
                             navController.navigate("profileScreen")
                         } else {
                             Log.d("AUTH", "Login Failed: ${task.exception}")
