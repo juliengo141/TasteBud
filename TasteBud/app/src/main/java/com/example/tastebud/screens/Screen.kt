@@ -1,4 +1,4 @@
-package com.example.tastebud.compose
+package com.example.tastebud.screens
 
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType

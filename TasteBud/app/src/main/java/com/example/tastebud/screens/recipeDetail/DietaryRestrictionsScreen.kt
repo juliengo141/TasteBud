@@ -1,4 +1,4 @@
-package com.example.tastebud.compose.recipeDetail
+package com.example.tastebud.screens.recipeDetail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import NavBarScaffold
-import com.example.tastebud.compose.SharedViewModel
+import com.example.tastebud.screens.SharedViewModel
 
 @Composable
 fun DietaryRestrictionsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
