@@ -77,6 +77,7 @@ fun CreateRecipe(sharedViewModel: SharedViewModel){
         false,
         false,
         true,
+        "Medium",
         testIngredientList,
         steps,
     )

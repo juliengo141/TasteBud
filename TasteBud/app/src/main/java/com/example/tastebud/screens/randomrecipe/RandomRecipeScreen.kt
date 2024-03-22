@@ -105,6 +105,7 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                 false,
                 false,
                 true,
+                "Medium",
                 testIngredientList,
                 steps,
             )
@@ -140,6 +141,7 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                 false,
                 false,
                 true,
+                 "Medium",
                 testIngredientList,
                 steps,
             )}
@@ -174,6 +176,7 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                     false,
                     false,
                     true,
+                    "Easy",
                     testIngredientList,
                     steps,
                 )

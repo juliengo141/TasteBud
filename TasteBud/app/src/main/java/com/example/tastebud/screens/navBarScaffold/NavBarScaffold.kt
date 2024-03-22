@@ -4,6 +4,7 @@ import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Kitchen
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -45,18 +46,6 @@ fun NavBarScaffold(navController: NavController, createContent: @Composable (Pad
                     )
                 }
 
-                IconButton(
-                    onClick = {
-                        // Handle Profile icon click
-                        navController.navigate("profileScreen")
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        modifier = Modifier.size(50.dp),
-                        contentDescription = "Profile"
-                    )
-                }
 
 
                 IconButton(
@@ -71,6 +60,18 @@ fun NavBarScaffold(navController: NavController, createContent: @Composable (Pad
                         contentDescription = "Roulette"
                     )
                 }
+                IconButton(
+                    onClick = {
+                        // Handle Roulette icon click
+                        navController.navigate("RecipeRoadScreen")
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.MenuBook,
+                        modifier = Modifier.size(50.dp),
+                        contentDescription = "Journey"
+                    )
+                }
 
                 IconButton(
                     onClick = {
@@ -83,6 +84,18 @@ fun NavBarScaffold(navController: NavController, createContent: @Composable (Pad
                         modifier = Modifier.size(50.dp),
                         contentDescription = "Fridge"
 
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        // Handle Profile icon click
+                        navController.navigate("profileScreen")
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        modifier = Modifier.size(50.dp),
+                        contentDescription = "Profile"
                     )
                 }
         }
