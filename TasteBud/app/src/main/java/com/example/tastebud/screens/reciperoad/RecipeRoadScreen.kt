@@ -29,230 +29,7 @@ fun RecipeRoadScreen(navController: NavController, sharedViewModel: SharedViewMo
     NavBarScaffold(navController) { RecipeRoadContent(navController, it, sharedViewModel) }
 }
 
-val ingredientList1 = listOf(
-    Ingredient("1", "Basmati Rice", "2 cups of basmati rice", "", "2 cups", "cups"),
-    Ingredient("2", "Water", "4 cups of water", "", "4 cups", "cups"),
-    Ingredient("3", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-    Ingredient("4", "Cumin Seeds", "1 tablespoon of cumin seeds", "", "1 tablespoon", "tablespoon"),
-    Ingredient("5", "Ghee", "1 tablespoon of ghee", "", "1 tablespoon", "tablespoon")
-)
 
-val steps1 = listOf(
-    Instruction(1, "Rinse the rice under cold water until the water runs clear.", listOf(
-        Ingredient("1", "Basmati Rice", "2 cups of basmati rice", "", "2 cups", "cups")
-    ), listOf(
-        Equipment("1", "Strainer", "")
-    )),
-    Instruction(2, "In a large saucepan, heat ghee over medium heat. Add cumin seeds and let them sizzle for 1 minute.", listOf(
-        Ingredient("4", "Cumin Seeds", "1 tablespoon of cumin seeds", "", "1 tablespoon", "tablespoon"),
-        Ingredient("5", "Ghee", "1 tablespoon of ghee", "", "1 tablespoon", "tablespoon")
-    ), listOf(
-        Equipment("2", "Saucepan", "")
-    ))
-)
-
-val recipe1 = Recipe(
-    "1",
-    "Cumin Rice (Jeera Rice)",
-    "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-    "25 min",
-    4,
-    listOf("Indian"),
-    true,
-    false,
-    true,
-    false,
-    false,
-    true,
-    "Easy",
-    ingredientList1,
-    steps1
-)
-
-val ingredientList2 = listOf(
-    Ingredient("1", "Chickpeas", "1 can of chickpeas, drained and rinsed", "", "1 can", "can"),
-    Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", ""),
-    Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
-    Ingredient("4", "Ginger", "1 tablespoon of grated ginger", "", "1 tablespoon", "tablespoon"),
-    Ingredient("5", "Garlic", "3 cloves of garlic, minced", "", "3 cloves", "")
-)
-
-val steps2 = listOf(
-    Instruction(1, "Heat oil in a pan over medium heat. Add onions and cook until golden brown.", listOf(
-        Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", "")
-    ), listOf(
-        Equipment("1", "Pan", "")
-    )),
-    Instruction(2, "Add ginger and garlic, cook for another minute until fragrant.", listOf(
-        Ingredient("4", "Ginger", "1 tablespoon of grated ginger", "", "1 tablespoon", "tablespoon"),
-        Ingredient("5", "Garlic", "3 cloves of garlic, minced", "", "3 cloves", "")
-    ), emptyList())
-)
-
-val recipe2 = Recipe(
-    "2",
-    "Chana Masala",
-    "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-    "40 min",
-    4,
-    listOf("Indian"),
-    true,
-    false,
-    true,
-    false,
-    false,
-    true,
-    "Easy",
-    ingredientList2,
-    steps2
-)
-
-val ingredientList3 = listOf(
-    Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams"),
-    Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-    Ingredient("3", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-    Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon"),
-    Ingredient("5", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
-)
-
-val steps3 = listOf(
-    Instruction(1, "Marinate paneer cubes with yogurt, garam masala, turmeric powder, and salt. Let it sit for 30 minutes.", listOf(
-        Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams"),
-        Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-        Ingredient("3", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-        Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon")
-    ), emptyList()),
-    Instruction(2, "Heat oil in a pan over medium heat. Add marinated paneer and cook until golden brown.", listOf(
-        Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams")
-    ), listOf(
-        Equipment("1", "Pan", "")
-    ))
-)
-
-val recipe3 = Recipe(
-    "3",
-    "Paneer Tikka",
-    "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-    "40 min",
-    4,
-    listOf("Indian"),
-    true,
-    false,
-    true,
-    false,
-    false,
-    true,
-    "Medium",
-    ingredientList3,
-    steps3
-)
-val ingredientList4 = listOf(
-    Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup"),
-    Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", ""),
-    Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
-    Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon"),
-    Ingredient("5", "Cumin Seeds", "1 teaspoon of cumin seeds", "", "1 teaspoon", "teaspoon")
-)
-
-val steps4 = listOf(
-    Instruction(1, "Rinse the lentils under cold water until the water runs clear. Drain and set aside.", listOf(
-        Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup")
-    ), emptyList()),
-    Instruction(2, "Heat oil in a pressure cooker. Add cumin seeds and let them sizzle for a few seconds.", listOf(
-        Ingredient("5", "Cumin Seeds", "1 teaspoon of cumin seeds", "", "1 teaspoon", "teaspoon")
-    ), listOf(
-        Equipment("1", "Pressure Cooker", "")
-    )),
-    Instruction(3, "Add chopped onions and sauté until golden brown.", listOf(
-        Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", "")
-    ), emptyList()),
-    Instruction(4, "Add chopped tomatoes, turmeric powder, and salt. Cook until tomatoes are soft and oil separates.", listOf(
-        Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
-        Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon")
-    ), emptyList()),
-    Instruction(5, "Add rinsed lentils and water. Close the lid and pressure cook for 4 whistles.", listOf(
-        Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup")
-    ), listOf(
-        Equipment("1", "Pressure Cooker", "")
-    )),
-    Instruction(6, "Once done, let the pressure release naturally. Serve hot with rice or roti.", emptyList(), emptyList())
-)
-
-val recipe4 = Recipe(
-    "5",
-    "Masoor Dal (Red Lentil Curry)",
-    "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-    "35 min",
-    4,
-    listOf("Indian"),
-    true,
-    false,
-    true,
-    false,
-    false,
-    true,
-    "Medium",
-    ingredientList4,
-    steps4
-)
-
-val ingredientList5 = listOf(
-    Ingredient("1", "Chicken", "500g chicken breast, diced", "", "500g", "grams"),
-    Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-    Ingredient("3", "Ginger-Garlic Paste", "2 tablespoons of ginger-garlic paste", "", "2 tablespoons", "tablespoons"),
-    Ingredient("4", "Turmeric Powder", "1 teaspoon of turmeric powder", "", "1 teaspoon", "teaspoon"),
-    Ingredient("5", "Red Chili Powder", "1 teaspoon of red chili powder", "", "1 teaspoon", "teaspoon"),
-    Ingredient("6", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-    Ingredient("7", "Coriander Powder", "1 teaspoon of coriander powder", "", "1 teaspoon", "teaspoon"),
-    Ingredient("8", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-    Ingredient("9", "Lemon Juice", "2 tablespoons of lemon juice", "", "2 tablespoons", "tablespoons"),
-    Ingredient("10", "Cooking Oil", "2 tablespoons of cooking oil", "", "2 tablespoons", "tablespoons"),
-    Ingredient("11", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
-)
-
-val steps5 = listOf(
-    Instruction(1, "In a large bowl, mix yogurt, ginger-garlic paste, turmeric powder, red chili powder, garam masala, coriander powder, salt, and lemon juice.", listOf(
-        Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-        Ingredient("3", "Ginger-Garlic Paste", "2 tablespoons of ginger-garlic paste", "", "2 tablespoons", "tablespoons"),
-        Ingredient("4", "Turmeric Powder", "1 teaspoon of turmeric powder", "", "1 teaspoon", "teaspoon"),
-        Ingredient("5", "Red Chili Powder", "1 teaspoon of red chili powder", "", "1 teaspoon", "teaspoon"),
-        Ingredient("6", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-        Ingredient("7", "Coriander Powder", "1 teaspoon of coriander powder", "", "1 teaspoon", "teaspoon"),
-        Ingredient("8", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-        Ingredient("9", "Lemon Juice", "2 tablespoons of lemon juice", "", "2 tablespoons", "tablespoons")
-    ), emptyList()),
-    Instruction(2, "Add diced chicken pieces to the marinade. Coat the chicken well with the marinade. Cover and refrigerate for at least 1 hour, or overnight for best results.", listOf(
-        Ingredient("1", "Chicken", "500g chicken breast, diced", "", "500g", "grams")
-    ), emptyList()),
-    Instruction(3, "Heat oil in a pan over medium-high heat. Add marinated chicken pieces and cook until golden brown and cooked through, about 8-10 minutes.", listOf(
-        Ingredient("10", "Cooking Oil", "2 tablespoons of cooking oil", "", "2 tablespoons", "tablespoons")
-    ), listOf(
-        Equipment("1", "Pan", "")
-    )),
-    Instruction(4, "Garnish with chopped coriander leaves before serving. Serve hot with rice, naan, or roti.", listOf(
-        Ingredient("11", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
-    ), emptyList())
-)
-
-val recipe5 = Recipe(
-    "6",
-    "Chicken Tikka",
-    "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-    "1 hr 20 min",
-    4,
-    listOf("Indian"),
-    true,
-    false,
-    true,
-    false,
-    false,
-    true,
-    "Hard",
-    ingredientList5,
-    steps5
-)
-
-val sampleRecipes = listOf(recipe1, recipe2, recipe3, recipe4, recipe5)
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -264,7 +41,7 @@ fun RecipeRoadContent(navController: NavController, innerPadding: PaddingValues,
         Text(text = "Road Across India", fontSize = 36.sp,
             fontWeight = FontWeight.Bold)
         LazyColumn() {
-            items(sampleRecipes) { recipe ->
+            items(CuisineRecipes(sharedViewModel.cuisine)) { recipe ->
                 RecipeCard(recipe = recipe, navController, sharedViewModel)
             }
         }
@@ -325,4 +102,242 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
             }
         }
     }
+}
+
+fun CuisineRecipes(cuisine: String) : List<Recipe>{
+    var recipes = setIndianRecipes()
+    when (cuisine) {
+        "Indian" -> recipes = setIndianRecipes()
+        //Add more cuisines
+    }
+    return recipes;
+
+}
+
+fun setIndianRecipes() : List<Recipe>{
+    val ingredientList1 = listOf(
+        Ingredient("1", "Basmati Rice", "2 cups of basmati rice", "", "2 cups", "cups"),
+        Ingredient("2", "Water", "4 cups of water", "", "4 cups", "cups"),
+        Ingredient("3", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
+        Ingredient("4", "Cumin Seeds", "1 tablespoon of cumin seeds", "", "1 tablespoon", "tablespoon"),
+        Ingredient("5", "Ghee", "1 tablespoon of ghee", "", "1 tablespoon", "tablespoon")
+    )
+
+    val steps1 = listOf(
+        Instruction(1, "Rinse the rice under cold water until the water runs clear.", listOf(
+            Ingredient("1", "Basmati Rice", "2 cups of basmati rice", "", "2 cups", "cups")
+        ), listOf(
+            Equipment("1", "Strainer", "")
+        )),
+        Instruction(2, "In a large saucepan, heat ghee over medium heat. Add cumin seeds and let them sizzle for 1 minute.", listOf(
+            Ingredient("4", "Cumin Seeds", "1 tablespoon of cumin seeds", "", "1 tablespoon", "tablespoon"),
+            Ingredient("5", "Ghee", "1 tablespoon of ghee", "", "1 tablespoon", "tablespoon")
+        ), listOf(
+            Equipment("2", "Saucepan", "")
+        ))
+    )
+
+    val recipe1 = Recipe(
+        "1",
+        "Cumin Rice (Jeera Rice)",
+        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
+        "25 min",
+        4,
+        listOf("Indian"),
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        "Easy",
+        ingredientList1,
+        steps1
+    )
+
+    val ingredientList2 = listOf(
+        Ingredient("1", "Chickpeas", "1 can of chickpeas, drained and rinsed", "", "1 can", "can"),
+        Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", ""),
+        Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
+        Ingredient("4", "Ginger", "1 tablespoon of grated ginger", "", "1 tablespoon", "tablespoon"),
+        Ingredient("5", "Garlic", "3 cloves of garlic, minced", "", "3 cloves", "")
+    )
+
+    val steps2 = listOf(
+        Instruction(1, "Heat oil in a pan over medium heat. Add onions and cook until golden brown.", listOf(
+            Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", "")
+        ), listOf(
+            Equipment("1", "Pan", "")
+        )),
+        Instruction(2, "Add ginger and garlic, cook for another minute until fragrant.", listOf(
+            Ingredient("4", "Ginger", "1 tablespoon of grated ginger", "", "1 tablespoon", "tablespoon"),
+            Ingredient("5", "Garlic", "3 cloves of garlic, minced", "", "3 cloves", "")
+        ), emptyList())
+    )
+
+    val recipe2 = Recipe(
+        "2",
+        "Chana Masala",
+        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
+        "40 min",
+        4,
+        listOf("Indian"),
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        "Easy",
+        ingredientList2,
+        steps2
+    )
+
+    val ingredientList3 = listOf(
+        Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams"),
+        Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
+        Ingredient("3", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
+        Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon"),
+        Ingredient("5", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
+    )
+
+    val steps3 = listOf(
+        Instruction(1, "Marinate paneer cubes with yogurt, garam masala, turmeric powder, and salt. Let it sit for 30 minutes.", listOf(
+            Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams"),
+            Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
+            Ingredient("3", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
+            Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon")
+        ), emptyList()),
+        Instruction(2, "Heat oil in a pan over medium heat. Add marinated paneer and cook until golden brown.", listOf(
+            Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams")
+        ), listOf(
+            Equipment("1", "Pan", "")
+        ))
+    )
+
+    val recipe3 = Recipe(
+        "3",
+        "Paneer Tikka",
+        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
+        "40 min",
+        4,
+        listOf("Indian"),
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        "Medium",
+        ingredientList3,
+        steps3
+    )
+    val ingredientList4 = listOf(
+        Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup"),
+        Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", ""),
+        Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
+        Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon"),
+        Ingredient("5", "Cumin Seeds", "1 teaspoon of cumin seeds", "", "1 teaspoon", "teaspoon")
+    )
+
+    val steps4 = listOf(
+        Instruction(1, "Rinse the lentils under cold water until the water runs clear. Drain and set aside.", listOf(
+            Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup")
+        ), emptyList()),
+        Instruction(2, "Heat oil in a pressure cooker. Add cumin seeds and let them sizzle for a few seconds.", listOf(
+            Ingredient("5", "Cumin Seeds", "1 teaspoon of cumin seeds", "", "1 teaspoon", "teaspoon")
+        ), listOf(
+            Equipment("1", "Pressure Cooker", "")
+        )),
+        Instruction(3, "Add chopped onions and sauté until golden brown.", listOf(
+            Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", "")
+        ), emptyList()),
+        Instruction(4, "Add chopped tomatoes, turmeric powder, and salt. Cook until tomatoes are soft and oil separates.", listOf(
+            Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
+            Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon")
+        ), emptyList()),
+        Instruction(5, "Add rinsed lentils and water. Close the lid and pressure cook for 4 whistles.", listOf(
+            Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup")
+        ), listOf(
+            Equipment("1", "Pressure Cooker", "")
+        )),
+        Instruction(6, "Once done, let the pressure release naturally. Serve hot with rice or roti.", emptyList(), emptyList())
+    )
+
+    val recipe4 = Recipe(
+        "5",
+        "Masoor Dal (Red Lentil Curry)",
+        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
+        "35 min",
+        4,
+        listOf("Indian"),
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        "Medium",
+        ingredientList4,
+        steps4
+    )
+
+    val ingredientList5 = listOf(
+        Ingredient("1", "Chicken", "500g chicken breast, diced", "", "500g", "grams"),
+        Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
+        Ingredient("3", "Ginger-Garlic Paste", "2 tablespoons of ginger-garlic paste", "", "2 tablespoons", "tablespoons"),
+        Ingredient("4", "Turmeric Powder", "1 teaspoon of turmeric powder", "", "1 teaspoon", "teaspoon"),
+        Ingredient("5", "Red Chili Powder", "1 teaspoon of red chili powder", "", "1 teaspoon", "teaspoon"),
+        Ingredient("6", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
+        Ingredient("7", "Coriander Powder", "1 teaspoon of coriander powder", "", "1 teaspoon", "teaspoon"),
+        Ingredient("8", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
+        Ingredient("9", "Lemon Juice", "2 tablespoons of lemon juice", "", "2 tablespoons", "tablespoons"),
+        Ingredient("10", "Cooking Oil", "2 tablespoons of cooking oil", "", "2 tablespoons", "tablespoons"),
+        Ingredient("11", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
+    )
+
+    val steps5 = listOf(
+        Instruction(1, "In a large bowl, mix yogurt, ginger-garlic paste, turmeric powder, red chili powder, garam masala, coriander powder, salt, and lemon juice.", listOf(
+            Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
+            Ingredient("3", "Ginger-Garlic Paste", "2 tablespoons of ginger-garlic paste", "", "2 tablespoons", "tablespoons"),
+            Ingredient("4", "Turmeric Powder", "1 teaspoon of turmeric powder", "", "1 teaspoon", "teaspoon"),
+            Ingredient("5", "Red Chili Powder", "1 teaspoon of red chili powder", "", "1 teaspoon", "teaspoon"),
+            Ingredient("6", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
+            Ingredient("7", "Coriander Powder", "1 teaspoon of coriander powder", "", "1 teaspoon", "teaspoon"),
+            Ingredient("8", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
+            Ingredient("9", "Lemon Juice", "2 tablespoons of lemon juice", "", "2 tablespoons", "tablespoons")
+        ), emptyList()),
+        Instruction(2, "Add diced chicken pieces to the marinade. Coat the chicken well with the marinade. Cover and refrigerate for at least 1 hour, or overnight for best results.", listOf(
+            Ingredient("1", "Chicken", "500g chicken breast, diced", "", "500g", "grams")
+        ), emptyList()),
+        Instruction(3, "Heat oil in a pan over medium-high heat. Add marinated chicken pieces and cook until golden brown and cooked through, about 8-10 minutes.", listOf(
+            Ingredient("10", "Cooking Oil", "2 tablespoons of cooking oil", "", "2 tablespoons", "tablespoons")
+        ), listOf(
+            Equipment("1", "Pan", "")
+        )),
+        Instruction(4, "Garnish with chopped coriander leaves before serving. Serve hot with rice, naan, or roti.", listOf(
+            Ingredient("11", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
+        ), emptyList())
+    )
+
+    val recipe5 = Recipe(
+        "6",
+        "Chicken Tikka",
+        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
+        "1 hr 20 min",
+        4,
+        listOf("Indian"),
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        "Hard",
+        ingredientList5,
+        steps5
+    )
+
+    val sampleRecipes = listOf(recipe1, recipe2, recipe3, recipe4, recipe5)
+    return sampleRecipes
 }

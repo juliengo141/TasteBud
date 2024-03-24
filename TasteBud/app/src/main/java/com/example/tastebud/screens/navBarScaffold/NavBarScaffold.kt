@@ -1,5 +1,6 @@
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Kitchen
@@ -63,11 +64,11 @@ fun NavBarScaffold(navController: NavController, createContent: @Composable (Pad
                 IconButton(
                     onClick = {
                         // Handle Roulette icon click
-                        navController.navigate("RecipeRoadScreen")
+                        navController.navigate("CuisineSelectionScreen")
                     }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.MenuBook,
+                        imageVector = Icons.AutoMirrored.Filled.MenuBook,
                         modifier = Modifier.size(50.dp),
                         contentDescription = "Journey"
                     )
