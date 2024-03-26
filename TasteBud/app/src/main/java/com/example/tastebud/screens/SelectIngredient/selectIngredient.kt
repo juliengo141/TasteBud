@@ -13,7 +13,8 @@ import com.example.tastebud.screens.SharedViewModel
 
 @Composable
 fun SelectIngredientScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController, "What's in the Fridge") { selectContent(navController, it) }
+    val selectedIngredients = remember { mutableStateListOf<String>() }
+    NavBarScaffold(navController, "What's in the fridge") { selectContent(navController, it, selectedIngredients) }
 }
 
 @Composable
