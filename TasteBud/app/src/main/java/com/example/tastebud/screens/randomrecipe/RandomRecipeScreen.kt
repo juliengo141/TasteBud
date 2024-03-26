@@ -41,7 +41,7 @@ fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValue
 
             text = """
                     Not sure what to make? Let us decide for you!
-                """.trimIndent(), fontWeight = FontWeight.Bold, color = Color.Green, fontSize = 24.sp,
+                """.trimIndent(), fontWeight = FontWeight.Bold, color = Color.Black, fontSize = 24.sp,
             textAlign = TextAlign.Center,
         )
         Button(
@@ -49,7 +49,7 @@ fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValue
                 navController.navigate("recipeDetailsScreen")
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Green,
+                containerColor = Color.Cyan,
                 contentColor = Color.Black
             ),
             modifier = Modifier
