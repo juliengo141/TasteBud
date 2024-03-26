@@ -21,15 +21,14 @@ import com.google.firebase.auth.auth
 
 @Composable
 fun SignUpScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController, "Register") { SignUpContent(navController, it, sharedViewModel) }
+     SignUpContent(navController, sharedViewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
+fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel) {
     val auth = Firebase.auth
     Column(
-        modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         val firstName = remember { mutableStateOf(TextFieldValue()) }
