@@ -23,7 +23,7 @@ import kotlin.random.Random
 
 @Composable
 fun RandomRecipeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { RandomRecipeContent(navController, it, sharedViewModel) }
+    NavBarScaffold(navController, "Recipe Roulette") { RandomRecipeContent(navController, it, sharedViewModel) }
 }
 
 @Composable

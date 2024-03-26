@@ -15,7 +15,7 @@ import com.example.tastebud.screens.SharedViewModel
 
 @Composable
 fun DietaryRestrictionsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { DietaryRestrictionsContent(navController ,it, sharedViewModel) }
+    NavBarScaffold(navController, "Dietary Restrictions") { DietaryRestrictionsContent(navController ,it, sharedViewModel) }
 }
 
 @Composable

@@ -16,7 +16,7 @@ import com.example.tastebud.data.Recipe
 
 @Composable
 fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { HomeContent(navController, it, sharedViewModel ) }
+    NavBarScaffold(navController, "Home") { HomeContent(navController, it, sharedViewModel ) }
 }
 
 @Composable

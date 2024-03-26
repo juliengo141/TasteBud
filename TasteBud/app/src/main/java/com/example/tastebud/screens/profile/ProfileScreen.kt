@@ -13,7 +13,7 @@ import com.example.tastebud.screens.SharedViewModel
 
 @Composable
 fun ProfileScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { ProfileContent(navController, it) }
+    NavBarScaffold(navController, "Profile") { ProfileContent(navController, it) }
 }
 
 @Composable

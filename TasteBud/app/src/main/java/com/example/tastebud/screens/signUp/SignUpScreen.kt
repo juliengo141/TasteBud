@@ -21,7 +21,7 @@ import com.google.firebase.auth.auth
 
 @Composable
 fun SignUpScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { SignUpContent(navController, it, sharedViewModel) }
+    NavBarScaffold(navController, "Register") { SignUpContent(navController, it, sharedViewModel) }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
