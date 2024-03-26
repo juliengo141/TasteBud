@@ -23,7 +23,7 @@ import com.example.tastebud.data.Recipe
 
 @Composable
 fun RecipeDetailScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { RecipeDetailContent(navController, it, sharedViewModel) }
+    NavBarScaffold(navController, "Recipe Details") { RecipeDetailContent(navController, it, sharedViewModel) }
 }
 
 @Composable

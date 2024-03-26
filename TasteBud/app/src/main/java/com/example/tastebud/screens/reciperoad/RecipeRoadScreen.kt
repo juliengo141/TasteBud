@@ -26,7 +26,7 @@ import com.example.tastebud.screens.SharedViewModel
 
 @Composable
 fun RecipeRoadScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { RecipeRoadContent(navController, it, sharedViewModel) }
+    NavBarScaffold(navController, "Recipe Road") { RecipeRoadContent(navController, it, sharedViewModel) }
 }
 
 

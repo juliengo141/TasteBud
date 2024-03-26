@@ -27,7 +27,7 @@ import com.example.tastebud.screens.SharedViewModel
 
 @Composable
 fun CuisineSelectionScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { CuisineSelectionContent(navController, it, sharedViewModel) }
+    NavBarScaffold(navController, "Select Cuisine") { CuisineSelectionContent(navController, it, sharedViewModel) }
 }
 
 data class Cuisine(

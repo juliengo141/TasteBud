@@ -30,7 +30,7 @@ import com.example.tastebud.data.Instruction
 
 @Composable
 fun FlashcardsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-    NavBarScaffold(navController) { FlashcardContent(navController, it, sharedViewModel) }
+    NavBarScaffold(navController, "Recipe Book") { FlashcardContent(navController, it, sharedViewModel) }
 }
 
 @Composable
