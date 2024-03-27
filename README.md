@@ -56,4 +56,15 @@ V1.1.0
 
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
 
+22-Mar-2023
+V1.2.0
+
+- Designed and implemented Progression Screen for Indian Cuisine
+- Designed and implemented Random Recipe Geerator
+- Sign-up and Sign-in page
+- Navigation Bar changes
+- Storing Users in database
+
+Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
+
 - [Taste Bud Installer](./TasteBud.apk)
