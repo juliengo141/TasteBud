@@ -24,16 +24,7 @@ data class Dish(val name: String, val cuisine: String)
 
 @Composable
 fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-<<<<<<< Updated upstream:TasteBud/app/src/main/java/com/example/tastebud/screens/home/HomeScreen.kt
     NavBarScaffold(navController, "Home") { HomeContent(navController, it, sharedViewModel ) }
-=======
-    NavBarScaffold(navController) {
-        Column {
-            //ResumeJourneyScreen(navController)
-            HomeContent(navController, it, sharedViewModel)
-        }
-    }
->>>>>>> Stashed changes:TasteBud/app/src/main/java/com/example/tastebud/compose/home/HomeScreen.kt
 }
 
 @Composable
