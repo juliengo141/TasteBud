@@ -1,6 +1,7 @@
 package com.example.tastebud.screens.home
 
 import NavBarScaffold
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,14 +15,45 @@ import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 
 data class Dish(val name: String, val cuisine: String)
 
 @Composable
 fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
+<<<<<<< Updated upstream:TasteBud/app/src/main/java/com/example/tastebud/screens/home/HomeScreen.kt
     NavBarScaffold(navController, "Home") { HomeContent(navController, it, sharedViewModel ) }
+=======
+    NavBarScaffold(navController) {
+        Column {
+            //ResumeJourneyScreen(navController)
+            HomeContent(navController, it, sharedViewModel)
+        }
+    }
+>>>>>>> Stashed changes:TasteBud/app/src/main/java/com/example/tastebud/compose/home/HomeScreen.kt
 }
 
+@Composable
+fun ResumeJourneyScreen(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Resume Your Journey: Italian Cooking",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.clickable {
+               // navController.navigate("your_destination_screen_route")
+            }
+        )
+    }
+}
 
 @Composable
 fun HomeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
@@ -33,31 +65,55 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
         Dish("Gnocchi", "Italian")
     )
 
+
+        AsyncImage(
+            model = recipe.imageUrl,
+            contentDescription = "Translated description of what the image contains",
+            modifier = Modifier.padding(15.dp, 0.dp)
+            // TODO: add a placeholder and error image
+        )
+    }
+
+
     Column(
-        modifier = Modifier.padding(innerPadding),
+        modifier = Modifier.padding(innerPadding),`
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = "Our Weekly Picks",
-            style = MaterialTheme.typography.bodyLarge,
+            text = "Our Weekly Picks:",
+            style = MaterialTheme.typography.headlineMedium,
+           // verticalArrangement = Arrangement.Center,
+          //  horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(start = 8.dp, top = 8.dp)
         )
 
-        dishes.forEach { dish ->
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+        dishes.forEachIndexed { index, dish ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = dish.name,
-                    style = MaterialTheme.typography.displayMedium,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-                Text(
-                    text = dish.cuisine,
+                    text = "${index + 1}.",
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = dish.name,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                    Text(
+                        text = dish.cuisine,
+                        style = MaterialTheme.typography.labelMedium.copy(color = Color.Red),
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally)
+                    )
+                }
             }
         }
     }
