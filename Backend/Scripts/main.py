@@ -1,0 +1,62 @@
+import requests
+import json
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate("ServiceAccountKey.json")
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+collection_name = "Recipes"
+
+api_key = '46ea03ff0f3148abb2c9ca808f6de8e9'
+
+cuisineList = ["indian", "chinese", "italian", "mexican", "thai", "japanese", "greek", "african", "american", "english", "vietnamese", "mediterranean", "Middle Eastern", "French", "German"]
+for cuisine in cuisineList:
+    api_url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key}&cuisine={cuisine}&addRecipeInformation=true&fillIngredients=true&sort=popularity&instructionsRequired=true&sortDirection=desc"
+    headers = {'ApiKeyHeader': api_key}
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        try:
+            data_received1 = response.json()
+            for a in range(0, 10):
+                # Attempt to parse the response as JSON
+                if(len(data_received1["results"]) == a): break
+
+                data_received = data_received1["results"][a]
+
+                root_extract = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "healthScore",
+                "sourceName", "pricePerServing", "id", "title", "readyInMinutes", "servings", "sourceUrl", "image",
+                "cuisines", "diets", "occasions", "extendedIngredients", "analyzedInstructions", "spoonacularSourceUrl"]
+
+                filtered_data = {field: data_received[field] for field in root_extract if field in data_received}
+
+                extendedIngredients_extract = ["id", "image", "name", "nameClean", "original", "amount", "unit"]
+
+                for i in range(0, len(filtered_data.get("analyzedInstructions"))):
+                    temp = filtered_data["analyzedInstructions"][i]
+                    filtered_data["analyzedInstructions"][i] = {field: temp[field] for field in temp if field != "name"}
+                
+                if(len(filtered_data["analyzedInstructions"]) != 0):
+                    difficulty = 0.1 * filtered_data["readyInMinutes"] + 0.9 * len(filtered_data["analyzedInstructions"][0]["steps"])
+                    # difficulty_json = {"difficulty": difficulty }
+                    filtered_data["difficulty"] = difficulty
+
+                    filtered_data["analyzedInstructions"] = filtered_data["analyzedInstructions"][0]["steps"]   
+                    # Save JSON data to a file
+                    file_path = "api_response.json"
+                    with open(file_path, "w") as json_file:
+                        json.dump(filtered_data, json_file, indent=2)
+
+                    # Insert data into Firebase
+                    reference = db.collection(collection_name).document()
+                    reference.set(filtered_data)
+                    # print("Document added with ID:", reference.id)
+        except json.decoder.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+    else:
+        print(f"Error: {response.status_code} - {response.reason}")
+
+# docs = db.collection(collection_name).get()
+# print(len(docs))

@@ -1,0 +1,199 @@
+{
+  "vegetarian": false,
+  "vegan": false,
+  "glutenFree": false,
+  "dairyFree": false,
+  "veryHealthy": false,
+  "cheap": false,
+  "veryPopular": false,
+  "healthScore": 0,
+  "sourceName": "Foodista",
+  "pricePerServing": 130.39,
+  "id": 644462,
+  "title": "German Chocolate Drink with Xocai Healthy Chocolate",
+  "readyInMinutes": 45,
+  "servings": 1,
+  "sourceUrl": "http://www.foodista.com/recipe/YBGH5ZML/german-chocolate-drink-with-xocai-healthy-chocolate",
+  "image": "https://img.spoonacular.com/recipes/644462-312x231.jpg",
+  "cuisines": [
+    "German",
+    "European"
+  ],
+  "diets": [],
+  "occasions": [],
+  "extendedIngredients": [
+    {
+      "id": 93712,
+      "aisle": "Alcoholic Beverages",
+      "image": "creme-de-cacao.jpg",
+      "consistency": "SOLID",
+      "name": "creme de cocoa liqueur",
+      "nameClean": "creme de cacao",
+      "original": "1/4 oz Creme de Cocoa Liqueur",
+      "originalName": "Creme de Cocoa Liqueur",
+      "amount": 0.25,
+      "unit": "oz",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 0.25,
+          "unitShort": "oz",
+          "unitLong": "ounces"
+        },
+        "metric": {
+          "amount": 7.087,
+          "unitShort": "g",
+          "unitLong": "grams"
+        }
+      }
+    },
+    {
+      "id": 10218617,
+      "aisle": "Sweet Snacks",
+      "image": "graham-crackers.jpg",
+      "consistency": "SOLID",
+      "name": "xocai x power square",
+      "nameClean": "graham cracker squares",
+      "original": "1 Xocai X Power Square",
+      "originalName": "Xocai X Power Square",
+      "amount": 1.0,
+      "unit": "",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 1.0,
+          "unitShort": "",
+          "unitLong": ""
+        },
+        "metric": {
+          "amount": 1.0,
+          "unitShort": "",
+          "unitLong": ""
+        }
+      }
+    },
+    {
+      "id": 1053,
+      "aisle": "Milk, Eggs, Other Dairy",
+      "image": "fluid-cream.jpg",
+      "consistency": "LIQUID",
+      "name": "heavy cream",
+      "nameClean": "cream",
+      "original": "1 dash heavy cream",
+      "originalName": "heavy cream",
+      "amount": 1.0,
+      "unit": "dash",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 1.0,
+          "unitShort": "dash",
+          "unitLong": "dash"
+        },
+        "metric": {
+          "amount": 1.0,
+          "unitShort": "dash",
+          "unitLong": "dash"
+        }
+      }
+    },
+    {
+      "id": 10014412,
+      "aisle": "Frozen",
+      "image": "ice-cubes.png",
+      "consistency": "SOLID",
+      "name": "ice",
+      "nameClean": "ice",
+      "original": "5 cubes ice",
+      "originalName": "ice",
+      "amount": 5.0,
+      "unit": "cubes",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 5.0,
+          "unitShort": "cubes",
+          "unitLong": "cubes"
+        },
+        "metric": {
+          "amount": 5.0,
+          "unitShort": "cubes",
+          "unitLong": "cubes"
+        }
+      }
+    },
+    {
+      "id": 93716,
+      "aisle": "Alcoholic Beverages",
+      "image": "coffee-liqueur.jpg",
+      "consistency": "SOLID",
+      "name": "kahl\u00faa liqueur",
+      "nameClean": "coffee liqueur",
+      "original": "1/2 oz Kahl\u00faa Liqueur",
+      "originalName": "Kahl\u00faa Liqueur",
+      "amount": 0.5,
+      "unit": "oz",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 0.5,
+          "unitShort": "oz",
+          "unitLong": "ounces"
+        },
+        "metric": {
+          "amount": 14.175,
+          "unitShort": "g",
+          "unitLong": "grams"
+        }
+      }
+    },
+    {
+      "id": 98988,
+      "aisle": "Alcoholic Beverages",
+      "image": "light-green-liqueur.png",
+      "consistency": "SOLID",
+      "name": "frangelico liqueur",
+      "nameClean": "pear liqueur",
+      "original": "1/4 oz Frangelico Liqueur",
+      "originalName": "Frangelico Liqueur",
+      "amount": 0.25,
+      "unit": "oz",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 0.25,
+          "unitShort": "oz",
+          "unitLong": "ounces"
+        },
+        "metric": {
+          "amount": 7.087,
+          "unitShort": "g",
+          "unitLong": "grams"
+        }
+      }
+    }
+  ],
+  "analyzedInstructions": [
+    {
+      "number": 1,
+      "step": "Garnish with Orange Peel and/or shaved Xocai X Power Square.",
+      "ingredients": [
+        {
+          "id": 9216,
+          "name": "orange zest",
+          "localizedName": "orange zest",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/orange-zest.png"
+        }
+      ],
+      "equipment": []
+    },
+    {
+      "number": 2,
+      "step": "Serves 1",
+      "ingredients": [],
+      "equipment": []
+    }
+  ],
+  "spoonacularSourceUrl": "https://spoonacular.com/german-chocolate-drink-with-xocai-healthy-chocolate-644462",
+  "difficulty": 6.3
+}
