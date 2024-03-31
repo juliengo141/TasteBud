@@ -27,12 +27,14 @@ import androidx.navigation.NavController
 import com.example.tastebud.R
 import com.example.tastebud.components.HeadingTextComponent
 import com.example.tastebud.screens.SharedViewModel
+import com.example.tastebud.screens.signUp.isValidEmail
 import com.example.tastebud.ui.theme.Inter
 import com.example.tastebud.ui.theme.TasteBudBackground
 import com.example.tastebud.ui.theme.TasteBudDarkGreen
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(navController: NavController, sharedViewModel: SharedViewModel) {
@@ -43,6 +45,8 @@ fun SignInScreen(navController: NavController, sharedViewModel: SharedViewModel)
 @Composable
 fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel) {
     val auth = Firebase.auth
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier.background(TasteBudBackground).fillMaxHeight(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -55,6 +59,12 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
         )
         val emailValue = remember { mutableStateOf(TextFieldValue()) }
         val passwordValue = remember { mutableStateOf(TextFieldValue()) }
+        var allFieldsFilled by remember { mutableStateOf(false) }
+
+        // Update the allFieldsFilled variable whenever any field changes
+        LaunchedEffect( emailValue.value, passwordValue.value) {
+            allFieldsFilled = emailValue.value.text.isNotBlank() && passwordValue.value.text.isNotBlank()
+        }
 
         Text(
             text = "Welcome Back",
@@ -66,9 +76,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
         )
 
         OutlinedTextField(
-            label = {
-                Text("Email")
-            },
+            label = { Text("Email") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             value = emailValue.value,
             singleLine = true,
@@ -79,7 +87,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Email,
-                    contentDescription = "Localized description",
+                    contentDescription = "Email",
                     modifier = Modifier.size(30.dp)
                 )
             },
@@ -87,15 +95,13 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                 textColor = Color.Black,
                 cursorColor = TasteBudDarkGreen,
                 focusedBorderColor = TasteBudDarkGreen,
+                focusedLeadingIconColor = TasteBudDarkGreen,
                 unfocusedBorderColor = Color.Gray,
                 focusedLabelColor = TasteBudDarkGreen
             ),
-
-            )
+        )
         OutlinedTextField(
-            label = {
-                Text("Password")
-            },
+            label = { Text("Password") },
             textStyle = MaterialTheme.typography.bodyMedium,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -108,7 +114,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Security,
-                    contentDescription = "Localized description",
+                    contentDescription = "Password",
                     modifier = Modifier.size(30.dp)
                 )
             },
@@ -116,24 +122,41 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                 textColor = Color.Black,
                 cursorColor = TasteBudDarkGreen,
                 focusedBorderColor = TasteBudDarkGreen,
+                focusedLeadingIconColor = TasteBudDarkGreen,
                 unfocusedBorderColor = Color.Gray,
                 focusedLabelColor = TasteBudDarkGreen
             ),
         )
         Spacer(modifier = Modifier.padding(8.dp))
         Button(
-            modifier = Modifier
-                .fillMaxWidth().padding(horizontal = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = TasteBudGreen,
                 contentColor = Color.White
             ),
             onClick = {
-                auth.signInWithEmailAndPassword(
-                    emailValue.value.text.trim(),
-                    passwordValue.value.text.trim()
-                )
-                    .addOnCompleteListener() { task ->
+                if (allFieldsFilled) {
+                if (!isValidEmail(emailValue.value.text)) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Please enter a valid email address.",
+                            actionLabel = "Dismiss",
+                            duration = SnackbarDuration.Short,
+                        )
+                    }
+                } else if (passwordValue.value.text.length < 6) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Password must be at least 6 characters long.",
+                            actionLabel = "Dismiss",
+                            duration = SnackbarDuration.Short,
+                        )
+                    }
+                } else {
+                    auth.signInWithEmailAndPassword(
+                        emailValue.value.text.trim(),
+                        passwordValue.value.text.trim()
+                    ).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d("AUTH", "Login Success!")
                             val user = auth.currentUser
@@ -144,9 +167,26 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                             navController.navigate("profileScreen")
                         } else {
                             Log.d("AUTH", "Login Failed: ${task.exception}")
+                            scope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = "Login Failed",
+                                    actionLabel = "Dismiss",
+                                    duration = SnackbarDuration.Short,
+                                )
+                            }
                         }
                     }
-            }) {
+                }}else{
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Please fill all fields.",
+                            actionLabel = "Dismiss",
+                            duration = SnackbarDuration.Indefinite,
+                        )
+                    }
+                }
+            }
+        ) {
             Text(text = "Login")
         }
         ClickableText(
@@ -162,5 +202,17 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                 navController.navigate("signUpScreen")
             }
         )
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            snackbar = {
+                Snackbar(
+                    snackbarData = it,
+                    containerColor = Color.hsl(0f, 1f, 0.64f)
+                )
+            }
+        )
     }
 }
+
+
