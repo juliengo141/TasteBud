@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
+    <color name="tastebud_green">#FF34a853</color>
+    <color name="tastebud_darkgreen">#FF2c6e49</color>
+    <color name="tastebud_orange">#FFd88c45</color>
+    <color name="tastebud_background">#FFffffff</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
