@@ -14,5 +14,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val TasteBudGreen = Color(0xFF4C956C)
 val TasteBudDarkGreen = Color(0xFF2C6E49)
-val TasteBudBackground = Color(0xFFFEFEE3)
-val TasteBudOrangge = Color(0xFFD88C45)
+val TasteBudBackground = Color(0xFFFFFFFF)
+val TasteBudOrange = Color(0xFFD88C45)
