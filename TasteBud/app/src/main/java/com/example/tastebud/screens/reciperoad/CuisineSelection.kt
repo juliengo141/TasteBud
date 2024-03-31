@@ -19,10 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.tastebud.R
-import com.example.tastebud.data.Equipment
-import com.example.tastebud.data.Ingredient
-import com.example.tastebud.data.Instruction
-import com.example.tastebud.data.Recipe
+import com.example.tastebud.data.*
 import com.example.tastebud.screens.SharedViewModel
 
 @Composable
@@ -30,35 +27,32 @@ fun CuisineSelectionScreen(navController: NavController, sharedViewModel: Shared
     NavBarScaffold(navController, "Select Cuisine") { CuisineSelectionContent(navController, it, sharedViewModel) }
 }
 
-data class Cuisine(
-    val title: String,
-    val image: String,
-    val disabled: Boolean,
-    val disabledImage: String
-)
-
 val IndianCuisine = Cuisine(
     title = "Indian",
+    country = "India",
     image = "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png",
     disabled = false,
     disabledImage = "https://upload.wikimedia.org/wikipedia/commons/a/a4/India_flag_black_and_white.jpg"
 )
 val ItalianCuisine = Cuisine(
     title = "Italian",
+    country = "Italy",
     image = "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/1200px-Flag_of_Italy.svg.png",
-    disabled = true,
+    disabled = false,
     disabledImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Italy_flag_black_and_white.jpg/1024px-Italy_flag_black_and_white.jpg"
 )
 val ChineseCuisine = Cuisine(
     title = "Chinese",
+    country = "China",
     image = "https://t3.ftcdn.net/jpg/05/09/75/06/360_F_509750646_dXGPtke91yl85iuv4hKUOIgH67e5iFCd.jpg",
-    disabled = true,
+    disabled = false,
     disabledImage = "https://www.shutterstock.com/image-vector/illustrated-grayscale-flag-country-china-260nw-226401670.jpg"
 )
 val AmericanCuisine = Cuisine(
     title = "American",
+    country = "America",
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/255px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
-    disabled = true,
+    disabled = false,
     disabledImage = "https://media.distractify.com/brand-img/WazSDFK3Z/0x0/black-us-american-flag-1618841105755.jpg"
 )
 val sampleCuisines = listOf(IndianCuisine, AmericanCuisine, ItalianCuisine, ChineseCuisine)
@@ -91,7 +85,7 @@ fun CuisineCard(cuisine: Cuisine, navController: NavController, sharedViewModel:
         colors = CardDefaults.cardColors(containerColor = Color.White),
         enabled = !cuisine.disabled,
         onClick = {
-            sharedViewModel.addCuisine(cuisine.title)
+            sharedViewModel.addCuisine(cuisine.title, cuisine.country)
                 navController.navigate("RecipeRoadScreen")
         },
     ) {
