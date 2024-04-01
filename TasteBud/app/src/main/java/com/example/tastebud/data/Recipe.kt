@@ -15,6 +15,7 @@ data class Recipe(
     val estimatedTime: String,
     val servings: Int,
     val cuisines: List<String>,
+    val diets: List<String>,
     val vegetarian: Boolean,
     val vegan: Boolean,
     val glutenFree: Boolean,
