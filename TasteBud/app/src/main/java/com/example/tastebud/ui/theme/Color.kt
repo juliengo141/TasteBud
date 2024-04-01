@@ -16,3 +16,5 @@ val TasteBudGreen = Color(0xFF4C956C)
 val TasteBudDarkGreen = Color(0xFF2C6E49)
 val TasteBudBackground = Color(0xFFFFFFFF)
 val TasteBudOrange = Color(0xFFD88C45)
+
+val TasteBudAccent = Color(0xFFACE1AF)

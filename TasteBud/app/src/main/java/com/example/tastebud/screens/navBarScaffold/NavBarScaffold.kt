@@ -22,6 +22,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import androidx.compose.ui.unit.dp
 import com.example.tastebud.R
+import com.example.tastebud.ui.theme.TasteBudAccent
+import com.example.tastebud.ui.theme.TasteBudDarkGreen
+import com.example.tastebud.ui.theme.TasteBudGreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,8 +67,8 @@ fun NavBarScaffold(navController: NavController, title: String, createContent: @
         )
     }, bottomBar = {
         BottomAppBar(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.primary,
+            containerColor = TasteBudAccent,
+            contentColor = TasteBudDarkGreen,
         ){
             Row(
                 modifier = Modifier
