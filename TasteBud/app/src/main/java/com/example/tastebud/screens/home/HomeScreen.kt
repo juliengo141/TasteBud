@@ -2,6 +2,7 @@ package com.example.tastebud.screens.home
 
 import NavBarScaffold
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -62,25 +63,30 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
             colors = CardDefaults.cardColors(containerColor = Color.White),
             onClick = {
                 navController.navigate("CuisineSelectionScreen")
+
             }){
-            Row(modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier.fillMaxSize()) {
                 Image(
                     painter = painterResource(id = R.drawable.foodjourney),
                     contentDescription = null,
-                    modifier = Modifier.size(200.dp))
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(8.dp)
+                        .border(1.dp, Color.Black)
+                )
                 Text(
                     text = "RESUME YOUR JOURNEY",
                     style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFFD88C45)),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 8.dp, top = 8.dp),
+                        .align(Alignment.Center)
+                        .padding(8.dp),
                     textAlign = TextAlign.Center
                 )
             }
-
-
         }
-
         Text(
             text = "OUR WEEKLY PICKS:",
             style = MaterialTheme.typography.headlineSmall,
