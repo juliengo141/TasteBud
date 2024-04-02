@@ -39,7 +39,7 @@ fun NavBarScaffold(navController: NavController, title: String, createContent: @
                 Column {
                     Text(title)
                     Text(
-                        text = "What will you cook today Chef?",
+                        text = "What will you cook today, Chef?",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Gray
                     )

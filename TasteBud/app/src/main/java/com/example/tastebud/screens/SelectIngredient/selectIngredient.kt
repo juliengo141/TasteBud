@@ -27,7 +27,7 @@ var fridgeIngredients = listOf<String>("Eggs", "Chicken", "Paneer", "Milk", "Oni
 @Composable
 fun SelectIngredientScreen(navController: NavController, sharedViewModel: SharedViewModel) {
     val selectedIngredients = remember { mutableStateListOf<String>() }
-    NavBarScaffold(navController, "What's in the fridge") { selectContent(navController, it, selectedIngredients) }
+    NavBarScaffold(navController, "What's in the Fridge?") { selectContent(navController, it, selectedIngredients) }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -60,7 +60,7 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
 
         FlowRow(
             modifier = Modifier
-                .padding(16.dp, 0.dp),
+                .padding(8.dp, 0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ){
             for(ingredient in fridgeIngredients){
