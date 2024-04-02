@@ -16,9 +16,11 @@ import com.example.tastebud.data.Ingredient
 import com.example.tastebud.screens.SharedViewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import coil.compose.AsyncImage
 import com.example.tastebud.R
 import com.example.tastebud.data.Instruction
 
@@ -60,30 +62,32 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
             colors = CardDefaults.cardColors(containerColor = Color.White),
             onClick = {
                 navController.navigate("CuisineSelectionScreen")
-            },
+            }){
             Row(modifier = Modifier.fillMaxSize()) {
                 Image(
-                    painter = painterResource(id = R.drawable.chickentikka),
+                    painter = painterResource(id = R.drawable.foodjourney),
                     contentDescription = null,
-                    modifier = Modifier.size(200.dp)
+                    modifier = Modifier.size(200.dp))
+                Text(
+                    text = "RESUME YOUR JOURNEY",
+                    style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFFD88C45)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 8.dp, top = 8.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
 
-            Text(
-                text = "RESUME YOUR JOURNEY",
-                style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFFD88C45)),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp, top = 8.dp),
-                textAlign = TextAlign.Center
-            )
+
         }
+
         Text(
             text = "OUR WEEKLY PICKS:",
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 8.dp, top = 8.dp),
-            textAlign = TextAlign.Center
-        )
+            textAlign = TextAlign.Center)
 
 
         dishes.forEachIndexed() { index, dish ->
@@ -133,6 +137,8 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
         }
     }
 }
+
+
 
 fun CreateRecipe(sharedViewModel: SharedViewModel){
     val ingredientListPaniPuri = listOf(
