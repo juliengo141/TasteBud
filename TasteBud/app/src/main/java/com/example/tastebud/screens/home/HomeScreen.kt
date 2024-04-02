@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.tastebud.R
 import com.example.tastebud.data.Instruction
+import com.example.tastebud.ui.theme.Inter
 import com.example.tastebud.ui.theme.TasteBudBackground
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.example.tastebud.ui.theme.TasteBudOrange
@@ -91,6 +92,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                         .padding(16.dp) ){
                     Text(
                         text = "RECIPE ROAD:",
+                        fontFamily = Inter,
                         fontWeight = FontWeight.Black,
                         color = TasteBudBackground,
                         fontSize = 24.sp,
@@ -100,6 +102,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                     )
                     Text(
                         text = "RESUME YOUR JOURNEY",
+                        fontFamily = Inter,
                         fontWeight = FontWeight.Black,
                         color = TasteBudOrange,
                         fontSize = 24.sp,
@@ -115,6 +118,8 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
 
         Text(
             text = "OUR WEEKLY PICKS:",
+            fontFamily = Inter,
+            fontWeight = FontWeight.Black,
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier
                 .fillMaxWidth()
@@ -124,11 +129,15 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
 
         dishes.forEachIndexed() { index, dish ->
             Card(
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF)),
                 onClick = {
                     sharedViewModel.addRecipe(dish)
                     navController.navigate("recipeDetailsScreen")
 
-                }
+                },
+                modifier = Modifier
+                    .fillMaxWidth(0.8f) // Adjust the value as needed to make the cards narrower
+                    .padding(start = 8.dp, top = 8.dp),
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically, // Center vertically within the row
@@ -138,10 +147,13 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                 ) {
                     Text(
                         text = "${index + 1}.",
+                        fontFamily = Inter,
+                        fontWeight = FontWeight.Normal,
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(horizontal = 8.dp),
-                        textAlign = TextAlign.Center
-
+                        textAlign = TextAlign.Center,
+                     //   verticalArrangement = Arrangement.Center, // Center vertically within the column
+                      //  horizontalAlignment = Alignment.CenterHorizontally // Center horizontally within the column
 
                     )
                     Spacer(modifier = Modifier.width(horizontalSpacing))
@@ -150,9 +162,14 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                         verticalArrangement = Arrangement.Center, // Center vertically within the column
                         horizontalAlignment = Alignment.CenterHorizontally // Center horizontally within the column
                     ) {
-                        Text(text = dish.title, style = MaterialTheme.typography.bodyLarge)
+                        Text(text = dish.title,
+                            style = MaterialTheme.typography.bodyLarge,
+                                    fontFamily = Inter,
+                                    fontWeight = FontWeight.Normal,)
                         Text(
                             text = dish.cuisines[0],
+                            fontFamily = Inter,
+                            fontWeight = FontWeight.Normal,
                             style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFD88C45))
                         )
                     }
@@ -208,7 +225,7 @@ val stepsPaniPuri = listOf(
 val recipePaniPuri = Recipe(
     "2",
     "Pani Puri",
-    "https://www.example.com/panipuri.jpg",
+    "https://www.sidechef.com/recipe/3883dffb-5fa2-4ee9-8054-d8de1409899f.jpg",
     "30 min",
     4,
     listOf("Indian", "Street Food"),
@@ -269,7 +286,7 @@ val stepsGnocchi = listOf(
 val recipeGnocchi = Recipe(
     "3",
     "Potato Gnocchi",
-    "https://www.example.com/gnocchi.jpg",
+    "https://www.allrecipes.com/thmb/0i_eJYJTanc0360TUBEt1yjehHU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/8229095-500d92fad2f94a478636ec0433137077.jpg",
     "60 min",
     4,
     listOf("Italian", "Pasta"),
@@ -332,7 +349,7 @@ val stepsChowMein = listOf(
 val recipeChowMein = Recipe(
     "4",
     "Chicken Chow Mein",
-    "https://www.example.com/chowmein.jpg",
+    "https://mymorningmocha.com/wp-content/uploads/2023/07/special-chow-mein-recipe.jpg",
     "30 min",
     4,
     listOf("Chinese", "Noodles"),
@@ -397,7 +414,7 @@ val stepsBaklava = listOf(
 val recipeBaklava = Recipe(
     "5",
     "Baklava",
-    "https://www.example.com/baklava.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/c/c7/Baklava%281%29.png",
     "60 min",
     6,
     listOf("Middle Eastern", "Dessert"),
