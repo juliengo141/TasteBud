@@ -120,8 +120,9 @@ fun CuisineRecipes(cuisine: String): List<Recipe> {
             for (document in result) {
                 Log.d("RECIPE_DB", "${document.id} => ${document.data}")
             }
-            var test = result.toObjects<Any>().toMutableList()
-            Log.d("TEST", "${test}")
+//            var test = result.toObjects<Any>().toMutableList()
+            recipes = result.toObjects<Recipe>().toMutableList()
+//            Log.d("TEST", "${test}")
         }
         .addOnFailureListener { exception ->
             Log.w("RECIPE_DB", "Error getting documents.", exception)
