@@ -3,7 +3,9 @@ package com.example.tastebud.screens.home
 import NavBarScaffold
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.magnifier
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,13 +19,19 @@ import com.example.tastebud.data.Ingredient
 import com.example.tastebud.screens.SharedViewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.tastebud.R
 import com.example.tastebud.data.Instruction
+import com.example.tastebud.ui.theme.TasteBudBackground
+import com.example.tastebud.ui.theme.TasteBudGreen
+import com.example.tastebud.ui.theme.TasteBudOrange
 
 
 data class Dish(val name: String, val cuisine: String, val imageUri: String)
@@ -57,19 +65,19 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .height(200.dp),
-            elevation = CardDefaults.cardElevation(10.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
+                .padding(18.dp)
+                .height(190.dp),
+            colors = CardDefaults.cardColors(containerColor = TasteBudGreen),
             onClick = {
                 navController.navigate("CuisineSelectionScreen")
-
-            }){
+            }
+        ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Image(
                     painter = painterResource(id = R.drawable.foodjourney),
                     contentDescription = null,
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.matchParentSize()
                 )
                 Box(
                     modifier = Modifier
@@ -77,16 +85,35 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                         .padding(8.dp)
                         .border(1.dp, Color.Black)
                 )
-                Text(
-                    text = "RESUME YOUR JOURNEY",
-                    style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFFD88C45)),
+                Column(horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(8.dp),
-                    textAlign = TextAlign.Center
-                )
+                        .fillMaxSize() 
+                        .padding(16.dp) ){
+                    Text(
+                        text = "RECIPE ROAD:",
+                        fontWeight = FontWeight.Black,
+                        color = TasteBudBackground,
+                        fontSize = 24.sp,
+                        modifier = Modifier
+                            .padding(8.dp),
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = "RESUME YOUR JOURNEY",
+                        fontWeight = FontWeight.Black,
+                        color = TasteBudOrange,
+                        fontSize = 24.sp,
+                        modifier = Modifier
+                            .padding(8.dp),
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+
             }
         }
+
         Text(
             text = "OUR WEEKLY PICKS:",
             style = MaterialTheme.typography.headlineSmall,
