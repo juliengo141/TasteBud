@@ -68,7 +68,6 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
     val documentId =  Random.nextInt(0, 324)
     Log.d("myTag", "${documentId}");
     val testIngredientList = mutableListOf<Ingredient>()
-    val steps: List<Instruction>
     var pickedRecipe: Recipe
 
     val db = FirebaseFirestore.getInstance()
@@ -92,12 +91,57 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                     val name = ingredientData["name"] as String
                     val quantity = ingredientData["amount"].toString()
                     val unit = ingredientData["unit"] as String
-                    val id = ingredientData["id"] as String
+                    val id = ingredientData["id"].toString()
                     val og = ingredientData["original"] as String
                     val image = ingredientData["image"] as String
                     val ingredient = Ingredient(id, name, og, image, quantity, unit)
                     testIngredientList.add(ingredient)
                 }
+                val steps = mutableListOf<Instruction>
+                
+                val instructions = document.data?.get("analzedInstructions") as List<Map<String, Any>>
+                for(instructionData in instructions) {
+                    val stepNum = instructionData["number"] as Int
+                    val step = instructionData["step"].toString()
+
+                    val equipmentList = mutableListOf<Equipment>
+                    val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
+                    for(equipmentData in equipment) {
+                        val id = equipmentData["id"].toString()
+                        val name = equipmentData["name"].toString()
+                        val image = equipmentData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        equipmentList.add(e)
+                    }
+
+                    val instructionIngredientsList = mutableListOf<Equipment>
+                    val i = instructionData.data?.get("equipment") as List<Map<String, Any>>
+                    for(instructionIngredientData in i) {
+                        val id = instructionIngredientData["id"].toString()
+                        val name = instructionIngredientData["name"].toString()
+                        val image = instructionIngredientData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        instructionIngredientsList.add(e)
+                    }
+
+                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+                    steps.add(instruction)
+
+                }
+                
+                // steps = listOf(
+                //     Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
+                //         Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+                //     ), listOf(
+                //         Equipment("1","Pan","")
+                //     )),
+                //     Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
+                //         Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+                //     ), listOf(
+                //         Equipment("2","Pan","")
+                //     ))
+                // )
+
                 pickedRecipe = Recipe(
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
@@ -113,9 +157,10 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                     (document.data?.get("cheap")) as Boolean,
                     (document.data?.get("difficulty")).toString(),
                     testIngredientList,
+                    steps
 
                     // (document.data?.get("extendedIngredients")) as List<Ingredient>,
-                    (document.data?.get("analyzedInstructions")) as List<Instruction>
+                    //(document.data?.get("analyzedInstructions")) as List<Instruction>
                 )
                 sharedViewModel.addRecipe(pickedRecipe)
                 // Do something with the data

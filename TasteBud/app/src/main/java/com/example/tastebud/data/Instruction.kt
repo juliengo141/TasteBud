@@ -9,6 +9,6 @@ import androidx.room.PrimaryKey
 data class Instruction(
     val stepNumber: Int,
     val step: String,
-    val ingredients: List<Ingredient>,
+    val ingredients: List<Equipment>,
     val equipment: List<Equipment>,
 )  : Parcelable
