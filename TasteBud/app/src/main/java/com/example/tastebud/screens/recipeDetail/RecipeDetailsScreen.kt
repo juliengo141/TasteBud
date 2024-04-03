@@ -95,7 +95,7 @@ fun IngredientsCard(ingredients: List<Ingredient>) {
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
             Text("Ingredients", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-            //IngredientsList(ingredients)
+            IngredientsList(ingredients)
         }
     }
 }
