@@ -18,6 +18,7 @@ import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
 
@@ -64,123 +65,159 @@ fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValue
 @Composable
 fun PickRandomRecipe(sharedViewModel: SharedViewModel){
 
-    val randomNumber =  Random.nextInt(0, 3)
-    Log.d("myTag", "${randomNumber}");
+    val documentId =  Random.nextInt(0, 324)
+    Log.d("myTag", "${documentId}");
     val testIngredientList: List<Ingredient>
     val steps: List<Instruction>
-    val pickedRecipe: Recipe
-    when (randomNumber) {
-        0 -> {
-            testIngredientList = listOf(
-                Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-                Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-                Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-                Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-                Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-            )
+    var pickedRecipe: Recipe
 
-             steps = listOf(
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
-                    Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(
-                    Equipment("1","Pan","")
-                )),
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
-                    Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(
-                    Equipment("2","Pan","")
-                ))
-            )
+    val db = FirebaseFirestore.getInstance()
+    val docRef = db.collection("Recipes").document(documentId.toString())
 
-            pickedRecipe = Recipe(
-                "656329",
-                "Pizza bites with pumpkin",
-                "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-                "20 min",
-                2,
-                listOf("Nordic"),
-                true,
-                false,
-                true,
-                false,
-                false,
-                true,
-                "Medium",
-                testIngredientList,
-                steps,
-            )
-        }
-        1 -> {
-             testIngredientList = listOf(
-                Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-                Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-                Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-                Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-                Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-            )
-
-             steps = listOf(
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                    Equipment("1","Pan","")
-                )),
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                    Equipment("2","Pan","")
-                ))
-            )
-
-             pickedRecipe = Recipe(
-                "656329",
-                "Pumpkin Pizza",
-                "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-                "20 min",
-                2,
-                listOf("Nordic"),
-                true,
-                false,
-                true,
-                false,
-                false,
-                true,
-                 "Medium",
-                testIngredientList,
-                steps,
-            )}
-            else -> {
-                testIngredientList = listOf(
-                    Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-                    Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-                    Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-                    Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-                    Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-                )
-
-                steps = listOf(
-                    Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                        Equipment("1","Pan","")
-                    )),
-                    Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                        Equipment("2","Pan","")
-                    ))
-                )
-
+    docRef.get()
+        .addOnSuccessListener { document ->
+            if (document.exists()) {
+                // Document found, you can access its data
                 pickedRecipe = Recipe(
-                    "656329",
-                    "Pepperoni Pizza",
-                    "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-                    "20 min",
-                    2,
-                    listOf("Nordic"),
-                    true,
-                    false,
-                    true,
-                    false,
-                    false,
-                    true,
-                    "Easy",
-                    testIngredientList,
-                    steps,
+                    (document.data?.get("id")).toString(),
+                    (document.data?.get("title")).toString(),
+                    (document.data?.get("image")).toString(),
+                    (document.data?.get("readyInMinutes")).toString(),
+                    (document.data?.get("servings")) as Int,
+                    (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("vegetarian")) as Boolean,
+                    (document.data?.get("vegan")) as Boolean,
+                    (document.data?.get("glutenFree")) as Boolean,
+                    (document.data?.get("dairyFree")) as Boolean,
+                    (document.data?.get("veryHealthy")) as Boolean,
+                    (document.data?.get("cheap")) as Boolean,
+                    (document.data?.get("difficulty")).toString(),
+                    (document.data?.get("extendedIngredients")) as List<Ingredient>,
+                    (document.data?.get("analyzedInstructions")) as List<Instruction>
                 )
+                sharedViewModel.addRecipe(pickedRecipe)
+                // Do something with the data
+                //println("Document data: $data")
+            } else {
+                println("No such document")
             }
         }
-    sharedViewModel.addRecipe(pickedRecipe)
+        .addOnFailureListener { exception ->
+            println("Error getting documents: $exception")
+        }
+
+    // when (randomNumber) {
+    //     0 -> {
+    //         testIngredientList = listOf(
+    //             Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
+    //             Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
+    //             Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
+    //             Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
+    //             Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
+    //         )
+
+    //          steps = listOf(
+    //             Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
+    //                 Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+    //             ), listOf(
+    //                 Equipment("1","Pan","")
+    //             )),
+    //             Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
+    //                 Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
+    //             ), listOf(
+    //                 Equipment("2","Pan","")
+    //             ))
+    //         )
+
+    //         pickedRecipe = Recipe(
+    //             "656329",
+    //             "Pizza bites with pumpkin",
+    //             "https://spoonacular.com/recipeImages/656329-312x231.jpg",
+    //             "20 min",
+    //             2,
+    //             listOf("Nordic"),
+    //             true,
+    //             false,
+    //             true,
+    //             false,
+    //             false,
+    //             true,
+    //             "Medium",
+    //             testIngredientList,
+    //             steps,
+    //         )
+    //     }
+    //     1 -> {
+    //          testIngredientList = listOf(
+    //             Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
+    //             Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
+    //             Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
+    //             Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
+    //             Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
+    //         )
+
+    //          steps = listOf(
+    //             Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
+    //                 Equipment("1","Pan","")
+    //             )),
+    //             Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
+    //                 Equipment("2","Pan","")
+    //             ))
+    //         )
+
+    //          pickedRecipe = Recipe(
+    //             "656329",
+    //             "Pumpkin Pizza",
+    //             "https://spoonacular.com/recipeImages/656329-312x231.jpg",
+    //             "20 min",
+    //             2,
+    //             listOf("Nordic"),
+    //             true,
+    //             false,
+    //             true,
+    //             false,
+    //             false,
+    //             true,
+    //              "Medium",
+    //             testIngredientList,
+    //             steps,
+    //         )}
+    //         else -> {
+    //             testIngredientList = listOf(
+    //                 Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
+    //                 Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
+    //                 Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
+    //                 Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
+    //                 Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
+    //             )
+
+    //             steps = listOf(
+    //                 Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
+    //                     Equipment("1","Pan","")
+    //                 )),
+    //                 Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
+    //                     Equipment("2","Pan","")
+    //                 ))
+    //             )
+
+    //             pickedRecipe = Recipe(
+    //                 "656329",
+    //                 "Pepperoni Pizza",
+    //                 "https://spoonacular.com/recipeImages/656329-312x231.jpg",
+    //                 "20 min",
+    //                 2,
+    //                 listOf("Nordic"),
+    //                 true,
+    //                 false,
+    //                 true,
+    //                 false,
+    //                 false,
+    //                 true,
+    //                 "Easy",
+    //                 testIngredientList,
+    //                 steps,
+    //             )
+    //         }
+    //     }
+
     }
