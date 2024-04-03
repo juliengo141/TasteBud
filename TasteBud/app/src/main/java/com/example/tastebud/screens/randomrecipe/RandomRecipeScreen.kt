@@ -67,17 +67,37 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
 
     val documentId =  Random.nextInt(0, 324)
     Log.d("myTag", "${documentId}");
-    val testIngredientList: List<Ingredient>
+    val testIngredientList = mutableListOf<Ingredient>()
     val steps: List<Instruction>
     var pickedRecipe: Recipe
 
     val db = FirebaseFirestore.getInstance()
     val docRef = db.collection("Recipes").document(documentId.toString())
 
+    // val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
+    // for (instructionData in instructions) {
+    //     val stepNum = instructionData["number"] as Int
+    //     val step = instructionData["step"].toString()
+
+    //     val ingredient = Ingredient(id, name, og, image, quantity, unit)
+    //     ingredientsList.add(ingredient)
+    // }
+
     docRef.get()
         .addOnSuccessListener { document ->
             if (document.exists()) {
                 // Document found, you can access its data
+                val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
+                for (ingredientData in ingredients) {
+                    val name = ingredientData["name"] as String
+                    val quantity = ingredientData["amount"].toString()
+                    val unit = ingredientData["unit"] as String
+                    val id = ingredientData["id"] as String
+                    val og = ingredientData["original"] as String
+                    val image = ingredientData["image"] as String
+                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
+                    testIngredientList.add(ingredient)
+                }
                 pickedRecipe = Recipe(
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
@@ -92,7 +112,9 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                     (document.data?.get("veryHealthy")) as Boolean,
                     (document.data?.get("cheap")) as Boolean,
                     (document.data?.get("difficulty")).toString(),
-                    (document.data?.get("extendedIngredients")) as List<Ingredient>,
+                    testIngredientList,
+
+                    // (document.data?.get("extendedIngredients")) as List<Ingredient>,
                     (document.data?.get("analyzedInstructions")) as List<Instruction>
                 )
                 sharedViewModel.addRecipe(pickedRecipe)
