@@ -1,15 +1,18 @@
 package com.example.tastebud.screens.recipeDetail
 
 import NavBarScaffold
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +23,9 @@ import coil.compose.AsyncImage
 import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Recipe
+import com.example.tastebud.ui.theme.TasteBudAccent
+import com.example.tastebud.ui.theme.TasteBudBackground
+import com.example.tastebud.ui.theme.TasteBudGreen
 
 @Composable
 fun RecipeDetailScreen(navController: NavController, sharedViewModel: SharedViewModel) {
@@ -57,7 +63,9 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
         sharedViewModel.recipe?.let { IngredientsCard(it.ingredients) }
         Button(onClick = {
             navController.navigate("dietaryRestrictionsScreen")
-        }) {
+        },colors = ButtonDefaults.buttonColors(
+            containerColor = TasteBudGreen
+        )) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
@@ -66,7 +74,9 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
         }
         Button(onClick = {
             navController.navigate("flashcardsScreen")
-        }) {
+        },  colors = ButtonDefaults.buttonColors(
+            containerColor = TasteBudGreen
+        ),) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
@@ -91,10 +101,10 @@ fun RecipeInfo(recipe: Recipe) {
 @Composable
 fun IngredientsCard(ingredients: List<Ingredient>) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(15.dp).clickable { },
+        modifier = Modifier.fillMaxWidth().height(250.dp).padding(15.dp).clickable { },
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
-            Text("Ingredients", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text("Ingredients", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp))
             IngredientsList(ingredients)
         }
     }
@@ -102,7 +112,7 @@ fun IngredientsCard(ingredients: List<Ingredient>) {
 
 @Composable
 fun IngredientsList(ingredients: List<Ingredient>) {
-    LazyColumn {
+    LazyColumn(modifier = Modifier.padding(8.dp)) {
         items(ingredients) { ingredient ->
             IngredientItem(ingredient)
         }
