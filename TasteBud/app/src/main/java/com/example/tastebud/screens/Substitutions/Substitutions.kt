@@ -24,17 +24,16 @@ import com.example.tastebud.ui.theme.TasteBudGreen
 fun SubstitutionsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
    NavBarScaffold(navController, "Substitutions List") { SubstitutionsContent(navController, it, sharedViewModel) }
 }
-    
 @Composable
 fun SubstitutionsContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     val listItems = listOf(
         "Baking Powder (1 teaspoon) --> 1/4 teaspoon baking soda + 1/4 teaspoon cornstarch + 1/2 teaspoon of cream of tartar",
         "Baking Soda (1 teaspoon) --> 4 teaspoons baking powder",
         "Brown Sugar (1 cup) --> 1 cup white sugar",
+        "Cocoa (1/4 cup) --> 1 square/ounce unsweetened chocolate",
         "Salted Butter (1 cup) --> 1 cup margarine OR 7/8 cup vegetable oil + 1/2 teaspoon salt",
         "Unsalted Butter (1 cup) --> 1 cup shortening OR 7/8 cup vegetable oil",
         "Buttermilk (1 cup) --> 1 cup yogurt",
-        "Cocoa (1/4 cup) --> 1 square/ounce unsweetened chocolate",
         "Half and Half Cream (1 cup) --> 7/8 cup milk + 1 tablespoon butter",
         "Light Cream (1 cup) --> 3/4 cup milk + 3 tablespoons butter",
         "Cream of Tartar (1 teaspoon) --> 2 teaspoons lemon juice or vinegar",
@@ -46,29 +45,64 @@ fun SubstitutionsContent(navController: NavController, innerPadding: PaddingValu
     )
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp),
         contentPadding = innerPadding,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        itemsIndexed(listItems) { index, item ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(start = 16.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(TasteBudGreen)
-                        .align(Alignment.CenterVertically)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = item,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.Black,
-                    fontSize = 15.sp,
-                    textAlign = TextAlign.Start
-                )
+        item {
+            Text(
+                text = "Baking Ingredient Substitutions",
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+            )
+        }
+        listItems.forEachIndexed { index, item ->
+            if (index == 4) {
+                item {
+                    Text(
+                        text = "Dairy Substitutions",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    )
+                }
+            }
+            if (index == 12) {
+                item {
+                    Text(
+                        text = "Other Substitutions",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    )
+                }
+            }
+            item {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(start = 16.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .background(TasteBudGreen)
+                            .align(Alignment.Top)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = item,
+                        fontWeight = FontWeight.Normal,
+                        color = Color.Black,
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Start
+                    )
+                }
             }
         }
     }

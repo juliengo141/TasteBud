@@ -1,274 +1,198 @@
 {
   "vegetarian": false,
   "vegan": false,
-  "glutenFree": true,
+  "glutenFree": false,
   "dairyFree": false,
   "veryHealthy": false,
   "cheap": false,
-  "id": 665672,
-  "title": "Zomppa's French Apple Tart",
+  "id": 636325,
+  "title": "Brownie Cheesecake",
   "readyInMinutes": 45,
-  "servings": 4,
-  "image": "https://img.spoonacular.com/recipes/665672-312x231.jpg",
+  "servings": 12,
+  "image": "https://img.spoonacular.com/recipes/636325-312x231.jpg",
   "cuisines": [
-    "Mediterranean",
-    "French",
-    "European"
+    "American"
   ],
-  "diets": [
-    "gluten free"
-  ],
+  "diets": [],
   "extendedIngredients": [
     {
-      "id": 1145,
-      "aisle": "Milk, Eggs, Other Dairy",
-      "image": "butter-sliced.jpg",
-      "consistency": "SOLID",
-      "name": "butter",
-      "nameClean": "unsalted butter",
-      "original": "6 tablespoons cold unsalted butter, diced",
-      "originalName": "cold unsalted butter, diced",
-      "amount": 6.0,
-      "unit": "tablespoons",
-      "meta": [
-        "unsalted",
-        "diced",
-        "cold"
-      ],
-      "measures": {
-        "us": {
-          "amount": 6.0,
-          "unitShort": "Tbsps",
-          "unitLong": "Tbsps"
-        },
-        "metric": {
-          "amount": 6.0,
-          "unitShort": "Tbsps",
-          "unitLong": "Tbsps"
-        }
-      }
-    },
-    {
-      "id": 1089003,
-      "aisle": "Produce",
-      "image": "grannysmith-apple.png",
-      "consistency": "SOLID",
-      "name": "granny smith apples",
-      "nameClean": "granny smith apple",
-      "original": "2 Granny Smith apples, sliced into half-moons",
-      "originalName": "Granny Smith apples, sliced into half-moons",
-      "amount": 2.0,
-      "unit": "",
-      "meta": [
-        "sliced into half-moons"
-      ],
-      "measures": {
-        "us": {
-          "amount": 2.0,
-          "unitShort": "",
-          "unitLong": ""
-        },
-        "metric": {
-          "amount": 2.0,
-          "unitShort": "",
-          "unitLong": ""
-        }
-      }
-    },
-    {
-      "id": 14412,
-      "aisle": "Beverages",
-      "image": "water.png",
-      "consistency": "LIQUID",
-      "name": "ice water",
-      "nameClean": "water",
-      "original": "1/4 cup ice water, plus more if necessary",
-      "originalName": "ice water, plus more if necessary",
-      "amount": 0.25,
-      "unit": "cup",
-      "meta": [
-        "plus more if necessary"
-      ],
-      "measures": {
-        "us": {
-          "amount": 0.25,
-          "unitShort": "cups",
-          "unitLong": "cups"
-        },
-        "metric": {
-          "amount": 59.147,
-          "unitShort": "ml",
-          "unitLong": "milliliters"
-        }
-      }
-    },
-    {
-      "id": 19297,
-      "aisle": "Nut butters, Jams, and Honey",
-      "image": "grape-jelly.jpg",
-      "consistency": "SOLID",
-      "name": "apricot jelly",
-      "nameClean": "jam",
-      "original": "1/4 cup apricot jelly",
-      "originalName": "apricot jelly",
-      "amount": 0.25,
-      "unit": "cup",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.25,
-          "unitShort": "cups",
-          "unitLong": "cups"
-        },
-        "metric": {
-          "amount": 85.0,
-          "unitShort": "ml",
-          "unitLong": "milliliters"
-        }
-      }
-    },
-    {
-      "id": 19297,
-      "aisle": "Nut butters, Jams, and Honey",
-      "image": "strawberry-jam.png",
-      "consistency": "SOLID",
-      "name": "apricot jelly",
-      "nameClean": "jam",
-      "original": "1/4 cup apricot jelly",
-      "originalName": "apricot jelly",
-      "amount": 0.25,
-      "unit": "cup",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.25,
-          "unitShort": "cups",
-          "unitLong": "cups"
-        },
-        "metric": {
-          "amount": 85.0,
-          "unitShort": "ml",
-          "unitLong": "milliliters"
-        }
-      }
-    },
-    {
-      "id": 9152,
-      "aisle": "Produce",
-      "image": "lemon-juice.jpg",
-      "consistency": "LIQUID",
-      "name": "juice of lemon",
-      "nameClean": "lemon juice",
-      "original": "1/2 Juice of a lemon",
-      "originalName": "Juice of a lemon",
-      "amount": 0.5,
-      "unit": "",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.5,
-          "unitShort": "",
-          "unitLong": ""
-        },
-        "metric": {
-          "amount": 0.5,
-          "unitShort": "",
-          "unitLong": ""
-        }
-      }
-    },
-    {
-      "id": 1082047,
-      "aisle": "Spices and Seasonings",
-      "image": "salt.jpg",
-      "consistency": "SOLID",
-      "name": "kosher salt",
-      "nameClean": "kosher salt",
-      "original": "1/2 teaspoon kosher salt",
-      "originalName": "kosher salt",
-      "amount": 0.5,
-      "unit": "teaspoon",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.5,
-          "unitShort": "tsps",
-          "unitLong": "teaspoons"
-        },
-        "metric": {
-          "amount": 0.5,
-          "unitShort": "tsps",
-          "unitLong": "teaspoons"
-        }
-      }
-    },
-    {
-      "id": 9156,
-      "aisle": "Produce",
-      "image": "zest-lemon.jpg",
-      "consistency": "SOLID",
-      "name": "lemon zest",
-      "nameClean": "lemon peel",
-      "original": "1 zest of 1 lemon",
-      "originalName": "zest of 1 lemon",
+      "id": 10018192,
+      "image": "no.jpg",
+      "name": "cookie crumbs",
+      "original": "1-1 1/2 cups dry chocolate cake or cookie crumbs, depending on how much crust you like",
       "amount": 1.0,
-      "unit": "",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 1.0,
-          "unitShort": "",
-          "unitLong": ""
-        },
-        "metric": {
-          "amount": 1.0,
-          "unitShort": "",
-          "unitLong": ""
-        }
-      }
+      "unit": "cups"
+    },
+    {
+      "id": 1017,
+      "image": "cream-cheese.jpg",
+      "name": "cream cheese",
+      "original": "2 pounds cream cheese, at room temperature",
+      "amount": 2.0,
+      "unit": "pounds"
+    },
+    {
+      "id": 1123,
+      "image": "egg.png",
+      "name": "eggs",
+      "original": "2 eggs",
+      "amount": 2.0,
+      "unit": ""
+    },
+    {
+      "id": 10719335,
+      "image": "sugar-in-bowl.png",
+      "name": "granulated sugar",
+      "original": "1 1/2 cups granulated sugar",
+      "amount": 1.5,
+      "unit": "cups"
+    },
+    {
+      "id": 18632,
+      "image": "brownie-isolated.png",
+      "name": "brownies",
+      "original": "@16 1/2- 3/4 inch brownies",
+      "amount": 16.5,
+      "unit": "inch"
+    },
+    {
+      "id": 2047,
+      "image": "salt.jpg",
+      "name": "salt",
+      "original": "A pinch of salt",
+      "amount": 1.0,
+      "unit": "pinch"
     },
     {
       "id": 19335,
-      "aisle": "Baking",
       "image": "sugar-in-bowl.png",
-      "consistency": "SOLID",
       "name": "sugar",
-      "nameClean": "sugar",
-      "original": "1/4 cup sugar",
-      "originalName": "sugar",
-      "amount": 0.25,
-      "unit": "cup",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.25,
-          "unitShort": "cups",
-          "unitLong": "cups"
-        },
-        "metric": {
-          "amount": 50.0,
-          "unitShort": "g",
-          "unitLong": "grams"
-        }
-      }
+      "original": "1/2 cup sugar (add another 1/4 to 1/2 cup if you like it sweet)",
+      "amount": 0.5,
+      "unit": "cup"
+    },
+    {
+      "id": 1145,
+      "image": "butter-sliced.jpg",
+      "name": "butter",
+      "original": "1/2 cup unsalted butter",
+      "amount": 0.5,
+      "unit": "cup"
+    },
+    {
+      "id": 1052050,
+      "image": "vanilla.jpg",
+      "name": "vanilla",
+      "original": "1 teaspoon vanilla",
+      "amount": 1.0,
+      "unit": "teaspoon"
     }
   ],
   "analyzedInstructions": [
     {
       "equipment": [
         {
-          "id": 404771,
-          "name": "food processor",
-          "localizedName": "food processor",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/food-processor.png"
+          "id": 405907,
+          "name": "mixing bowl",
+          "localizedName": "mixing bowl",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/mixing-bowl.jpg"
         }
       ],
       "ingredients": [
         {
-          "id": 20081,
-          "name": "all purpose flour",
-          "localizedName": "all purpose flour",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/flour.png"
+          "id": 1001,
+          "name": "butter",
+          "localizedName": "butter",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg"
+        },
+        {
+          "id": 19335,
+          "name": "sugar",
+          "localizedName": "sugar",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/sugar-in-bowl.png"
+        }
+      ],
+      "number": 1,
+      "step": "Mix the crumbs, sugar and butter together in a large mixing bowl, until the crumbs clump together when gathered in your fist"
+    },
+    {
+      "equipment": [
+        {
+          "id": 404650,
+          "name": "springform pan",
+          "localizedName": "springform pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/cake-pan.png"
+        }
+      ],
+      "ingredients": [],
+      "number": 2,
+      "step": "Pat the crumbs in an even layer in the bottom of an 8 x 3 inch springform pan"
+    },
+    {
+      "equipment": [
+        {
+          "id": 404765,
+          "name": "aluminum foil",
+          "localizedName": "aluminum foil",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/aluminum-foil.png"
+        },
+        {
+          "id": 404784,
+          "name": "oven",
+          "localizedName": "oven",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
+        },
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 0,
+          "name": "crust",
+          "localizedName": "crust",
+          "image": ""
+        },
+        {
+          "id": 10018364,
+          "name": "wrap",
+          "localizedName": "wrap",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/flour-tortilla.jpg"
+        }
+      ],
+      "number": 3,
+      "step": "Place the pan in a 325 degree oven and bake for 10 minutes, until the crust is firm.Allow the crust to cool completely on a rack.Wrap the pan with the crust twice with heavy duty aluminum foil"
+    },
+    {
+      "equipment": [
+        {
+          "id": 404665,
+          "name": "stand mixer",
+          "localizedName": "stand mixer",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/stand-mixer.jpg"
+        },
+        {
+          "id": 404783,
+          "name": "bowl",
+          "localizedName": "bowl",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/bowl.jpg"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        },
+        {
+          "id": 1052050,
+          "name": "vanilla",
+          "localizedName": "vanilla",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla.jpg"
         },
         {
           "id": 19335,
@@ -283,30 +207,78 @@
           "image": "https://spoonacular.com/cdn/ingredients_100x100/salt.jpg"
         }
       ],
-      "number": 1,
-      "step": "For pastry:In a food processor, add the flour, zest, sugar and salt.Pulse a couple of times until flour mixture is combined."
+      "number": 4,
+      "step": "Place the sugar, then the cream cheese, vanilla and salt in the large bowl of a stand mixer."
     },
     {
       "equipment": [],
       "ingredients": [
         {
-          "id": 35137,
-          "name": "cornmeal",
-          "localizedName": "cornmeal",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/cornmeal.png"
-        },
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        }
+      ],
+      "number": 5,
+      "step": "Mix on low speed, until the cream cheese is completely smooth. BTW, I use Philadelphia Cream Cheese as I find it the smoothest."
+    },
+    {
+      "equipment": [],
+      "ingredients": [
         {
-          "id": 1001,
-          "name": "butter",
-          "localizedName": "butter",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg"
-        },
+          "id": 1123,
+          "name": "egg",
+          "localizedName": "egg",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/egg.png"
+        }
+      ],
+      "number": 6,
+      "step": "Add the eggs, one at a time, mixing them in completely after each addition."
+    },
+    {
+      "equipment": [
         {
-          "id": 0,
-          "name": "dough",
-          "localizedName": "dough",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/pizza-dough"
-        },
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        }
+      ],
+      "number": 7,
+      "step": "Pour one third of the cream cheese mixture into the prepared pan."
+    },
+    {
+      "equipment": [],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        }
+      ],
+      "number": 8,
+      "step": "Add a third of the browinies, then pour in another third of the cream cheese mixture. Repeat with anothe third of the brownies, then pour on the remianign cream cheese mixture. Stick the rest of the brownies into the top of the cheesckae, pushing them down into the mixture slightly."
+    },
+    {
+      "equipment": [
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
         {
           "id": 14412,
           "name": "water",
@@ -314,18 +286,37 @@
           "image": "https://spoonacular.com/cdn/ingredients_100x100/water.png"
         }
       ],
-      "number": 2,
-      "step": "Add the diced butter and pulse until mixture has texture of coarse corn meal.Slowly drizzle in  cup of iced water while processor is on pulse.Stop once dough forms a solid ball."
+      "number": 9,
+      "step": "Place the preapred and filled pan in a larger pan, then pour in enough hot water to come up to half of the pan's height."
     },
     {
-      "equipment": [],
-      "ingredients": [
+      "equipment": [
         {
-          "id": 14412,
-          "name": "water",
-          "localizedName": "water",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/water.png"
+          "id": 404732,
+          "name": "wooden spoon",
+          "localizedName": "wooden spoon",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/wooden-spoon.jpg"
         },
+        {
+          "id": 404784,
+          "name": "oven",
+          "localizedName": "oven",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
+        },
+        {
+          "id": 404642,
+          "name": "spatula",
+          "localizedName": "spatula",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/spatula-or-turner.jpg"
+        },
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
         {
           "id": 10018364,
           "name": "wrap",
@@ -333,174 +324,8 @@
           "image": "https://spoonacular.com/cdn/ingredients_100x100/flour-tortilla.jpg"
         }
       ],
-      "number": 3,
-      "step": "Add more water if necessary.Flatten to about 1 inch thick and wrap in saran wrap."
-    },
-    {
-      "equipment": [],
-      "ingredients": [
-        {
-          "id": 9003,
-          "name": "apple",
-          "localizedName": "apple",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg"
-        }
-      ],
-      "number": 4,
-      "step": "Place in refrigerator for at least an hour.In the meantime, slice the apples into half moons."
-    },
-    {
-      "equipment": [
-        {
-          "id": 404783,
-          "name": "bowl",
-          "localizedName": "bowl",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/bowl.jpg"
-        },
-        {
-          "id": 404784,
-          "name": "oven",
-          "localizedName": "oven",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
-        }
-      ],
-      "ingredients": [
-        {
-          "id": 9152,
-          "name": "lemon juice",
-          "localizedName": "lemon juice",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/lemon-juice.jpg"
-        }
-      ],
-      "number": 5,
-      "step": "Place in bowl and mix, gently, with the lemon juice.After an hour, pre-heat oven to 400 degrees."
-    },
-    {
-      "equipment": [
-        {
-          "id": 404770,
-          "name": "baking paper",
-          "localizedName": "baking paper",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/baking-paper.jpg"
-        },
-        {
-          "id": 404727,
-          "name": "baking sheet",
-          "localizedName": "baking sheet",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/baking-sheet.jpg"
-        }
-      ],
-      "ingredients": [
-        {
-          "id": 9003,
-          "name": "apple",
-          "localizedName": "apple",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg"
-        },
-        {
-          "id": 10118192,
-          "name": "cookies",
-          "localizedName": "cookies",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/shortbread-cookies.jpg"
-        },
-        {
-          "id": 0,
-          "name": "dough",
-          "localizedName": "dough",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/pizza-dough"
-        },
-        {
-          "id": 20081,
-          "name": "all purpose flour",
-          "localizedName": "all purpose flour",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/flour.png"
-        },
-        {
-          "id": 0,
-          "name": "roll",
-          "localizedName": "roll",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/dinner-yeast-rolls.jpg"
-        }
-      ],
-      "number": 6,
-      "step": "Remove the dough from refrigerator and roll out into a rectangle approximately  inch thick.  Make sure your surface is covered in enough flour as you do not want your dough to stick.Once rolled out, move the dough onto a piece of parchment paper and place on a cookie sheet.Starting from the corner of the dough, make a row of apples on the diagonal.Cover the rest of the dough with apples on the diagonal."
-    },
-    {
-      "equipment": [],
-      "ingredients": [
-        {
-          "id": 9003,
-          "name": "apple",
-          "localizedName": "apple",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg"
-        },
-        {
-          "id": 19335,
-          "name": "sugar",
-          "localizedName": "sugar",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/sugar-in-bowl.png"
-        }
-      ],
-      "number": 7,
-      "step": "Sprinkle the apples with  cup of sugar."
-    },
-    {
-      "equipment": [
-        {
-          "id": 404784,
-          "name": "oven",
-          "localizedName": "oven",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
-        }
-      ],
-      "ingredients": [
-        {
-          "id": 9003,
-          "name": "apple",
-          "localizedName": "apple",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg"
-        },
-        {
-          "id": 0,
-          "name": "crust",
-          "localizedName": "crust",
-          "image": ""
-        }
-      ],
-      "number": 8,
-      "step": "Place on middle rack of oven and cook for up to 45 minutes or until the apples are cooked through, juices are bubbling and crust is slightly browned."
-    },
-    {
-      "equipment": [
-        {
-          "id": 404784,
-          "name": "oven",
-          "localizedName": "oven",
-          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
-        }
-      ],
-      "ingredients": [
-        {
-          "id": 9021,
-          "name": "apricot",
-          "localizedName": "apricot",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/apricot.jpg"
-        },
-        {
-          "id": 19297,
-          "name": "jelly",
-          "localizedName": "jelly",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/grape-jelly.jpg"
-        }
-      ],
-      "number": 9,
-      "step": "Remove from oven and brush with apricot jelly."
-    },
-    {
-      "equipment": [],
-      "ingredients": [],
       "number": 10,
-      "step": "Serve warm or at room temperature."
+      "step": "Bake at 325 degrees for about 1 1/4 to 1/2 hours, or until it is mostly set. Turn of the oven, then leave the cheesecake in the oven,placing  a large wooden spoon in the oven door, so that it remains slightly open. Allow the cheeecake to cool in the open oven for about an hour, then cool completley on a rack. When it's cool, wrap it very well, and cool in the refrigerator for several hours.To unmold the cake, wipe the sides and bottom of the pan with a hot, damp towel. Run a thin metal spatula around the edge of the pan. Release the spring, then lift the cake still on the on the removable bottom from the sides of the pan. Flip the cake gently onto a cardboard round or flat platter, remove the bottom, then flip it over onto another cardboard round or flat serving platter."
     }
   ],
   "difficulty": 13.5

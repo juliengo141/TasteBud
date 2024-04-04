@@ -14,7 +14,7 @@ api_key = '46ea03ff0f3148abb2c9ca808f6de8e9'
 
 document_id_count = 0
 
-cuisineList = ["indian", "chinese", "italian", "mexican", "thai", "japanese", "greek", "african", "american", "english", "vietnamese", "mediterranean", "Middle Eastern", "French", "German"]
+cuisineList = ["indian", "chinese", "italian", "mexican", "thai", "japanese", "greek", "african", "american"] # "english", "vietnamese", "mediterranean", "Middle Eastern", "French", "German"]
 for cuisine in cuisineList:
     api_url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key}&cuisine={cuisine}&addRecipeInformation=true&fillIngredients=true&sort=popularity&instructionsRequired=true&sortDirection=desc&number=75"
     headers = {'ApiKeyHeader': api_key}
@@ -51,9 +51,12 @@ for cuisine in cuisineList:
                         filtered_data["analyzedInstructions"][i] = {field: temp[field] for field in extract if field in temp}
                     
                     equipment_extract = ["id", "image", "name"]
-                    for i in range(0, len(filtered_data["analyzedInstructions"].get("equipment"))):
-                        temp = filtered_data["analyzedInstructions"]["equipment"][i]
-                        filtered_data["analyzedInstructions"]["equipment"][i] = {field: temp[field] for field in equipment_extract if field in temp}
+
+                    if(filtered_data.get("analyzedInstructions") and len(filtered_data["analyzedInstructions"]) > 0):
+                        for i in range(0, len(filtered_data["analyzedInstructions"][0])):
+                            if(filtered_data["analyzedInstructions"][0] == "equipment"):
+                                temp = filtered_data["analyzedInstructions"][0][i]
+                                filtered_data["analyzedInstructions"][0][i] = {field: temp[field] for field in equipment_extract if field in temp}
                     
                     extendedIngredients_extract = ["id", "image", "name", "original", "amount", "unit"]
                     for i in range(0, len(filtered_data.get("extendedIngredients"))):
