@@ -13,7 +13,7 @@ data class Recipe(
     val title: String,
     val imageUrl: String,
     val estimatedTime: String,
-    val servings: Int,
+    val servings: Long,
     val cuisines: List<String>,
     val diets: List<String>,
     val vegetarian: Boolean,

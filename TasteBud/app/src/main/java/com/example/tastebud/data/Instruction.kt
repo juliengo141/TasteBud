@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 
 @kotlinx.parcelize.Parcelize
 data class Instruction(
-    val stepNumber: Int,
+    val stepNumber: Long,
     val step: String,
-    val ingredients: List<Ingredient>,
+    val ingredients: List<Equipment>,
     val equipment: List<Equipment>,
 )  : Parcelable
