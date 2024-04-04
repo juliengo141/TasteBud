@@ -16,6 +16,8 @@ class SharedViewModel : ViewModel() {
         private set
     var country by mutableStateOf<String>("")
         private set
+    var cuisineRecipes by mutableStateOf<List<Recipe?>>(emptyList())
+        private set
 
     fun addRecipe(newRecipe: Recipe) {
         recipe = newRecipe;
@@ -30,5 +32,7 @@ class SharedViewModel : ViewModel() {
         country = newCountry;
     }
 
-
+    fun addCuisineRecipes(newRecipes: List<Recipe>) {
+        cuisineRecipes = newRecipes;
+    }
 }
