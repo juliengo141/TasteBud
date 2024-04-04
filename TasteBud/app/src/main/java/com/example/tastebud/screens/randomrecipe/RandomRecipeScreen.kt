@@ -2,22 +2,31 @@ package com.example.tastebud.screens.home
 
 import NavBarScaffold
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.tastebud.R
 import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
+import com.example.tastebud.ui.theme.TasteBudGreen
+import com.example.tastebud.ui.theme.TasteBudOrange
+import com.google.firebase.firestore.FirebaseFirestore
+import java.time.format.TextStyle
 import kotlin.random.Random
 
 
@@ -29,34 +38,50 @@ fun RandomRecipeScreen(navController: NavController, sharedViewModel: SharedView
 @Composable
 fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     PickRandomRecipe(sharedViewModel = sharedViewModel)
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-
-            text = """
-                    Not sure what to make? Let us decide for you!
-                """.trimIndent(), fontWeight = FontWeight.Bold, color = Color.Black, fontSize = 24.sp,
-            textAlign = TextAlign.Center,
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.reciperoulette),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize()
         )
-        Button(
-            onClick = {
-                navController.navigate("recipeDetailsScreen")
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Cyan,
-                contentColor = Color.Black
-            ),
-            modifier = Modifier
-                .padding(24.dp)
-                .height(52.dp)
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
         ) {
-            Text("Generate Recipe...", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+            Text(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+
+                text = """
+                    Not sure what to make? Let us decide for you!
+                """.trimIndent(),
+                fontWeight = FontWeight.Black, color = Color.White, fontSize = 32.sp,
+                textAlign = TextAlign.Center,
+                style =LocalTextStyle.current.merge(
+                    androidx.compose.ui.text.TextStyle(
+                        lineHeight = 1.5.em,
+                    )
+                )
+
+            )
+            Button(
+                onClick = {
+                    navController.navigate("recipeDetailsScreen")
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = TasteBudGreen,
+                    contentColor = Color.White
+                ),
+                modifier = Modifier
+                    .padding(24.dp)
+                    .height(52.dp)
+            ) {
+                Text("Generate Recipe...", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+            }
         }
     }
 }
@@ -64,123 +89,98 @@ fun RandomRecipeContent(navController: NavController, innerPadding: PaddingValue
 @Composable
 fun PickRandomRecipe(sharedViewModel: SharedViewModel){
 
-    val randomNumber =  Random.nextInt(0, 3)
-    Log.d("myTag", "${randomNumber}");
-    val testIngredientList: List<Ingredient>
-    val steps: List<Instruction>
-    val pickedRecipe: Recipe
-    when (randomNumber) {
-        0 -> {
-            testIngredientList = listOf(
-                Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-                Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-                Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-                Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-                Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-            )
+    val documentId =  Random.nextInt(0, 324)
+    Log.d("myTag", "${documentId}");
+    val testIngredientList = mutableListOf<Ingredient>()
+    var pickedRecipe: Recipe
 
-             steps = listOf(
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
-                    Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(
-                    Equipment("1","Pan","")
-                )),
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(
-                    Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")
-                ), listOf(
-                    Equipment("2","Pan","")
-                ))
-            )
+    val db = FirebaseFirestore.getInstance()
+    val docRef = db.collection("Recipes").document(documentId.toString())
 
-            pickedRecipe = Recipe(
-                "656329",
-                "Pizza bites with pumpkin",
-                "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-                "20 min",
-                2,
-                listOf("Nordic"),
-                true,
-                false,
-                true,
-                false,
-                false,
-                true,
-                "Medium",
-                testIngredientList,
-                steps,
-            )
-        }
-        1 -> {
-             testIngredientList = listOf(
-                Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-                Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-                Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-                Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-                Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-            )
+    docRef.get()
+        .addOnSuccessListener { document ->
+            if (document.exists()) {
+                val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
+                //For ingredients mapping
+                for (ingredientData in ingredients) {
+                    var name = ingredientData["name"] as? String
+                    val quantity = ingredientData["amount"].toString()
+                    var unit = ingredientData["unit"] as? String
+                    val id = ingredientData["id"].toString()
+                    var og = ingredientData["original"] as? String
+                    var image = ingredientData["image"] as? String
+                    if(name == null){
+                        name =""
+                    }
+                    if(unit == null){
+                        unit =""
+                    }
+                    if(og == null){
+                        og =""
+                    }
+                    if(image == null){
+                        image =""
+                    }
+                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
+                    testIngredientList.add(ingredient)
+                }
+                val steps = mutableListOf<Instruction>()
+                
+                val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
+                for(instructionData in instructions) {
+                    val stepNum = instructionData["number"] as Long
+                    val step = instructionData["step"].toString()
 
-             steps = listOf(
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                    Equipment("1","Pan","")
-                )),
-                Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                    Equipment("2","Pan","")
-                ))
-            )
+                    val equipmentList = mutableListOf<Equipment>()
+                    //val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
+                    val equipment = instructionData["equipment"] as List<Map<String, Any>>
+                    for(equipmentData in equipment) {
+                        val id = equipmentData["id"].toString()
+                        val name = equipmentData["name"].toString()
+                        val image = equipmentData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        equipmentList.add(e)
+                    }
 
-             pickedRecipe = Recipe(
-                "656329",
-                "Pumpkin Pizza",
-                "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-                "20 min",
-                2,
-                listOf("Nordic"),
-                true,
-                false,
-                true,
-                false,
-                false,
-                true,
-                 "Medium",
-                testIngredientList,
-                steps,
-            )}
-            else -> {
-                testIngredientList = listOf(
-                    Ingredient("1", "Flour", "2 cups of flour", "", "2 cups", "cups"),
-                    Ingredient("2", "Cheese", "2 cups of cheese", "", "2 cups", "cups"),
-                    Ingredient("3", "Tomato Sauce", "2 cups of tomato sauce", "", "2 cups", "cups"),
-                    Ingredient("4", "Mushroom", "2 cups of mushroom", "", "2 cups", "cups"),
-                    Ingredient("5", "oil", "2 cups of oil", "", "2 cups", "cups")
-                )
+                    val instructionIngredientsList = mutableListOf<Equipment>()
+                    val i = instructionData["ingredients"] as List<Map<String, Any>>
+                    for(instructionIngredientData in i) {
+                        val id = instructionIngredientData["id"].toString()
+                        val name = instructionIngredientData["name"].toString()
+                        val image = instructionIngredientData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        instructionIngredientsList.add(e)
+                    }
 
-                steps = listOf(
-                    Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("1", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                        Equipment("1","Pan","")
-                    )),
-                    Instruction(1,"Chop pumpkin using a food processor until rice-like.", listOf(Ingredient("2", "pumpkin", "2 slices of pumplin", "","2 cups", "cups")), listOf(
-                        Equipment("2","Pan","")
-                    ))
-                )
+                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+                    steps.add(instruction)
+
+                }
 
                 pickedRecipe = Recipe(
-                    "656329",
-                    "Pepperoni Pizza",
-                    "https://spoonacular.com/recipeImages/656329-312x231.jpg",
-                    "20 min",
-                    2,
-                    listOf("Nordic"),
-                    true,
-                    false,
-                    true,
-                    false,
-                    false,
-                    true,
-                    "Easy",
+                    (document.data?.get("id")).toString(),
+                    (document.data?.get("title")).toString(),
+                    (document.data?.get("image")).toString(),
+                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("servings")) as Long,
+                    (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("vegetarian")) as Boolean,
+                    (document.data?.get("vegan")) as Boolean,
+                    (document.data?.get("glutenFree")) as Boolean,
+                    (document.data?.get("dairyFree")) as Boolean,
+                    (document.data?.get("veryHealthy")) as Boolean,
+                    (document.data?.get("cheap")) as Boolean,
+                    (document.data?.get("difficulty")).toString(),
                     testIngredientList,
-                    steps,
+                    steps
                 )
+                sharedViewModel.addRecipe(pickedRecipe)
+            } else {
+                println("No such document")
             }
         }
-    sharedViewModel.addRecipe(pickedRecipe)
+        .addOnFailureListener { exception ->
+            println("Error getting documents: $exception")
+        }
+
     }
