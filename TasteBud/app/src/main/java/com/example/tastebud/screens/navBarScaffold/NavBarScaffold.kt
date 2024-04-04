@@ -1,7 +1,7 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -112,7 +112,7 @@ fun NavBarScaffold(navController: NavController, title: String, createContent: @
                     }
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.MenuBook,
+                        imageVector = Icons.Filled.MenuBook,
                         modifier = Modifier.size(50.dp),
                         contentDescription = "Journey"
                     )
