@@ -38,6 +38,8 @@ import com.example.tastebud.ui.theme.TasteBudCard
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.example.tastebud.ui.theme.TasteBudOrange
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 
 data class Dish(val name: String, val cuisine: String, val imageUri: String)
@@ -51,7 +53,7 @@ fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
-    
+
     val recipe1 = getRecipe(29)
     val recipe2 = getRecipe(120)
     val recipe3 = getRecipe(92)
@@ -208,7 +210,227 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
 fun getRecipe(documentId: Int): Recipe {
     val db = FirebaseFirestore.getInstance()
     val docRef = db.collection("Recipes").document(documentId.toString())
-    var pickedRecipe: Recipe = recipePaniPuri
+    // var pickedRecipe: Recipe = recipePaniPuri
+    return runBlocking {
+        try {
+            val document = docRef.get().await()
+            if (document.exists()) {
+                val steps = mutableListOf<Instruction>()
+                val testIngredientList = mutableListOf<Ingredient>()
+                val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
+                //For ingredients mapping
+                for (ingredientData in ingredients) {
+                    var name = ingredientData["name"] as? String
+                    val quantity = ingredientData["amount"].toString()
+                    var unit = ingredientData["unit"] as? String
+                    val id = ingredientData["id"].toString()
+                    var og = ingredientData["original"] as? String
+                    var image = ingredientData["image"] as? String
+                    if(name == null){
+                        name =""
+                    }
+                    if(unit == null){
+                        unit =""
+                    }
+                    if(og == null){
+                        og =""
+                    }
+                    if(image == null){
+                        image =""
+                    }
+                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
+                    testIngredientList.add(ingredient)
+                }
+
+                val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
+                for(instructionData in instructions) {
+                    val stepNum = instructionData["number"] as Long
+                    val step = instructionData["step"].toString()
+
+                    val equipmentList = mutableListOf<Equipment>()
+                    val equipment = instructionData["equipment"] as List<Map<String, Any>>
+                    for(equipmentData in equipment) {
+                        val id = equipmentData["id"].toString()
+                        val name = equipmentData["name"].toString()
+                        val image = equipmentData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        equipmentList.add(e)
+                    }
+
+                    val instructionIngredientsList = mutableListOf<Equipment>()
+                    val i = instructionData["ingredients"] as List<Map<String, Any>>
+                    for(instructionIngredientData in i) {
+                        val id = instructionIngredientData["id"].toString()
+                        val name = instructionIngredientData["name"].toString()
+                        val image = instructionIngredientData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        instructionIngredientsList.add(e)
+                    }
+
+                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+                    steps.add(instruction)
+
+                }
+
+                Recipe(
+                    (document.data?.get("id")).toString(),
+                    (document.data?.get("title")).toString(),
+                    (document.data?.get("image")).toString(),
+                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("servings")) as Long,
+                    (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("vegetarian")) as Boolean,
+                    (document.data?.get("vegan")) as Boolean,
+                    (document.data?.get("glutenFree")) as Boolean,
+                    (document.data?.get("dairyFree")) as Boolean,
+                    (document.data?.get("veryHealthy")) as Boolean,
+                    (document.data?.get("cheap")) as Boolean,
+                    (document.data?.get("difficulty")).toString(),
+                    testIngredientList,
+                    steps
+                )
+            } else {
+                Log.d("hi", "error")
+                // Return a default recipe or handle the absence of the document
+                // For now, returning an empty recipe
+                Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+            }
+        } catch (e: Exception) {
+            Log.e("hi", "Error getting document: $e")
+            // Handle exception
+            // For now, returning an empty recipe
+            Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+        }
+    }
+}
+
+//      docRef.get()
+//          .addOnSuccessListener { document ->
+//              if (document.exists()) {
+//                  val steps = mutableListOf<Instruction>()
+//                  val testIngredientList = mutableListOf<Ingredient>()
+//                  val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
+//                  //For ingredients mapping
+//                  for (ingredientData in ingredients) {
+//                      var name = ingredientData["name"] as? String
+//                      val quantity = ingredientData["amount"].toString()
+//                      var unit = ingredientData["unit"] as? String
+//                      val id = ingredientData["id"].toString()
+//                      var og = ingredientData["original"] as? String
+//                      var image = ingredientData["image"] as? String
+//                      if(name == null){
+//                          name =""
+//                      }
+//                      if(unit == null){
+//                          unit =""
+//                      }
+//                      if(og == null){
+//                          og =""
+//                      }
+//                      if(image == null){
+//                          image =""
+//                      }
+//                      val ingredient = Ingredient(id, name, og, image, quantity, unit)
+//                      testIngredientList.add(ingredient)
+//                  }
+                
+//                  val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
+//                  for(instructionData in instructions) {
+//                      val stepNum = instructionData["number"] as Long
+//                      val step = instructionData["step"].toString()
+
+//                      val equipmentList = mutableListOf<Equipment>()
+//                      //val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
+//                      val equipment = instructionData["equipment"] as List<Map<String, Any>>
+//                      for(equipmentData in equipment) {
+//                          val id = equipmentData["id"].toString()
+//                          val name = equipmentData["name"].toString()
+//                          val image = equipmentData["image"].toString()
+//                          val e = Equipment(id, name, image)
+//                          equipmentList.add(e)
+//                      }
+
+//                      val instructionIngredientsList = mutableListOf<Equipment>()
+//                      val i = instructionData["ingredients"] as List<Map<String, Any>>
+//                      for(instructionIngredientData in i) {
+//                          val id = instructionIngredientData["id"].toString()
+//                          val name = instructionIngredientData["name"].toString()
+//                          val image = instructionIngredientData["image"].toString()
+//                          val e = Equipment(id, name, image)
+//                          instructionIngredientsList.add(e)
+//                      }
+
+//                      val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+//                      steps.add(instruction)
+
+//                  }
+
+//                  val pickedRecipe1 = Recipe(
+//                      (document.data?.get("id")).toString(),
+//                      (document.data?.get("title")).toString(),
+//                      (document.data?.get("image")).toString(),
+//                      (document.data?.get("readyInMinutes")).toString() + " mins",
+//                      (document.data?.get("servings")) as Long,
+//                      (document.data?.get("cuisines")) as List<String>,
+//                      (document.data?.get("vegetarian")) as Boolean,
+//                      (document.data?.get("vegan")) as Boolean,
+//                      (document.data?.get("glutenFree")) as Boolean,
+//                      (document.data?.get("dairyFree")) as Boolean,
+//                      (document.data?.get("veryHealthy")) as Boolean,
+//                      (document.data?.get("cheap")) as Boolean,
+//                      (document.data?.get("difficulty")).toString(),
+//                      testIngredientList,
+//                      steps
+//                  )
+//                  pickedRecipe = pickedRecipe1
+//              } else {
+//                  Log.d("hi", "error")
+//              }
+//          }
+//          .addOnFailureListener { exception ->
+//              //println("Error getting documents: $exception")
+//              Log.d("hi", "error")
+//          }
+    
+//      // pickedRecipe = recipeGnocchi
+//      return pickedRecipe
+//  }
+
+
+// val ingredientListPaniPuri = listOf(
+//     Ingredient("1", "Semolina (Sooji)", "1 cup of semolina (sooji)", "", "1 cup", "cup"),
+//     Ingredient("2", "All-purpose flour", "1/2 cup of all-purpose flour", "", "1/2 cup", "cup"),
+//     Ingredient("3", "Baking soda", "1/4 teaspoon of baking soda", "", "1/4 teaspoon", "teaspoon"),
+//     Ingredient("4", "Salt", "1/2 teaspoon of salt", "", "1/2 teaspoon", "teaspoon"),
+//     Ingredient("5", "Water", "1/2 cup of water (adjust as needed)", "", "1/2 cup", "cup"),
+//     Ingredient("6", "Oil", "For deep frying", "", "As needed", ""),
+//     Ingredient("7", "Pani Puri Filling", "Prepared filling such as boiled chickpeas, mashed potatoes, chopped onions, tamarind chutney, spicy water, etc.", "", "As needed", "")
+// )
+
+// val stepsPaniPuri = listOf(
+//     Instruction(1, "In a mixing bowl, combine semolina, all-purpose flour, baking soda, and salt.", listOf(
+//         Equipment("1", "Semolina (Sooji)", "1 cup of semolina (sooji)"),
+//         Equipment("2", "All-purpose flour", "1/2 cup of all-purpose flour"),
+//         Equipment("3", "Baking soda", "1/4 teaspoon of baking soda"),
+//         Equipment("4", "Salt", "1/2 teaspoon of salt")
+//     ), listOf(
+//         Equipment("1", "Mixing bowl", "")
+//     )),
+//     Instruction(2, "Gradually add water to the dry ingredients and knead into a smooth dough. Cover the dough and let it rest for 15-20 minutes.", listOf(
+//         Equipment("5", "Water", "1/2 cup of water (adjust as needed)")
+//     ), listOf(
+//         Equipment("2", "Cover", "")
+//     )),
+//     Instruction(3, "Divide the dough into small balls. Roll out each ball into a thin circle (puri) using a rolling pin.", listOf(), listOf(
+//         Equipment("3", "Rolling pin", "")
+//     )),
+//     Instruction(4, "Heat oil in a deep frying pan. Fry the rolled out puris until they puff up and turn golden brown. Remove and drain excess oil on paper towels.", listOf(
+//         Equipment("6", "Oil", "For deep frying")
+//     ), listOf(
+//         Equipment("4", "Deep frying pan", ""),
+//         Equipment("5", "Paper towels", "")
+//     ))
+// )
 
 //    return try {
 //        val document = docRef.get().await()
@@ -296,134 +518,6 @@ fun getRecipe(documentId: Int): Recipe {
 //        println("no such doc")
 //    }
 //}
-     docRef.get()
-         .addOnSuccessListener { document ->
-             if (document.exists()) {
-                 val steps = mutableListOf<Instruction>()
-                 val testIngredientList = mutableListOf<Ingredient>()
-                 val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
-                 //For ingredients mapping
-                 for (ingredientData in ingredients) {
-                     var name = ingredientData["name"] as? String
-                     val quantity = ingredientData["amount"].toString()
-                     var unit = ingredientData["unit"] as? String
-                     val id = ingredientData["id"].toString()
-                     var og = ingredientData["original"] as? String
-                     var image = ingredientData["image"] as? String
-                     if(name == null){
-                         name =""
-                     }
-                     if(unit == null){
-                         unit =""
-                     }
-                     if(og == null){
-                         og =""
-                     }
-                     if(image == null){
-                         image =""
-                     }
-                     val ingredient = Ingredient(id, name, og, image, quantity, unit)
-                     testIngredientList.add(ingredient)
-                 }
-                
-                 val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
-                 for(instructionData in instructions) {
-                     val stepNum = instructionData["number"] as Long
-                     val step = instructionData["step"].toString()
-
-                     val equipmentList = mutableListOf<Equipment>()
-                     //val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
-                     val equipment = instructionData["equipment"] as List<Map<String, Any>>
-                     for(equipmentData in equipment) {
-                         val id = equipmentData["id"].toString()
-                         val name = equipmentData["name"].toString()
-                         val image = equipmentData["image"].toString()
-                         val e = Equipment(id, name, image)
-                         equipmentList.add(e)
-                     }
-
-                     val instructionIngredientsList = mutableListOf<Equipment>()
-                     val i = instructionData["ingredients"] as List<Map<String, Any>>
-                     for(instructionIngredientData in i) {
-                         val id = instructionIngredientData["id"].toString()
-                         val name = instructionIngredientData["name"].toString()
-                         val image = instructionIngredientData["image"].toString()
-                         val e = Equipment(id, name, image)
-                         instructionIngredientsList.add(e)
-                     }
-
-                     val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
-                     steps.add(instruction)
-
-                 }
-
-                 val pickedRecipe1 = Recipe(
-                     (document.data?.get("id")).toString(),
-                     (document.data?.get("title")).toString(),
-                     (document.data?.get("image")).toString(),
-                     (document.data?.get("readyInMinutes")).toString() + " mins",
-                     (document.data?.get("servings")) as Long,
-                     (document.data?.get("cuisines")) as List<String>,
-                     (document.data?.get("vegetarian")) as Boolean,
-                     (document.data?.get("vegan")) as Boolean,
-                     (document.data?.get("glutenFree")) as Boolean,
-                     (document.data?.get("dairyFree")) as Boolean,
-                     (document.data?.get("veryHealthy")) as Boolean,
-                     (document.data?.get("cheap")) as Boolean,
-                     (document.data?.get("difficulty")).toString(),
-                     testIngredientList,
-                     steps
-                 )
-                 pickedRecipe = pickedRecipe1
-             } else {
-                 Log.d("hi", "error")
-             }
-         }
-         .addOnFailureListener { exception ->
-             //println("Error getting documents: $exception")
-             Log.d("hi", "error")
-         }
-    
-     // pickedRecipe = recipeGnocchi
-     return pickedRecipe
- }
-
-
-// val ingredientListPaniPuri = listOf(
-//     Ingredient("1", "Semolina (Sooji)", "1 cup of semolina (sooji)", "", "1 cup", "cup"),
-//     Ingredient("2", "All-purpose flour", "1/2 cup of all-purpose flour", "", "1/2 cup", "cup"),
-//     Ingredient("3", "Baking soda", "1/4 teaspoon of baking soda", "", "1/4 teaspoon", "teaspoon"),
-//     Ingredient("4", "Salt", "1/2 teaspoon of salt", "", "1/2 teaspoon", "teaspoon"),
-//     Ingredient("5", "Water", "1/2 cup of water (adjust as needed)", "", "1/2 cup", "cup"),
-//     Ingredient("6", "Oil", "For deep frying", "", "As needed", ""),
-//     Ingredient("7", "Pani Puri Filling", "Prepared filling such as boiled chickpeas, mashed potatoes, chopped onions, tamarind chutney, spicy water, etc.", "", "As needed", "")
-// )
-
-// val stepsPaniPuri = listOf(
-//     Instruction(1, "In a mixing bowl, combine semolina, all-purpose flour, baking soda, and salt.", listOf(
-//         Equipment("1", "Semolina (Sooji)", "1 cup of semolina (sooji)"),
-//         Equipment("2", "All-purpose flour", "1/2 cup of all-purpose flour"),
-//         Equipment("3", "Baking soda", "1/4 teaspoon of baking soda"),
-//         Equipment("4", "Salt", "1/2 teaspoon of salt")
-//     ), listOf(
-//         Equipment("1", "Mixing bowl", "")
-//     )),
-//     Instruction(2, "Gradually add water to the dry ingredients and knead into a smooth dough. Cover the dough and let it rest for 15-20 minutes.", listOf(
-//         Equipment("5", "Water", "1/2 cup of water (adjust as needed)")
-//     ), listOf(
-//         Equipment("2", "Cover", "")
-//     )),
-//     Instruction(3, "Divide the dough into small balls. Roll out each ball into a thin circle (puri) using a rolling pin.", listOf(), listOf(
-//         Equipment("3", "Rolling pin", "")
-//     )),
-//     Instruction(4, "Heat oil in a deep frying pan. Fry the rolled out puris until they puff up and turn golden brown. Remove and drain excess oil on paper towels.", listOf(
-//         Equipment("6", "Oil", "For deep frying")
-//     ), listOf(
-//         Equipment("4", "Deep frying pan", ""),
-//         Equipment("5", "Paper towels", "")
-//     ))
-// )
-
 val recipePaniPuri = Recipe(
     "2",
     "Pani Puri",
