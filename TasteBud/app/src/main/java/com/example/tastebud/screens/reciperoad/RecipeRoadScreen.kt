@@ -125,13 +125,13 @@ fun setIndianRecipes() : List<Recipe>{
 
     val steps1 = listOf(
         Instruction(1, "Rinse the rice under cold water until the water runs clear.", listOf(
-            Ingredient("1", "Basmati Rice", "2 cups of basmati rice", "", "2 cups", "cups")
+            Equipment("1", "Strainer", "")
         ), listOf(
             Equipment("1", "Strainer", "")
         )),
         Instruction(2, "In a large saucepan, heat ghee over medium heat. Add cumin seeds and let them sizzle for 1 minute.", listOf(
-            Ingredient("4", "Cumin Seeds", "1 tablespoon of cumin seeds", "", "1 tablespoon", "tablespoon"),
-            Ingredient("5", "Ghee", "1 tablespoon of ghee", "", "1 tablespoon", "tablespoon")
+            Equipment("1", "Strainer", ""),
+                    Equipment("1", "Strainer", "")
         ), listOf(
             Equipment("2", "Saucepan", "")
         ))
@@ -165,13 +165,13 @@ fun setIndianRecipes() : List<Recipe>{
 
     val steps2 = listOf(
         Instruction(1, "Heat oil in a pan over medium heat. Add onions and cook until golden brown.", listOf(
-            Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", "")
+            Equipment("1", "Strainer", "")
         ), listOf(
             Equipment("1", "Pan", "")
         )),
         Instruction(2, "Add ginger and garlic, cook for another minute until fragrant.", listOf(
-            Ingredient("4", "Ginger", "1 tablespoon of grated ginger", "", "1 tablespoon", "tablespoon"),
-            Ingredient("5", "Garlic", "3 cloves of garlic, minced", "", "3 cloves", "")
+            Equipment("1", "Strainer", ""),
+                    Equipment("1", "Strainer", "")
         ), emptyList())
     )
 
@@ -203,13 +203,13 @@ fun setIndianRecipes() : List<Recipe>{
 
     val steps3 = listOf(
         Instruction(1, "Marinate paneer cubes with yogurt, garam masala, turmeric powder, and salt. Let it sit for 30 minutes.", listOf(
-            Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams"),
-            Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-            Ingredient("3", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-            Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon")
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+                    Equipment("1", "Strainer", "")
         ), emptyList()),
         Instruction(2, "Heat oil in a pan over medium heat. Add marinated paneer and cook until golden brown.", listOf(
-            Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams")
+            Equipment("1", "Strainer", "")
         ), listOf(
             Equipment("1", "Pan", "")
         ))
@@ -242,22 +242,22 @@ fun setIndianRecipes() : List<Recipe>{
 
     val steps4 = listOf(
         Instruction(1, "Rinse the lentils under cold water until the water runs clear. Drain and set aside.", listOf(
-            Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup")
+            Equipment("1", "Strainer", "")
         ), emptyList()),
         Instruction(2, "Heat oil in a pressure cooker. Add cumin seeds and let them sizzle for a few seconds.", listOf(
-            Ingredient("5", "Cumin Seeds", "1 teaspoon of cumin seeds", "", "1 teaspoon", "teaspoon")
+            Equipment("1", "Strainer", "")
         ), listOf(
             Equipment("1", "Pressure Cooker", "")
         )),
         Instruction(3, "Add chopped onions and sauté until golden brown.", listOf(
-            Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", "")
+            Equipment("1", "Strainer", "")
         ), emptyList()),
         Instruction(4, "Add chopped tomatoes, turmeric powder, and salt. Cook until tomatoes are soft and oil separates.", listOf(
-            Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
-            Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon")
+            Equipment("1", "Strainer", ""),
+                    Equipment("1", "Strainer", "")
         ), emptyList()),
         Instruction(5, "Add rinsed lentils and water. Close the lid and pressure cook for 4 whistles.", listOf(
-            Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup")
+            Equipment("1", "Strainer", "")
         ), listOf(
             Equipment("1", "Pressure Cooker", "")
         )),
@@ -298,25 +298,25 @@ fun setIndianRecipes() : List<Recipe>{
 
     val steps5 = listOf(
         Instruction(1, "In a large bowl, mix yogurt, ginger-garlic paste, turmeric powder, red chili powder, garam masala, coriander powder, salt, and lemon juice.", listOf(
-            Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-            Ingredient("3", "Ginger-Garlic Paste", "2 tablespoons of ginger-garlic paste", "", "2 tablespoons", "tablespoons"),
-            Ingredient("4", "Turmeric Powder", "1 teaspoon of turmeric powder", "", "1 teaspoon", "teaspoon"),
-            Ingredient("5", "Red Chili Powder", "1 teaspoon of red chili powder", "", "1 teaspoon", "teaspoon"),
-            Ingredient("6", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-            Ingredient("7", "Coriander Powder", "1 teaspoon of coriander powder", "", "1 teaspoon", "teaspoon"),
-            Ingredient("8", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-            Ingredient("9", "Lemon Juice", "2 tablespoons of lemon juice", "", "2 tablespoons", "tablespoons")
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
+            Equipment("1", "Strainer", ""),
         ), emptyList()),
         Instruction(2, "Add diced chicken pieces to the marinade. Coat the chicken well with the marinade. Cover and refrigerate for at least 1 hour, or overnight for best results.", listOf(
-            Ingredient("1", "Chicken", "500g chicken breast, diced", "", "500g", "grams")
+            Equipment("1", "Strainer", ""),
         ), emptyList()),
         Instruction(3, "Heat oil in a pan over medium-high heat. Add marinated chicken pieces and cook until golden brown and cooked through, about 8-10 minutes.", listOf(
-            Ingredient("10", "Cooking Oil", "2 tablespoons of cooking oil", "", "2 tablespoons", "tablespoons")
+            Equipment("1", "Strainer", ""),
         ), listOf(
             Equipment("1", "Pan", "")
         )),
         Instruction(4, "Garnish with chopped coriander leaves before serving. Serve hot with rice, naan, or roti.", listOf(
-            Ingredient("11", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
+            Equipment("1", "Strainer", ""),
         ), emptyList())
     )
 
