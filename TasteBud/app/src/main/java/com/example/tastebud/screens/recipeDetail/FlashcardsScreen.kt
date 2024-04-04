@@ -11,6 +11,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +28,7 @@ import com.example.tastebud.screens.SharedViewModel
 
 import kotlinx.coroutines.launch
 import com.example.tastebud.data.Instruction
+import com.example.tastebud.ui.theme.TasteBudGreen
 
 @Composable
 fun FlashcardsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
@@ -147,7 +149,11 @@ fun RecipeStepsPager(steps: List<Instruction>) {
             Button(
                 onClick = { coroutineScope.launch{
                     pagerState.animateScrollToPage(pagerState.currentPage - 1)}},
-                enabled = pagerState.currentPage > 0
+                enabled = pagerState.currentPage > 0,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = TasteBudGreen
+                )
+
             ) {
                 Text("Back", fontSize = 24.sp,modifier = Modifier
                     .padding(15.dp))
@@ -155,7 +161,10 @@ fun RecipeStepsPager(steps: List<Instruction>) {
             Button(
                 onClick = {coroutineScope.launch{
                     pagerState.animateScrollToPage(pagerState.currentPage + 1)} },
-                enabled = pagerState.currentPage < pageCount - 1
+                enabled = pagerState.currentPage < pageCount - 1,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = TasteBudGreen)
+
             ) {
                 Text("Next",fontSize = 24.sp, modifier = Modifier
                     .padding(15.dp))
