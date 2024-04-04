@@ -1,10 +1,9 @@
 package com.example.tastebud.data
 
+import SpoonacularAPI
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 @kotlinx.parcelize.Parcelize
@@ -25,3 +24,10 @@ data class Recipe(
     val ingredients: List<Ingredient>,
     val steps: List<Instruction>,
 ): Parcelable
+
+var retrofit = Retrofit.Builder()
+    .baseUrl("https://api.spoonacular.com/")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+var api = retrofit.create(SpoonacularAPI::class.java)
