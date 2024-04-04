@@ -127,7 +127,7 @@ fun RecipeStepsPager(steps: List<Instruction>) {
         ) {
             items(steps) { step ->
                 val stepNumber = step.stepNumber
-                val color = if (pagerState.currentPage == stepNumber - 1) Color.DarkGray else Color.LightGray
+                val color = if (pagerState.currentPage == stepNumber.toInt() - 1) Color.DarkGray else Color.LightGray
                 Box(
                     modifier = Modifier.padding(8.dp)
                         .background(color, CircleShape)

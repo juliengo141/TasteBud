@@ -208,15 +208,15 @@ val ingredientListPaniPuri = listOf(
 
 val stepsPaniPuri = listOf(
     Instruction(1, "In a mixing bowl, combine semolina, all-purpose flour, baking soda, and salt.", listOf(
-        Ingredient("1", "Semolina (Sooji)", "1 cup of semolina (sooji)", "", "1 cup", "cup"),
-        Ingredient("2", "All-purpose flour", "1/2 cup of all-purpose flour", "", "1/2 cup", "cup"),
-        Ingredient("3", "Baking soda", "1/4 teaspoon of baking soda", "", "1/4 teaspoon", "teaspoon"),
-        Ingredient("4", "Salt", "1/2 teaspoon of salt", "", "1/2 teaspoon", "teaspoon")
+        Equipment("1", "Semolina (Sooji)", "1 cup of semolina (sooji)"),
+        Equipment("2", "All-purpose flour", "1/2 cup of all-purpose flour"),
+        Equipment("3", "Baking soda", "1/4 teaspoon of baking soda"),
+        Equipment("4", "Salt", "1/2 teaspoon of salt")
     ), listOf(
         Equipment("1", "Mixing bowl", "")
     )),
     Instruction(2, "Gradually add water to the dry ingredients and knead into a smooth dough. Cover the dough and let it rest for 15-20 minutes.", listOf(
-        Ingredient("5", "Water", "1/2 cup of water (adjust as needed)", "", "1/2 cup", "cup")
+        Equipment("5", "Water", "1/2 cup of water (adjust as needed)")
     ), listOf(
         Equipment("2", "Cover", "")
     )),
@@ -224,7 +224,7 @@ val stepsPaniPuri = listOf(
         Equipment("3", "Rolling pin", "")
     )),
     Instruction(4, "Heat oil in a deep frying pan. Fry the rolled out puris until they puff up and turn golden brown. Remove and drain excess oil on paper towels.", listOf(
-        Ingredient("6", "Oil", "For deep frying", "", "As needed", "")
+        Equipment("6", "Oil", "For deep frying")
     ), listOf(
         Equipment("4", "Deep frying pan", ""),
         Equipment("5", "Paper towels", "")
@@ -259,7 +259,7 @@ val ingredientListGnocchi = listOf(
 
 val stepsGnocchi = listOf(
     Instruction(1, "Boil the potatoes in their skins until fork-tender, about 30-40 minutes. Drain and let them cool slightly.", listOf(
-        Ingredient("1", "Potatoes", "2 large potatoes (about 1 kg)", "", "2 large potatoes", "")
+        Equipment("1", "Potatoes", "2 large potatoes (about 1 kg)")
     ), listOf(
         Equipment("1", "Pot", ""),
         Equipment("2", "Colander", "")
@@ -268,10 +268,10 @@ val stepsGnocchi = listOf(
         Equipment("3", "Potato masher or ricer", "")
     )),
     Instruction(3, "In a large mixing bowl, combine the mashed potatoes with the flour, salt, egg, and Parmesan cheese. Mix until a dough forms.", listOf(
-        Ingredient("2", "All-purpose flour", "1 1/2 cups of all-purpose flour (plus more for dusting)", "", "1 1/2 cups", "cup"),
-        Ingredient("3", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-        Ingredient("4", "Egg", "1 large egg", "", "1", ""),
-        Ingredient("5", "Parmesan cheese", "1/4 cup of grated Parmesan cheese", "", "1/4 cup", "cup")
+        Equipment("2", "All-purpose flour", "1 1/2 cups of all-purpose flour (plus more for dusting)"),
+        Equipment("3", "Salt", "1 teaspoon of salt"),
+        Equipment("4", "Egg", "1 large egg"),
+        Equipment("5", "Parmesan cheese", "1/4 cup of grated Parmesan cheese")
     ), listOf(
         Equipment("4", "Mixing bowl", "")
     )),
@@ -326,30 +326,30 @@ val ingredientListChowMein = listOf(
 
 val stepsChowMein = listOf(
     Instruction(1, "Cook the chow mein noodles according to package instructions. Drain and set aside.", listOf(
-        Ingredient("1", "Chow Mein Noodles", "200g of chow mein noodles", "", "200g", "grams")
+        Equipment("1", "Chow Mein Noodles", "200g of chow mein noodles")
     ), listOf(
         Equipment("1", "Pot", ""),
         Equipment("2", "Colander", "")
     )),
     Instruction(2, "Heat vegetable oil in a large skillet or wok over medium-high heat. Add minced garlic and grated ginger, sauté for 1 minute until fragrant.", listOf(
-        Ingredient("6", "Garlic", "2 cloves of garlic, minced", "", "2 cloves", ""),
-        Ingredient("7", "Ginger", "1-inch piece of ginger, grated", "", "1-inch piece", ""),
-        Ingredient("9", "Vegetable Oil", "2 tablespoons of vegetable oil", "", "2 tablespoons", "tablespoons")
+        Equipment("6", "Garlic", "2 cloves of garlic, minced"),
+        Equipment("7", "Ginger", "1-inch piece of ginger, grated"),
+        Equipment("9", "Vegetable Oil", "2 tablespoons of vegetable oil")
     ), listOf(
         Equipment("3", "Skillet or wok", "")
     )),
     Instruction(3, "Add sliced chicken breasts to the skillet. Cook until they are no longer pink, about 5-6 minutes.", listOf(
-        Ingredient("2", "Chicken Breast", "2 chicken breasts, thinly sliced", "", "2", "")
+        Equipment("2", "Chicken Breast", "2 chicken breasts, thinly sliced")
     ), listOf()),
     Instruction(4, "Add the mixed vegetables to the skillet. Stir-fry for 2-3 minutes until they are tender yet crisp.", listOf(
-        Ingredient("3", "Vegetables", "2 cups of mixed vegetables (such as bell peppers, carrots, and cabbage), thinly sliced", "", "2 cups", "cups")
+        Equipment("3", "Vegetables", "2 cups of mixed vegetables (such as bell peppers, carrots, and cabbage), thinly sliced")
     ), listOf()),
     Instruction(5, "Add soy sauce, oyster sauce, sesame oil, salt, and black pepper. Mix well to combine.", listOf(
-        Ingredient("4", "Soy Sauce", "3 tablespoons of soy sauce", "", "3 tablespoons", "tablespoons"),
-        Ingredient("5", "Oyster Sauce", "2 tablespoons of oyster sauce", "", "2 tablespoons", "tablespoons"),
-        Ingredient("8", "Sesame Oil", "1 tablespoon of sesame oil", "", "1 tablespoon", "tablespoon"),
-        Ingredient("10", "Salt", "To taste", "", "To taste", ""),
-        Ingredient("11", "Black Pepper", "To taste", "", "To taste", "")
+        Equipment("4", "Soy Sauce", "3 tablespoons of soy sauce"),
+        Equipment("5", "Oyster Sauce", "2 tablespoons of oyster sauce"),
+        Equipment("8", "Sesame Oil", "1 tablespoon of sesame oil"),
+        Equipment("10", "Salt", "To taste"),
+        Equipment("11", "Black Pepper", "To taste")
     ), listOf()),
     Instruction(6, "Add the cooked chow mein noodles to the skillet. Toss everything together until the noodles are well coated with the sauce and heated through.", listOf(), listOf()),
     Instruction(7, "Serve hot and enjoy your delicious homemade chow mein!", listOf(), listOf())
@@ -390,15 +390,15 @@ val stepsBaklava = listOf(
         Equipment("1", "Oven", "")
     )),
     Instruction(2, "In a mixing bowl, combine finely chopped walnuts, sugar, and ground cinnamon.", listOf(
-        Ingredient("2", "Walnuts", "2 cups of walnuts, finely chopped", "", "2 cups", "cups"),
-        Ingredient("3", "Sugar", "1 cup of sugar", "", "1 cup", "cup"),
-        Ingredient("4", "Cinnamon", "1 teaspoon of ground cinnamon", "", "1 teaspoon", "teaspoon")
+        Equipment("2", "Walnuts", "2 cups of walnuts, finely chopped"),
+        Equipment("3", "Sugar", "1 cup of sugar"),
+        Equipment("4", "Cinnamon", "1 teaspoon of ground cinnamon")
     ), listOf(
         Equipment("2", "Mixing bowl", "")
     )),
     Instruction(3, "Brush the bottom of a baking dish with melted butter. Layer 2 sheets of phyllo dough in the dish, brushing each sheet with melted butter.", listOf(
-        Ingredient("1", "Phyllo Dough", "1 package of phyllo dough, thawed", "", "1 package", ""),
-        Ingredient("5", "Butter", "1 cup of melted butter", "", "1 cup", "cup")
+        Equipment("1", "Phyllo Dough", "1 package of phyllo dough, thawed"),
+        Equipment("5", "Butter", "1 cup of melted butter")
     ), listOf(
         Equipment("3", "Baking dish", ""),
         Equipment("4", "Pastry brush", "")
@@ -409,11 +409,11 @@ val stepsBaklava = listOf(
     )),
     Instruction(6, "Bake in the preheated oven for 45-50 minutes, or until the baklava is golden brown and crispy.", listOf(), listOf()),
     Instruction(7, "While the baklava is baking, prepare the syrup. In a saucepan, combine water, honey, sugar, lemon juice, and vanilla extract. Bring to a boil, then reduce the heat and simmer for 10-15 minutes until slightly thickened.", listOf(
-        Ingredient("6", "Water", "1/2 cup of water", "", "1/2 cup", "cup"),
-        Ingredient("7", "Honey", "1/2 cup of honey", "", "1/2 cup", "cup"),
-        Ingredient("3", "Sugar", "1 cup of sugar", "", "1 cup", "cup"),
-        Ingredient("9", "Lemon Juice", "1 tablespoon of lemon juice", "", "1 tablespoon", "tablespoon"),
-        Ingredient("8", "Vanilla Extract", "1 teaspoon of vanilla extract", "", "1 teaspoon", "teaspoon")
+        Equipment("6", "Water", "1/2 cup of water"),
+        Equipment("7", "Honey", "1/2 cup of honey"),
+        Equipment("3", "Sugar", "1 cup of sugar"),
+        Equipment("9", "Lemon Juice", "1 tablespoon of lemon juice"),
+        Equipment("8", "Vanilla Extract", "1 teaspoon of vanilla extract")
     ), listOf(
         Equipment("6", "Saucepan", "")
     )),
