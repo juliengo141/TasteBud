@@ -1,6 +1,5 @@
 package com.example.tastebud.screens.signUp
 
-import NavBarScaffold
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,8 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Security
@@ -21,13 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -38,6 +32,7 @@ import com.example.tastebud.ui.theme.TasteBudBackground
 import com.example.tastebud.ui.theme.TasteBudDarkGreen
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
 
@@ -209,6 +204,15 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                             } else {
                                 Log.d("AUTH", "Sign Up Failed: ${task.exception}")
                                 // Handle sign-up failure here
+                                if (task.exception is FirebaseAuthUserCollisionException) {
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar(
+                                            message = "User with this email already exist.",
+                                            actionLabel = "Dismiss",
+                                            duration = SnackbarDuration.Short,
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
