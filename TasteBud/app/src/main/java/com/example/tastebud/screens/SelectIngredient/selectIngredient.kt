@@ -2,19 +2,14 @@ package com.example.tastebud.screens.home
 
 import NavBarScaffold
 import android.util.Log
-import android.content.Context
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,6 +41,12 @@ fun SelectIngredientScreen(navController: NavController, sharedViewModel: Shared
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun selectContent(navController: NavController, innerPadding: PaddingValues, selectedIngredients: MutableList<String>, sharedViewModel: SharedViewModel) {
+    var message by remember { mutableStateOf("") }
+    if (sharedViewModel.recipeFound) {
+        message = "Choose which ingredients from your fridge you want to use to make your recipe with!"
+    } else {
+        message = "No recipes matching your combination of ingredients found. Please try a different set of ingredients!"
+    }
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -83,7 +84,6 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        var buttonHit = false
         var isRecipe = Recipe("", "", "", 0L, 2, listOf(), listOf(), false, false, false, false, false, false, "0", listOf(), listOf())
         Button(
             onClick = {
@@ -91,18 +91,21 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
                     if (ids != null) {
                         // Successfully fetched IDs
                         Log.d("IDs", "$ids")
-
                         isRecipe = PickIngredientsRecipe(sharedViewModel, ids)
+                        Log.d("IS_RECIPE", "${isRecipe}")
                         if(isRecipe.title != "") {
                             sharedViewModel.addRecipe(isRecipe)
+                            sharedViewModel.addRecipeFound(true)
                             navController.navigate("recipeDetailsScreen")
+                        } else {
+                            sharedViewModel.addRecipeFound(false)
                         }
                     } else {
                         // Failed to fetch IDs
                         Log.d("IDs", "Failed to fetch IDs")
+                        sharedViewModel.addRecipeFound(false)
                     }
                 }
-                buttonHit = true
                 Log.d("SelectedIngredients", selectedIngredients.toString())
             },
             colors = ButtonDefaults.buttonColors(
@@ -114,32 +117,11 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
         ) {
             Text(text = "Continue", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontFamily = Inter,)
         }
-        if((isRecipe.title == "" && buttonHit == false) || selectedIngredients.isEmpty()) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text="""
-                    Choose which ingredients from your fridge you want to use to make your recipe with!
-                """.trimIndent(),
-                fontFamily = Inter,
-            )
-        } else if(isRecipe.title == "" && buttonHit == true) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text="""
-                    No recipes matching your combination of ingredients found. Please try a different set of ingredients!
-                """.trimIndent(),
-                fontFamily = Inter,
-            )
-        } else {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text = """
-                    Choose which ingredients from your fridge you want to use to make your recipe with!
-                """.trimIndent(),
-                fontFamily = Inter,
-            )
-        }
-
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text= message,
+            fontFamily = Inter,
+        )
     }
 }
 
@@ -181,7 +163,7 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
 
     return runBlocking {
         try {
-            var documentId: String = ""
+            var documentId: String = "-1"
             for (id in ids) {
                 val document = docRef.whereEqualTo("id", id).get().await()
                 if (!document.isEmpty) {
