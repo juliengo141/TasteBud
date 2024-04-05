@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,11 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.tastebud.components.DifficultyStars
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 import com.example.tastebud.screens.SharedViewModel
+import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
@@ -59,7 +63,7 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .height(200.dp),
+            .height(220.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         onClick = {
@@ -96,11 +100,15 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Difficulty: ${recipe.difficulty}",
+                    text = "Difficulty:",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(Modifier.padding(15.dp, 0.dp)) {
+                    DifficultyStars(recipe.difficulty.toFloatOrNull()?.toInt() ?: 0)
+                }
             }
         }
     }
