@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tastebud.R
-import com.example.tastebud.components.HeadingTextComponent
 import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.ui.theme.Inter
 import com.example.tastebud.ui.theme.TasteBudBackground
