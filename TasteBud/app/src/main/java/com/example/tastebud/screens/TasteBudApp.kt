@@ -56,5 +56,15 @@ fun TasteBudApp() {
         ) {
             FlashcardsScreen(navController = navController, sharedViewModel)
         }
+        composable(
+            "SubstitutionsScreen"
+        ) {
+            SubstitutionsScreen(navController = navController, sharedViewModel)
+        }
+        composable(
+            "UserDietaryRestrictions"
+        ) {
+            UserDietaryRestrictionsScreen(navController = navController, sharedViewModel)
+        }
     }
 }

@@ -5,15 +5,12 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.magnifier
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import com.example.tastebud.data.Recipe
-
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
@@ -22,14 +19,11 @@ import com.example.tastebud.data.Ingredient
 import com.example.tastebud.screens.SharedViewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.example.tastebud.R
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.ui.theme.Inter
@@ -281,9 +275,10 @@ fun getRecipe(documentId: Int): Recipe {
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
                     (document.data?.get("image")).toString(),
-                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("readyInMinutes")) as Long,
                     (document.data?.get("servings")) as Long,
                     (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("diets")) as List<String>,
                     (document.data?.get("vegetarian")) as Boolean,
                     (document.data?.get("vegan")) as Boolean,
                     (document.data?.get("glutenFree")) as Boolean,
@@ -296,11 +291,11 @@ fun getRecipe(documentId: Int): Recipe {
                 )
             } else {
                 Log.d("DocumentNotFound", "error")
-                Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+                Recipe("", "", "", 0, 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
             }
         } catch (e: Exception) {
             Log.e("Error Exception", "Error getting document: $e")
-            Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+            Recipe("", "", "", 0, 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
         }
     }
 }

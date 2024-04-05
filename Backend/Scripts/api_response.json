@@ -5,195 +5,328 @@
   "dairyFree": false,
   "veryHealthy": false,
   "cheap": false,
-  "veryPopular": false,
-  "healthScore": 0,
-  "sourceName": "Foodista",
-  "pricePerServing": 130.39,
-  "id": 644462,
-  "title": "German Chocolate Drink with Xocai Healthy Chocolate",
+  "id": 636325,
+  "title": "Brownie Cheesecake",
   "readyInMinutes": 45,
-  "servings": 1,
-  "sourceUrl": "http://www.foodista.com/recipe/YBGH5ZML/german-chocolate-drink-with-xocai-healthy-chocolate",
-  "image": "https://img.spoonacular.com/recipes/644462-312x231.jpg",
+  "servings": 12,
+  "image": "https://img.spoonacular.com/recipes/636325-312x231.jpg",
   "cuisines": [
-    "German",
-    "European"
+    "American"
   ],
   "diets": [],
-  "occasions": [],
   "extendedIngredients": [
     {
-      "id": 93712,
-      "aisle": "Alcoholic Beverages",
-      "image": "creme-de-cacao.jpg",
-      "consistency": "SOLID",
-      "name": "creme de cocoa liqueur",
-      "nameClean": "creme de cacao",
-      "original": "1/4 oz Creme de Cocoa Liqueur",
-      "originalName": "Creme de Cocoa Liqueur",
-      "amount": 0.25,
-      "unit": "oz",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.25,
-          "unitShort": "oz",
-          "unitLong": "ounces"
-        },
-        "metric": {
-          "amount": 7.087,
-          "unitShort": "g",
-          "unitLong": "grams"
-        }
-      }
-    },
-    {
-      "id": 10218617,
-      "aisle": "Sweet Snacks",
-      "image": "graham-crackers.jpg",
-      "consistency": "SOLID",
-      "name": "xocai x power square",
-      "nameClean": "graham cracker squares",
-      "original": "1 Xocai X Power Square",
-      "originalName": "Xocai X Power Square",
+      "id": 10018192,
+      "image": "no.jpg",
+      "name": "cookie crumbs",
+      "original": "1-1 1/2 cups dry chocolate cake or cookie crumbs, depending on how much crust you like",
       "amount": 1.0,
-      "unit": "",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 1.0,
-          "unitShort": "",
-          "unitLong": ""
-        },
-        "metric": {
-          "amount": 1.0,
-          "unitShort": "",
-          "unitLong": ""
-        }
-      }
+      "unit": "cups"
     },
     {
-      "id": 1053,
-      "aisle": "Milk, Eggs, Other Dairy",
-      "image": "fluid-cream.jpg",
-      "consistency": "LIQUID",
-      "name": "heavy cream",
-      "nameClean": "cream",
-      "original": "1 dash heavy cream",
-      "originalName": "heavy cream",
+      "id": 1017,
+      "image": "cream-cheese.jpg",
+      "name": "cream cheese",
+      "original": "2 pounds cream cheese, at room temperature",
+      "amount": 2.0,
+      "unit": "pounds"
+    },
+    {
+      "id": 1123,
+      "image": "egg.png",
+      "name": "eggs",
+      "original": "2 eggs",
+      "amount": 2.0,
+      "unit": ""
+    },
+    {
+      "id": 10719335,
+      "image": "sugar-in-bowl.png",
+      "name": "granulated sugar",
+      "original": "1 1/2 cups granulated sugar",
+      "amount": 1.5,
+      "unit": "cups"
+    },
+    {
+      "id": 18632,
+      "image": "brownie-isolated.png",
+      "name": "brownies",
+      "original": "@16 1/2- 3/4 inch brownies",
+      "amount": 16.5,
+      "unit": "inch"
+    },
+    {
+      "id": 2047,
+      "image": "salt.jpg",
+      "name": "salt",
+      "original": "A pinch of salt",
       "amount": 1.0,
-      "unit": "dash",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 1.0,
-          "unitShort": "dash",
-          "unitLong": "dash"
-        },
-        "metric": {
-          "amount": 1.0,
-          "unitShort": "dash",
-          "unitLong": "dash"
-        }
-      }
+      "unit": "pinch"
     },
     {
-      "id": 10014412,
-      "aisle": "Frozen",
-      "image": "ice-cubes.png",
-      "consistency": "SOLID",
-      "name": "ice",
-      "nameClean": "ice",
-      "original": "5 cubes ice",
-      "originalName": "ice",
-      "amount": 5.0,
-      "unit": "cubes",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 5.0,
-          "unitShort": "cubes",
-          "unitLong": "cubes"
-        },
-        "metric": {
-          "amount": 5.0,
-          "unitShort": "cubes",
-          "unitLong": "cubes"
-        }
-      }
-    },
-    {
-      "id": 93716,
-      "aisle": "Alcoholic Beverages",
-      "image": "coffee-liqueur.jpg",
-      "consistency": "SOLID",
-      "name": "kahl\u00faa liqueur",
-      "nameClean": "coffee liqueur",
-      "original": "1/2 oz Kahl\u00faa Liqueur",
-      "originalName": "Kahl\u00faa Liqueur",
+      "id": 19335,
+      "image": "sugar-in-bowl.png",
+      "name": "sugar",
+      "original": "1/2 cup sugar (add another 1/4 to 1/2 cup if you like it sweet)",
       "amount": 0.5,
-      "unit": "oz",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.5,
-          "unitShort": "oz",
-          "unitLong": "ounces"
-        },
-        "metric": {
-          "amount": 14.175,
-          "unitShort": "g",
-          "unitLong": "grams"
-        }
-      }
+      "unit": "cup"
     },
     {
-      "id": 98988,
-      "aisle": "Alcoholic Beverages",
-      "image": "light-green-liqueur.png",
-      "consistency": "SOLID",
-      "name": "frangelico liqueur",
-      "nameClean": "pear liqueur",
-      "original": "1/4 oz Frangelico Liqueur",
-      "originalName": "Frangelico Liqueur",
-      "amount": 0.25,
-      "unit": "oz",
-      "meta": [],
-      "measures": {
-        "us": {
-          "amount": 0.25,
-          "unitShort": "oz",
-          "unitLong": "ounces"
-        },
-        "metric": {
-          "amount": 7.087,
-          "unitShort": "g",
-          "unitLong": "grams"
-        }
-      }
+      "id": 1145,
+      "image": "butter-sliced.jpg",
+      "name": "butter",
+      "original": "1/2 cup unsalted butter",
+      "amount": 0.5,
+      "unit": "cup"
+    },
+    {
+      "id": 1052050,
+      "image": "vanilla.jpg",
+      "name": "vanilla",
+      "original": "1 teaspoon vanilla",
+      "amount": 1.0,
+      "unit": "teaspoon"
     }
   ],
   "analyzedInstructions": [
     {
-      "number": 1,
-      "step": "Garnish with Orange Peel and/or shaved Xocai X Power Square.",
-      "ingredients": [
+      "equipment": [
         {
-          "id": 9216,
-          "name": "orange zest",
-          "localizedName": "orange zest",
-          "image": "https://spoonacular.com/cdn/ingredients_100x100/orange-zest.png"
+          "id": 405907,
+          "name": "mixing bowl",
+          "localizedName": "mixing bowl",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/mixing-bowl.jpg"
         }
       ],
-      "equipment": []
+      "ingredients": [
+        {
+          "id": 1001,
+          "name": "butter",
+          "localizedName": "butter",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg"
+        },
+        {
+          "id": 19335,
+          "name": "sugar",
+          "localizedName": "sugar",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/sugar-in-bowl.png"
+        }
+      ],
+      "number": 1,
+      "step": "Mix the crumbs, sugar and butter together in a large mixing bowl, until the crumbs clump together when gathered in your fist"
     },
     {
-      "number": 2,
-      "step": "Serves 1",
+      "equipment": [
+        {
+          "id": 404650,
+          "name": "springform pan",
+          "localizedName": "springform pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/cake-pan.png"
+        }
+      ],
       "ingredients": [],
-      "equipment": []
+      "number": 2,
+      "step": "Pat the crumbs in an even layer in the bottom of an 8 x 3 inch springform pan"
+    },
+    {
+      "equipment": [
+        {
+          "id": 404765,
+          "name": "aluminum foil",
+          "localizedName": "aluminum foil",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/aluminum-foil.png"
+        },
+        {
+          "id": 404784,
+          "name": "oven",
+          "localizedName": "oven",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
+        },
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 0,
+          "name": "crust",
+          "localizedName": "crust",
+          "image": ""
+        },
+        {
+          "id": 10018364,
+          "name": "wrap",
+          "localizedName": "wrap",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/flour-tortilla.jpg"
+        }
+      ],
+      "number": 3,
+      "step": "Place the pan in a 325 degree oven and bake for 10 minutes, until the crust is firm.Allow the crust to cool completely on a rack.Wrap the pan with the crust twice with heavy duty aluminum foil"
+    },
+    {
+      "equipment": [
+        {
+          "id": 404665,
+          "name": "stand mixer",
+          "localizedName": "stand mixer",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/stand-mixer.jpg"
+        },
+        {
+          "id": 404783,
+          "name": "bowl",
+          "localizedName": "bowl",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/bowl.jpg"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        },
+        {
+          "id": 1052050,
+          "name": "vanilla",
+          "localizedName": "vanilla",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla.jpg"
+        },
+        {
+          "id": 19335,
+          "name": "sugar",
+          "localizedName": "sugar",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/sugar-in-bowl.png"
+        },
+        {
+          "id": 2047,
+          "name": "salt",
+          "localizedName": "salt",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/salt.jpg"
+        }
+      ],
+      "number": 4,
+      "step": "Place the sugar, then the cream cheese, vanilla and salt in the large bowl of a stand mixer."
+    },
+    {
+      "equipment": [],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        }
+      ],
+      "number": 5,
+      "step": "Mix on low speed, until the cream cheese is completely smooth. BTW, I use Philadelphia Cream Cheese as I find it the smoothest."
+    },
+    {
+      "equipment": [],
+      "ingredients": [
+        {
+          "id": 1123,
+          "name": "egg",
+          "localizedName": "egg",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/egg.png"
+        }
+      ],
+      "number": 6,
+      "step": "Add the eggs, one at a time, mixing them in completely after each addition."
+    },
+    {
+      "equipment": [
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        }
+      ],
+      "number": 7,
+      "step": "Pour one third of the cream cheese mixture into the prepared pan."
+    },
+    {
+      "equipment": [],
+      "ingredients": [
+        {
+          "id": 1017,
+          "name": "cream cheese",
+          "localizedName": "cream cheese",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg"
+        }
+      ],
+      "number": 8,
+      "step": "Add a third of the browinies, then pour in another third of the cream cheese mixture. Repeat with anothe third of the brownies, then pour on the remianign cream cheese mixture. Stick the rest of the brownies into the top of the cheesckae, pushing them down into the mixture slightly."
+    },
+    {
+      "equipment": [
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 14412,
+          "name": "water",
+          "localizedName": "water",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/water.png"
+        }
+      ],
+      "number": 9,
+      "step": "Place the preapred and filled pan in a larger pan, then pour in enough hot water to come up to half of the pan's height."
+    },
+    {
+      "equipment": [
+        {
+          "id": 404732,
+          "name": "wooden spoon",
+          "localizedName": "wooden spoon",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/wooden-spoon.jpg"
+        },
+        {
+          "id": 404784,
+          "name": "oven",
+          "localizedName": "oven",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/oven.jpg"
+        },
+        {
+          "id": 404642,
+          "name": "spatula",
+          "localizedName": "spatula",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/spatula-or-turner.jpg"
+        },
+        {
+          "id": 404645,
+          "name": "frying pan",
+          "localizedName": "frying pan",
+          "image": "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+        }
+      ],
+      "ingredients": [
+        {
+          "id": 10018364,
+          "name": "wrap",
+          "localizedName": "wrap",
+          "image": "https://spoonacular.com/cdn/ingredients_100x100/flour-tortilla.jpg"
+        }
+      ],
+      "number": 10,
+      "step": "Bake at 325 degrees for about 1 1/4 to 1/2 hours, or until it is mostly set. Turn of the oven, then leave the cheesecake in the oven,placing  a large wooden spoon in the oven door, so that it remains slightly open. Allow the cheeecake to cool in the open oven for about an hour, then cool completley on a rack. When it's cool, wrap it very well, and cool in the refrigerator for several hours.To unmold the cake, wipe the sides and bottom of the pan with a hot, damp towel. Run a thin metal spatula around the edge of the pan. Release the spring, then lift the cake still on the on the removable bottom from the sides of the pan. Flip the cake gently onto a cardboard round or flat platter, remove the bottom, then flip it over onto another cardboard round or flat serving platter."
     }
   ],
-  "spoonacularSourceUrl": "https://spoonacular.com/german-chocolate-drink-with-xocai-healthy-chocolate-644462",
-  "difficulty": 6.3
+  "difficulty": 13.5
 }
