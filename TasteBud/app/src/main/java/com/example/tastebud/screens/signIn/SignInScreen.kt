@@ -25,7 +25,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tastebud.R
-import com.example.tastebud.components.HeadingTextComponent
 import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.screens.signUp.isValidEmail
 import com.example.tastebud.ui.theme.Inter
