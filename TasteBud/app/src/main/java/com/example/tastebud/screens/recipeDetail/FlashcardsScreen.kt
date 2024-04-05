@@ -29,6 +29,10 @@ import com.example.tastebud.screens.SharedViewModel
 import kotlinx.coroutines.launch
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.ui.theme.TasteBudGreen
+import com.example.tastebud.ui.theme.TasteBudOrange
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun FlashcardsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
@@ -48,36 +52,16 @@ fun FlashcardContent(navController: NavController, innerPadding: PaddingValues, 
             fontWeight = FontWeight.Bold
         )
         if (sharedViewModel.recipe != null) {
-            // TODO: use the recipeId to query the database and retrieve the steps for that recipe.
-            // Use dummy data for now
-//            val steps = listOf(
-//                listOf("1", "Chop pumpkin using a food processor until rice-like."),
-//                listOf("2", "Saut pumpkin in hot olive oil for 3 minutes. Set aside and let cool."),
-//                listOf("3", "Mix feta and mozzarella; add, one at a time, eggs."),
-//                listOf("4", "Mix and combine."),
-//                listOf("5", "Add pumpkin and spices, mix well until well blended."),
-//                listOf(
-//                    "6",
-//                    "Evenly spoon the mixture into the greased muffin tin molds. Press pizza dough down evenly and firmly (the pressing down firmly is very important to make sure they stick together)."
-//                ),
-//                listOf("7", "Place in the oven and bake for 30 minutes at 200C."),
-//                listOf(
-//                    "8",
-//                    "Remove the pizza bites from the oven and let set until cool (this is also very important  let the pizza bites set in their pan for 5  10 minutes before removing  if you take them out while they are too hot they will break)."
-//                )
-//            )
             val steps = sharedViewModel.recipe?.steps
             if(steps != null){
-                RecipeStepsPager(steps = steps)
+                RecipeStepsPager(steps = steps, sharedViewModel, navController)
             }
-
-
         }
     }
 }
 
 @Composable
-fun RecipeStepsPager(steps: List<Instruction>) {
+fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel, navController: NavController) {
     val pageCount = steps.size
     val pagerState = rememberPagerState(pageCount = { pageCount })
     val indicatorScrollState = rememberLazyListState()
@@ -138,6 +122,7 @@ fun RecipeStepsPager(steps: List<Instruction>) {
             }
         }
 
+
         // Back and forward buttons
         Row(
             modifier = Modifier.fillMaxWidth().weight(1f),
@@ -146,6 +131,7 @@ fun RecipeStepsPager(steps: List<Instruction>) {
         )
         {
             val coroutineScope = rememberCoroutineScope()
+            // Display the "Completed" button when the "Next" button is disabled
             Button(
                 onClick = { coroutineScope.launch{
                     pagerState.animateScrollToPage(pagerState.currentPage - 1)}},
@@ -157,6 +143,22 @@ fun RecipeStepsPager(steps: List<Instruction>) {
             ) {
                 Text("Back", fontSize = 24.sp,modifier = Modifier
                     .padding(15.dp))
+            }
+            if (!pagerState.isScrollInProgress && pagerState.currentPage == pageCount - 1) {
+                Button(
+                    onClick = { val db = Firebase.firestore
+                        val updatedCompletedCount = hashMapOf("completedCount" to (sharedViewModel.user?.completedCount ?: 0) + 1)
+                        sharedViewModel.user?.let {
+                            db.collection("Users").document(it.userId)
+                                .set(updatedCompletedCount, SetOptions.merge())
+                        }
+                        navController.navigate("homeScreen") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = TasteBudOrange
+                    )
+                ) {
+                    Text("Done!", fontSize = 24.sp, modifier = Modifier.padding(15.dp))
+                }
             }
             Button(
                 onClick = {coroutineScope.launch{
