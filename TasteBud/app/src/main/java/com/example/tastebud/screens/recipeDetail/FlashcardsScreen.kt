@@ -122,7 +122,30 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
             }
         }
 
-
+        // Done Button
+        Row(
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        )
+        {
+            if (!pagerState.isScrollInProgress && pagerState.currentPage == pageCount - 1) {
+                Button(
+                    onClick = { val db = Firebase.firestore
+                        val updatedCompletedCount = hashMapOf("completedCount" to (sharedViewModel.user?.completedCount ?: 0) + 1)
+                        sharedViewModel.user?.let {
+                            db.collection("Users").document(it.userId)
+                                .set(updatedCompletedCount, SetOptions.merge())
+                        }
+                        navController.navigate("homeScreen") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = TasteBudOrange
+                    )
+                ) {
+                    Text("Done!", fontSize = 24.sp, modifier = Modifier.padding(15.dp))
+                }
+            }
+        }
         // Back and forward buttons
         Row(
             modifier = Modifier.fillMaxWidth().weight(1f),
@@ -143,22 +166,6 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
             ) {
                 Text("Back", fontSize = 24.sp,modifier = Modifier
                     .padding(15.dp))
-            }
-            if (!pagerState.isScrollInProgress && pagerState.currentPage == pageCount - 1) {
-                Button(
-                    onClick = { val db = Firebase.firestore
-                        val updatedCompletedCount = hashMapOf("completedCount" to (sharedViewModel.user?.completedCount ?: 0) + 1)
-                        sharedViewModel.user?.let {
-                            db.collection("Users").document(it.userId)
-                                .set(updatedCompletedCount, SetOptions.merge())
-                        }
-                        navController.navigate("homeScreen") },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = TasteBudOrange
-                    )
-                ) {
-                    Text("Done!", fontSize = 24.sp, modifier = Modifier.padding(15.dp))
-                }
             }
             Button(
                 onClick = {coroutineScope.launch{
