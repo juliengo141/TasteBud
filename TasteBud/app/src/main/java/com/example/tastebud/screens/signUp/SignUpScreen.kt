@@ -34,6 +34,7 @@ import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 
 @Composable
@@ -198,7 +199,19 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                                 val user = auth.currentUser
                                 if (user != null) {
                                     sharedViewModel.addUser(user)
-                                    Log.d("AUTH", "${sharedViewModel.user?.email}")
+                                    val db = Firebase.firestore
+                                    val newUser = hashMapOf(
+                                        "email" to user.email,
+                                        "fullName" to fullName.value.text.trim(),
+                                        "dietaryRestrictions" to emptyList<String>(),
+                                        "minsCooked" to 0,
+                                        "completedCount" to 0,
+                                        "inProgressCount" to 0
+                                    )
+                                    db.collection("Users").document(user.uid)
+                                        .set(newUser)
+                                        .addOnSuccessListener { Log.d("USERS_DB", "DocumentSnapshot successfully written!") }
+                                        .addOnFailureListener { e -> Log.w("USERS_DB", "Error writing document", e) }
                                 }
                                 navController.navigate("HomeScreen")
                             } else {
