@@ -219,6 +219,7 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
                     (document.data?.get("readyInMinutes")).toString() + " mins",
                     (document.data?.get("servings")) as Long,
                     (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("diets")) as List<String>,
                     (document.data?.get("vegetarian")) as Boolean,
                     (document.data?.get("vegan")) as Boolean,
                     (document.data?.get("glutenFree")) as Boolean,
