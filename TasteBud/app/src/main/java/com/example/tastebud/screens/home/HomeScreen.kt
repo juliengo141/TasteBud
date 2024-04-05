@@ -209,7 +209,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp, 6.dp),
+                    .padding(10.dp, 3.dp),
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
