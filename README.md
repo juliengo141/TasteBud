@@ -68,3 +68,51 @@ V1.2.0
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
 
 - [Taste Bud Installer](./TasteBud.apk)
+
+5-April-2023
+V2.0.0
+### Login and Register
+- New look for Sign-in/Sign-up page
+- Notification banners for invalid emails, weak password, and email already used
+- When an account gets created, the Users collection DB gets initialized and set
+- User can set their dietary restrictions after registering
+
+### Recipe Road
+- New Recipe Roads for India, Italy, China, and America!
+- Each Recipe Road is ordered by increasing level of difficulty in star format
+
+### Recipe Roulette
+- User can decide to get a random recipe to cook!
+- New look for the Recipe Roulette Page
+
+### Home Screen
+- New UI for the Home Screen
+- Users can see TasteBud’s weekly picks
+- Users can continue their Recipe Road journey by clicking the Recipe Road Card on the Home Page
+
+### Select Ingredients Screen
+- New UI for the Select Ingredients Screen
+- User can select ingredients they have in their fridge to make a recipe with
+- If we find a recipe that you can use we send it your way, otherwise display a message recommending changing your selected ingredients
+
+### User
+- Users can track their completed recipes, recipes they started, and the total cooking minutes
+- When the user completes a recipe, these changes can be seen in the Profile Screen
+
+### Profile
+- In the profile screen, users can keep track of their key stats including, cooking minutes and recipes completed
+- Users can see their dietary restrictions
+- Profile screen can be navigated by clicking on the Account icon in the top right corner of the app
+
+### Other
+- New colours and Fonts! Let’s show off our TasteBud Style
+- New look for Recipe Details Screen
+    - Link to our common substitutions screen 
+    - Start Recipe with the check mark
+    - Go back and choose new recipe with the “X” mark
+- New TasteBud logo design
+- Expanded our collection of recipes! 
+
+
+
+
