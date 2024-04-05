@@ -84,7 +84,7 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
         }
         Spacer(modifier = Modifier.weight(1f))
         var buttonHit = false
-        var isRecipe = Recipe("", "", "", "", 2, listOf(), false, false, false, false, false, false, "", listOf(), listOf())
+        var isRecipe = Recipe("", "", "", 0L, 2, listOf(), listOf(), false, false, false, false, false, false, "0", listOf(), listOf())
         Button(
             onClick = {
                 fetchRecipes(selectedIngredients) { ids ->
@@ -254,9 +254,10 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
                     (document.data?.get("image")).toString(),
-                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("readyInMinutes")) as Long,
                     (document.data?.get("servings")) as Long,
                     (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("diets")) as List<String>,
                     (document.data?.get("vegetarian")) as Boolean,
                     (document.data?.get("vegan")) as Boolean,
                     (document.data?.get("glutenFree")) as Boolean,
@@ -270,11 +271,11 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
 
             } else {
                 Log.d("DocumentNotFound", "error")
-                Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+                Recipe("", "", "", 0, 0, listOf(), listOf(),false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
             }
         } catch (e: Exception) {
             Log.e("Error Exception", "Error getting document: $e")
-            Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+            Recipe("", "", "", 0, 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
         }
     }
 }
