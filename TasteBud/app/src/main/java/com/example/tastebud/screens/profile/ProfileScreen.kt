@@ -11,6 +11,7 @@
  import com.example.tastebud.screens.SharedViewModel
  import androidx.compose.foundation.Image
  import androidx.compose.foundation.background
+ import androidx.compose.foundation.border
  import androidx.compose.foundation.layout.*
  import androidx.compose.foundation.shape.CircleShape
  import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,13 +26,19 @@
 
  import androidx.compose.ui.graphics.Color
  import androidx.compose.ui.graphics.vector.ImageVector
+ import androidx.compose.ui.layout.ContentScale
  import androidx.compose.ui.res.painterResource
  import androidx.compose.ui.res.vectorResource
  import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.text.style.TextAlign
  import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
  import com.example.tastebud.R
+ import com.example.tastebud.ui.theme.Inter
  import com.example.tastebud.ui.theme.TasteBudAccent
+ import com.example.tastebud.ui.theme.TasteBudBackground
  import com.example.tastebud.ui.theme.TasteBudGreen
+ import com.example.tastebud.ui.theme.TasteBudOrange
  import com.example.tastebud.ui.theme.TasteBudRed
 
 
@@ -43,8 +50,8 @@
  @Composable
  fun ProfileContent(navController: NavController, innerPadding: PaddingValues) {
      Column(
-         modifier = Modifier.padding(innerPadding),
-         verticalArrangement = Arrangement.spacedBy(24.dp),
+         modifier = Modifier.padding(innerPadding).padding(0.dp, 20.dp),
+         verticalArrangement = Arrangement.spacedBy(28.dp),
          horizontalAlignment = Alignment.CenterHorizontally
      ) {
          // Profile Header
@@ -54,7 +61,7 @@
          IconsRow()
 
          // Cards Section
-         CardsSection()
+         CardsSection(navController)
      }
  }
 
@@ -136,8 +143,9 @@
      }
  }
 
+ @OptIn(ExperimentalMaterial3Api::class)
  @Composable
- fun CardsSection() {
+ fun CardsSection(navController: NavController) {
      Row(
          modifier = Modifier.fillMaxWidth(),
          horizontalArrangement = Arrangement.SpaceAround
@@ -162,11 +170,15 @@
                      Icon(
                          imageVector = Icons.Filled.CheckBox,
                          contentDescription = "Localized description",
-                         modifier = Modifier.size(50.dp)
+                         modifier = Modifier.size(40.dp)
+                     )
+                     Text(
+                         text = "145 ",
+                         style = typography.bodyMedium
                      )
                      Text(
                          text = "Completed",
-                         style = typography.bodyLarge
+                         style = typography.bodyMedium
                      )
 
                  }
@@ -194,16 +206,21 @@
                      Icon(
                      imageVector = Icons.Filled.Timer,
                      contentDescription = "Localized description",
-                     modifier = Modifier.size(50.dp)
+                     modifier = Modifier.size(40.dp)
                  )
                      Text(
-                         text = "Completed",
-                         style = typography.bodyLarge
+                         text = "123456 ",
+                         style = typography.bodyMedium
+                     )
+                     Text(
+                         text = "Minutes",
+                         style = typography.bodyMedium
                      )
 
                  }
 
              }
          }
+
      }
  }
