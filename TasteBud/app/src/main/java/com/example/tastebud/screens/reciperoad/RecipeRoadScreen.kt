@@ -84,7 +84,7 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
                     modifier = Modifier.padding(10.dp)
                 )
                 Text(
-                    text = "Time: ${recipe.estimatedTime}",
+                    text = "Time: ${recipe.estimatedMins} mins",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(horizontal = 16.dp)
@@ -114,7 +114,7 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
 
 fun CuisineRecipes(sharedViewModel: SharedViewModel){
     val db = Firebase.firestore
-    var recipes = mutableListOf<Recipe>()
+    val recipes = mutableListOf<Recipe>()
     val testIngredientList = mutableListOf<Ingredient>()
 
     val recipesRef = db.collection("Recipes")
@@ -216,7 +216,7 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
                     (document.data?.get("image")).toString(),
-                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("readyInMinutes")) as Long,
                     (document.data?.get("servings")) as Long,
                     (document.data?.get("cuisines")) as List<String>,
                     (document.data?.get("diets")) as List<String>,
