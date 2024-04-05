@@ -2,12 +2,16 @@ package com.example.tastebud.screens.home
 
 import NavBarScaffold
 import android.util.Log
+import android.content.Context
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
@@ -30,7 +34,6 @@ import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import retrofit2.Call
 import kotlin.random.Random
 
 var fridgeIngredients = listOf<String>("Eggs", "Chicken", "Paneer", "Milk", "Onions", "Rice", "Noodles", "Tomato", "Potatoes", "Tuna", "Spinach", "Pasta", "Beef", "Honey" )
@@ -60,13 +63,6 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
             fontSize = 48.sp,
             lineHeight = 1.3.em,
         )
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = """
-                    Choose which ingredients from your fridge you want to use to make your recipe with!
-                """.trimIndent(),
-            fontFamily = Inter,
-        )
 
         FlowRow(
             modifier = Modifier
@@ -87,6 +83,8 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
             }
         }
         Spacer(modifier = Modifier.weight(1f))
+        var buttonHit = false
+        var isRecipe = Recipe("", "", "", "", 2, listOf(), false, false, false, false, false, false, "", listOf(), listOf())
         Button(
             onClick = {
                 fetchRecipes(selectedIngredients) { ids ->
@@ -94,13 +92,22 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
                         // Successfully fetched IDs
                         Log.d("IDs", "$ids")
                         //PickIngredientsRecipe(sharedViewModel, ids)
-                        PickIngredientsRecipe(sharedViewModel, listOf(716202, 648176, 1111111))
+//                        PickIngredientsRecipe(sharedViewModel, listOf(716202, 648176, 1111111))
                         // Now you can use the IDs as needed
+                        isRecipe = PickIngredientsRecipe(sharedViewModel, ids)
+                        if(isRecipe.title != "") {
+                            sharedViewModel.addRecipe(isRecipe)
+                            navController.navigate("recipeDetailsScreen")
+                        }
+//                        else {
+//                            DisplayNoContent(navController.context, navController.parentLayout)
+//                        }
                     } else {
                         // Failed to fetch IDs
                         Log.d("IDs", "Failed to fetch IDs")
                     }
                 }
+                buttonHit = true
                 Log.d("SelectedIngredients", selectedIngredients.toString())
             },
             colors = ButtonDefaults.buttonColors(
@@ -112,6 +119,32 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
         ) {
             Text(text = "Continue", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontFamily = Inter,)
         }
+        if((isRecipe.title == "" && buttonHit == false) || selectedIngredients.isEmpty()) {
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text="""
+                    Choose which ingredients from your fridge you want to use to make your recipe with!
+                """.trimIndent(),
+                fontFamily = Inter,
+            )
+        } else if(isRecipe.title == "" && buttonHit == true) {
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text="""
+                    No recipes matching your combination of ingredients found. Please try a different set of ingredients!
+                """.trimIndent(),
+                fontFamily = Inter,
+            )
+        } else {
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text = """
+                    Choose which ingredients from your fridge you want to use to make your recipe with!
+                """.trimIndent(),
+                fontFamily = Inter,
+            )
+        }
+
     }
 }
 
@@ -154,8 +187,17 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
 
     return runBlocking {
         try {
-            for (id in ids){}
-            val document = docRef.get().await()
+            var documentId: String = ""
+            for (id in ids) {
+                val document = docRef.whereEqualTo("id", id).get().await()
+                if (!document.isEmpty) {
+                    documentId = document.documents[0].id
+                    break;
+                }
+            }
+
+            val docRef1 = db.collection("Recipes").document(documentId)
+            val document = docRef1.get().await()
             if (document.exists()) {
                 val steps = mutableListOf<Instruction>()
                 val testIngredientList = mutableListOf<Ingredient>()
@@ -213,7 +255,7 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
                     steps.add(instruction)
 
                 }
-
+                Log.d("reachedRecipe", "{${documentId}}")
                 Recipe(
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
@@ -231,6 +273,7 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
                     testIngredientList,
                     steps
                 )
+
             } else {
                 Log.d("DocumentNotFound", "error")
                 Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
@@ -241,95 +284,45 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
         }
     }
 }
-
-//    return runBlocking {
-//        try {
-//            for (id in ids) {
-//                val documentId = id // Convert ID to string
-//                val testIngredientList = mutableListOf<Ingredient>()
-//               val document = docRef.whereEqualTo("id", documentId).get().await()
-//
-//                            val ingredients = document["extendedIngredients"] as? List<Map<String, Any>>
-//                            ingredients?.let {
-//                                for (ingredientData in it) {
-//                                    val name = ingredientData["name"] as? String ?: ""
-//                                    val quantity = ingredientData["amount"].toString()
-//                                    val unit = ingredientData["unit"] as? String ?: ""
-//                                    val id = ingredientData["id"].toString()
-//                                    val og = ingredientData["original"] as? String ?: ""
-//                                    val image = ingredientData["image"] as? String ?: ""
-//                                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
-//                                    testIngredientList.add(ingredient)
-//                                }
-//                            }
-//
-//                            val steps = mutableListOf<Instruction>()
-//                            val instructions = document["analyzedInstructions"] as? List<Map<String, Any>>
-//                            instructions?.let {
-//                                for (instructionData in it) {
-//                                    val stepNum = instructionData["number"] as? Long ?: 0
-//                                    val step = instructionData["step"].toString()
-//
-//                                    val equipmentList = mutableListOf<Equipment>()
-//                                    val equipment = instructionData["equipment"] as? List<Map<String, Any>>
-//                                    equipment?.let {
-//                                        for (equipmentData in it) {
-//                                            val id = equipmentData["id"].toString()
-//                                            val name = equipmentData["name"].toString()
-//                                            val image = equipmentData["image"].toString()
-//                                            val e = Equipment(id, name, image)
-//                                            equipmentList.add(e)
-//                                        }
-//                                    }
-//
-//                                    val instructionIngredientsList = mutableListOf<Equipment>()
-//                                    val ingredients = instructionData["ingredients"] as? List<Map<String, Any>>
-//                                    ingredients?.let {
-//                                        for (instructionIngredientData in it) {
-//                                            val id = instructionIngredientData["id"].toString()
-//                                            val name = instructionIngredientData["name"].toString()
-//                                            val image = instructionIngredientData["image"].toString()
-//                                            val e = Equipment(id, name, image)
-//                                            instructionIngredientsList.add(e)
-//                                        }
-//                                    }
-//
-//                                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
-//                                    steps.add(instruction)
-//                                }
-//                            }
-//
-//                            pickedRecipe = Recipe(
-//                                document["id"].toString(),
-//                                document["title"].toString(),
-//                                document["image"].toString(),
-//                                "${document["readyInMinutes"]} mins",
-//                                document["servings"] as Long,
-//                                document["cuisines"] as? List<String> ?: listOf(),
-//                                document["vegetarian"] as? Boolean ?: false,
-//                                document["vegan"] as? Boolean ?: false,
-//                                document["glutenFree"] as? Boolean ?: false,
-//                                document["dairyFree"] as? Boolean ?: false,
-//                                document["veryHealthy"] as? Boolean ?: false,
-//                                document["cheap"] as? Boolean ?: false,
-//                                document["difficulty"].toString(),
-//                                testIngredientList,
-//                                steps
-//                            )
-//                            sharedViewModel.addRecipe(pickedRecipe!!)
-//                        }
-//                        if (pickedRecipe == null) {
-//                            println("No such document for ID: $documentId")
-//                        }
-//                    }
-//                    .addOnFailureListener { exception ->
-//                        println("Error getting document with ID $documentId: $exception")
-//                    }
-//            }
-//
-//        }catch {
-//
-//        }
+//fun DisplayNoContent(context: Context, parent: ViewGroup) {
+//    val textView = TextView(context).apply {
+//        text = """
+//            No recipes matching your combination of ingredients found. Please try a different set of ingredients!
+//        """.trimIndent()
+//        textSize = 32f
+//        setTextColor(Color.White)
+//        setBackgroundColor(Color.Black)
+//        setPadding(8, 8, 8, 8)
+//        layoutParams = ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//        gravity = Gravity.CENTER
 //    }
-
-}
+//    parent.addView(textView)
+//}
+//fun DisplayNoContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
+//    Column(
+//        modifier = Modifier.fillMaxSize(),
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Center,
+//    ) {
+//        Text(
+//            modifier = Modifier
+//                .padding(8.dp)
+//                .fillMaxWidth(),
+//
+//            text = """
+//                    No recipes matching your combination of ingredients found. Please try a different set of ingredients!
+//                """.trimIndent(),
+//            fontWeight = FontWeight.Black, color = Color.White, fontSize = 32.sp,
+//            textAlign = TextAlign.Center,
+//            style = LocalTextStyle.current.merge(
+//                androidx.compose.ui.text.TextStyle(
+//                    lineHeight = 1.5.em,
+//                )
+//            )
+//
+//        )
+//    }
+//}

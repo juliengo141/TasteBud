@@ -15,7 +15,7 @@ fun fetchRecipes(ingredientsList: List<String>, callback: (List<Int>?) -> Unit) 
         .build()
     val api = retrofit.create(SpoonacularAPI::class.java)
     val call: Call<List<Any?>?>? =
-        api.getRecipesByIngredients("46ea03ff0f3148abb2c9ca808f6de8e9", ingredientsList.joinToString(), 5)
+        api.getRecipesByIngredients("46ea03ff0f3148abb2c9ca808f6de8e9", ingredientsList.joinToString(), 50)
     if (call != null) {
         call.enqueue(object : Callback<List<Any?>?> {
             override fun onResponse(call: Call<List<Any?>?>?, response: Response<List<Any?>?>) {
