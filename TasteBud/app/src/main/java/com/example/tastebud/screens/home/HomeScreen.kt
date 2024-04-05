@@ -97,7 +97,6 @@ fun RecipeItem(recipe: Dish, navController: NavController) {
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
@@ -122,6 +121,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
 
     val handleSearch: (String) -> Unit = { text ->
         searchText = text
+
     }
 
     val imageSize = 75.dp
@@ -160,7 +160,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                 Column(horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .fillMaxSize() 
+                        .fillMaxSize()
                         .padding(16.dp) ){
                     Text(
                         text = "RECIPE ROAD:",
