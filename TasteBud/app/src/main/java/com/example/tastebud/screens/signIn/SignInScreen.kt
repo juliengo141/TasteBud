@@ -1,6 +1,5 @@
 package com.example.tastebud.screens.home
 
-import NavBarScaffold
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -160,8 +159,8 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                             Log.d("AUTH", "Login Success!")
                             val user = auth.currentUser
                             if (user != null) {
-                                sharedViewModel.addUser(user)
-                                Log.d("AUTH", "${sharedViewModel.user?.email}")
+                                sharedViewModel.addUserId(user)
+                                Log.d("AUTH", "${sharedViewModel.userId?.email}")
                             }
                             navController.navigate("HomeScreen")
                         } else {
