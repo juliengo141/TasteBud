@@ -91,17 +91,12 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
                     if (ids != null) {
                         // Successfully fetched IDs
                         Log.d("IDs", "$ids")
-                        //PickIngredientsRecipe(sharedViewModel, ids)
-//                        PickIngredientsRecipe(sharedViewModel, listOf(716202, 648176, 1111111))
-                        // Now you can use the IDs as needed
+
                         isRecipe = PickIngredientsRecipe(sharedViewModel, ids)
                         if(isRecipe.title != "") {
                             sharedViewModel.addRecipe(isRecipe)
                             navController.navigate("recipeDetailsScreen")
                         }
-//                        else {
-//                            DisplayNoContent(navController.context, navController.parentLayout)
-//                        }
                     } else {
                         // Failed to fetch IDs
                         Log.d("IDs", "Failed to fetch IDs")
@@ -179,7 +174,6 @@ fun FilterChipExample(title: String, onIngredientSelected: (Boolean) -> Unit) {
         },
     )
 }
-
 
 fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Recipe{
     val db = FirebaseFirestore.getInstance()
@@ -284,45 +278,3 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
         }
     }
 }
-//fun DisplayNoContent(context: Context, parent: ViewGroup) {
-//    val textView = TextView(context).apply {
-//        text = """
-//            No recipes matching your combination of ingredients found. Please try a different set of ingredients!
-//        """.trimIndent()
-//        textSize = 32f
-//        setTextColor(Color.White)
-//        setBackgroundColor(Color.Black)
-//        setPadding(8, 8, 8, 8)
-//        layoutParams = ViewGroup.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-//        gravity = Gravity.CENTER
-//    }
-//    parent.addView(textView)
-//}
-//fun DisplayNoContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center,
-//    ) {
-//        Text(
-//            modifier = Modifier
-//                .padding(8.dp)
-//                .fillMaxWidth(),
-//
-//            text = """
-//                    No recipes matching your combination of ingredients found. Please try a different set of ingredients!
-//                """.trimIndent(),
-//            fontWeight = FontWeight.Black, color = Color.White, fontSize = 32.sp,
-//            textAlign = TextAlign.Center,
-//            style = LocalTextStyle.current.merge(
-//                androidx.compose.ui.text.TextStyle(
-//                    lineHeight = 1.5.em,
-//                )
-//            )
-//
-//        )
-//    }
-//}
