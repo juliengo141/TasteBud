@@ -206,7 +206,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                                         "dietaryRestrictions" to emptyList<String>(),
                                         "minsCooked" to 0,
                                         "completedCount" to 0,
-                                        "inProgressCount" to 0
+                                        "startedCount" to 0
                                     )
                                     db.collection("Users").document(user.uid)
                                         .set(newUser)
