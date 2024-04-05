@@ -163,7 +163,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                                 sharedViewModel.addUser(user)
                                 Log.d("AUTH", "${sharedViewModel.user?.email}")
                             }
-                            navController.navigate("profileScreen")
+                            navController.navigate("HomeScreen")
                         } else {
                             Log.d("AUTH", "Login Failed: ${task.exception}")
                             scope.launch {
