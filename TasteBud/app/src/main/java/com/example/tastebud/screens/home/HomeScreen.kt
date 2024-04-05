@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -43,10 +45,62 @@ fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
     NavBarScaffold(navController, "Home") { HomeContent(navController, it, sharedViewModel) }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchBar(
+    onSearch: (String) -> Unit
+) {
+    var searchText by remember { mutableStateOf("") }
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search",
+            tint = TasteBudGreen, // Set the tint color to green
+            modifier = Modifier.size(24.dp)
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        TextField(
+            value = searchText,
+            onValueChange = {
+                searchText = it
+                // Perform search whenever the text changes
+                onSearch(it)
+            },
+            label = { Text("Search for recipes...") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        )
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RecipeItem(recipe: Dish, navController: NavController) {
+    Card(
+        onClick = {
+            // Navigate to the recipe details screen when clicked
+            navController.navigate("recipeDetails/${recipe.name}")
+        }
+    ) {
+        // Display recipe information here
+
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
+    var searchText by remember { mutableStateOf("") }
 
     val indianNo = 29
     val italianNo = 120
@@ -65,6 +119,10 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
         recipe4
     )
 
+    val handleSearch: (String) -> Unit = { text ->
+        searchText = text
+    }
+
     val imageSize = 75.dp
     val horizontalSpacing = 4.dp
 
@@ -74,6 +132,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
             .padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
+        SearchBar(onSearch = handleSearch)
         Card(
             modifier = Modifier
                 .fillMaxWidth()
