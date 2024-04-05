@@ -48,6 +48,7 @@ fun HomeScreen(navController: NavController, sharedViewModel: SharedViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
+    innerPadding: PaddingValues,
     onSearch: (String) -> Unit
 ) {
     var searchText by remember { mutableStateOf("") }
@@ -56,7 +57,7 @@ fun SearchBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(top = 70.dp)
     ) {
         Icon(
             imageVector = Icons.Default.Search,
@@ -130,9 +131,9 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        SearchBar(onSearch = handleSearch)
+        SearchBar(innerPadding, handleSearch)
         Card(
             modifier = Modifier
                 .fillMaxWidth()
