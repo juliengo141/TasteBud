@@ -113,6 +113,7 @@ V2.0.0
 - New TasteBud logo design
 - Expanded our collection of recipes! 
 
-
+Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
+- [Taste Bud Installer](./TasteBud.apk)
 
 
