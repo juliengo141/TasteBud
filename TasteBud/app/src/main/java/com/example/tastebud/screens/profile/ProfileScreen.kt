@@ -50,7 +50,9 @@ fun ProfileContent(navController: NavController, innerPadding: PaddingValues, sh
     ) {
         sharedViewModel.user?.let {
             Column(
-                modifier = Modifier.padding(innerPadding).padding(0.dp, 20.dp),
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .padding(0.dp, 20.dp),
                 verticalArrangement = Arrangement.spacedBy(28.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -123,7 +125,9 @@ fun GetUserProfile(sharedViewModel: SharedViewModel) {
 @Composable
 fun ProfileHeader(sharedViewModel: SharedViewModel) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(10.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -145,34 +149,42 @@ fun ProfileHeader(sharedViewModel: SharedViewModel) {
 @Composable
 fun IconsRow(sharedViewModel: SharedViewModel) {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(40.dp, 0.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(40.dp, 0.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(text = "Dietary Restrictions", fontWeight = FontWeight.Bold)
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            // First row of circles
-            CircleIcon(R.drawable.dairyfree, "Dairy Free")
-            CircleIcon(R.drawable.vegan, "Vegan")
-            CircleIcon(R.drawable.gluten, "Gluten Free")
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            // Second row of circles
-            CircleIcon(R.drawable.vegatarian, "Vegetarian")
-            CircleIcon(R.drawable.pescatarian, "Pescatarian")
-            CircleIcon(R.drawable.keto, "Keto")
-        }
+        sharedViewModel.user?.let { dietaryRestrictionsRow(it.dietaryRestrictions) }
     }
 }
 
 @Composable
-fun CircleIcon(icon: Int, diet: String) {
+fun dietaryRestrictionsRow(dietaryList: List<String>) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        // First row of circles
+        CircleIcon(R.drawable.dairyfree, "Dairy Free", dietaryList)
+        CircleIcon(R.drawable.vegan, "Vegan", dietaryList)
+        CircleIcon(R.drawable.gluten, "Gluten Free", dietaryList)
+    }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        // Second row of circles
+        CircleIcon(R.drawable.vegatarian, "Vegetarian", dietaryList)
+        CircleIcon(R.drawable.pescatarian, "Pescatarian", dietaryList)
+        CircleIcon(R.drawable.keto, "Keto", dietaryList)
+    }
+}
+
+@Composable
+fun CircleIcon(icon: Int, diet: String, dietaryList: List<String>) {
+    val backgroundColor = if (dietaryList.contains(diet)) TasteBudAccent else Color.Gray
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -180,7 +192,7 @@ fun CircleIcon(icon: Int, diet: String) {
             modifier = Modifier
                 .size(100.dp)
                 .clip(CircleShape)
-                .background(TasteBudAccent),
+                .background(backgroundColor),
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -193,11 +205,11 @@ fun CircleIcon(icon: Int, diet: String) {
         Text(
             text = diet,
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.Black, fontWeight = FontWeight.Bold
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
         )
     }
 }
-
 @Composable
 fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) {
     Row(
@@ -206,7 +218,9 @@ fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) 
     ) {
         // First Card
         Card(
-            modifier = Modifier.fillMaxWidth(0.5f).padding(12.dp),
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .padding(12.dp),
             //elevation = 8.dp,
             //backgroundColor = Color.White,
             shape = RoundedCornerShape(16.dp)
@@ -241,7 +255,9 @@ fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) 
 
         // Second Card
         Card(
-            modifier = Modifier.fillMaxWidth(1f).padding(12.dp),
+            modifier = Modifier
+                .fillMaxWidth(1f)
+                .padding(12.dp),
 //             elevation = 8.dp,
 //             backgroundColor = Color.White,
             shape = RoundedCornerShape(16.dp)
