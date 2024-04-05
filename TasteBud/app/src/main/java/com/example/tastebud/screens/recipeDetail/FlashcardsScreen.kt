@@ -10,8 +10,12 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +48,15 @@ fun FlashcardContent(navController: NavController, innerPadding: PaddingValues, 
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
+        IconButton(
+            onClick = { navController.popBackStack() },
+        ) {
+            Icon(
+                Icons.Default.ArrowBack,
+                contentDescription = "Back",
+                tint = Color.Black // Specify the color of the icon here
+            )
+        }
         Text(
             "Instructions",
             modifier = Modifier.padding(15.dp, 0.dp),
