@@ -1,4 +1,3 @@
-import com.example.tastebud.data.Recipe
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,4 +10,3 @@ interface SpoonacularAPI {
         @Query("number") number: Int
     ): Call<List<Any?>?>?
 }
-

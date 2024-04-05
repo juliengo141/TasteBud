@@ -32,7 +32,7 @@ class SharedViewModel : ViewModel() {
         userId = newUser
     }
 
-    fun addUser(newUser: User){
+    fun addUser(newUser: User) {
         user = newUser
     }
 

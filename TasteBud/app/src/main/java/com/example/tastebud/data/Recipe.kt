@@ -24,7 +24,7 @@ data class Recipe(
     val difficulty: String,
     val ingredients: List<Ingredient>,
     val steps: List<Instruction>,
-): Parcelable
+) : Parcelable
 
 var retrofit = Retrofit.Builder()
     .baseUrl("https://api.spoonacular.com/")

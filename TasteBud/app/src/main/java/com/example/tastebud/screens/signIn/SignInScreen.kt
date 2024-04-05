@@ -60,7 +60,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
         var allFieldsFilled by remember { mutableStateOf(false) }
 
         // Update the allFieldsFilled variable whenever any field changes
-        LaunchedEffect( emailValue.value, passwordValue.value) {
+        LaunchedEffect(emailValue.value, passwordValue.value) {
             allFieldsFilled = emailValue.value.text.isNotBlank() && passwordValue.value.text.isNotBlank()
         }
 
@@ -84,9 +84,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
             },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Outlined.Email,
-                    contentDescription = "Email",
-                    modifier = Modifier.size(30.dp)
+                    imageVector = Icons.Outlined.Email, contentDescription = "Email", modifier = Modifier.size(30.dp)
                 )
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -98,6 +96,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                 focusedLabelColor = TasteBudDarkGreen
             ),
         )
+
         OutlinedTextField(
             label = { Text("Password") },
             textStyle = MaterialTheme.typography.bodyMedium,
@@ -125,15 +124,13 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                 focusedLabelColor = TasteBudDarkGreen
             ),
         )
+
         Spacer(modifier = Modifier.padding(8.dp))
-        Button(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = TasteBudGreen,
-                contentColor = Color.White
-            ),
-            onClick = {
-                if (allFieldsFilled) {
+
+        Button(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp), colors = ButtonDefaults.buttonColors(
+            containerColor = TasteBudGreen, contentColor = Color.White
+        ), onClick = {
+            if (allFieldsFilled) {
                 if (!isValidEmail(emailValue.value.text)) {
                     scope.launch {
                         snackbarHostState.showSnackbar(
@@ -152,8 +149,7 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                     }
                 } else {
                     auth.signInWithEmailAndPassword(
-                        emailValue.value.text.trim(),
-                        passwordValue.value.text.trim()
+                        emailValue.value.text.trim(), passwordValue.value.text.trim()
                     ).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d("AUTH", "Login Success!")
@@ -174,21 +170,21 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
                             }
                         }
                     }
-                }}else{
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = "Please fill all fields.",
-                            actionLabel = "Dismiss",
-                            duration = SnackbarDuration.Indefinite,
-                        )
-                    }
+                }
+            } else {
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Please fill all fields.",
+                        actionLabel = "Dismiss",
+                        duration = SnackbarDuration.Indefinite,
+                    )
                 }
             }
-        ) {
+        }) {
             Text(text = "Login")
         }
-        ClickableText(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+
+        ClickableText(modifier = Modifier.align(Alignment.CenterHorizontally),
             text = AnnotatedString("Don't have an account yet? ") + AnnotatedString(
                 text = "Register",
                 spanStyle = androidx.compose.ui.text.SpanStyle(
@@ -198,19 +194,15 @@ fun SignInContent(navController: NavController, sharedViewModel: SharedViewModel
             ),
             onClick = {
                 navController.navigate("signUpScreen")
-            }
-        )
+            })
+
         SnackbarHost(
             hostState = snackbarHostState,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             snackbar = {
                 Snackbar(
-                    snackbarData = it,
-                    containerColor = Color.hsl(0f, 1f, 0.64f)
+                    snackbarData = it, containerColor = Color.hsl(0f, 1f, 0.64f)
                 )
-            }
-        )
+            })
     }
 }
-
-

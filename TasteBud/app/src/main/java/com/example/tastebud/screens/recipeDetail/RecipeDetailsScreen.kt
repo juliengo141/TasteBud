@@ -8,18 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Fastfood
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.SwapVert
-import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,9 +24,9 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.tastebud.components.DifficultyStars
 import com.example.tastebud.components.GetUserProfile
-import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Recipe
+import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.ui.theme.TasteBudAccent
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.example.tastebud.ui.theme.TasteBudRed
@@ -61,18 +51,13 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
 
         // Bottom Buttons
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp, 0.dp),
+            modifier = Modifier.fillMaxWidth().padding(16.dp, 0.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             // Not Today Button
             Button(
-                modifier = Modifier
-                    .weight(1f)
-                    .size(48.dp)
-                    .background(TasteBudRed, CircleShape),
+                modifier = Modifier.weight(1f).size(48.dp).background(TasteBudRed, CircleShape),
                 onClick = { navController.popBackStack() },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
@@ -89,20 +74,14 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
 
             // Let's Cook Button
             Button(
-                modifier = Modifier
-                    .weight(1f)
-                    .size(48.dp)
-                    .background(Color.Green, CircleShape),
-                onClick = {
+                modifier = Modifier.weight(1f).size(48.dp).background(Color.Green, CircleShape), onClick = {
                     val db = Firebase.firestore
                     val updatedStartedCount = hashMapOf("startedCount" to (sharedViewModel.user?.startedCount ?: 0) + 1)
                     sharedViewModel.user?.let {
-                        db.collection("Users").document(it.userId)
-                            .set(updatedStartedCount, SetOptions.merge())
+                        db.collection("Users").document(it.userId).set(updatedStartedCount, SetOptions.merge())
                     }
                     navController.navigate("flashcardsScreen")
-                },
-                colors = ButtonDefaults.buttonColors(
+                }, colors = ButtonDefaults.buttonColors(
                     containerColor = TasteBudGreen
                 )
             ) {
@@ -115,16 +94,11 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
             }
             Button(
                 onClick = { navController.navigate("SubstitutionsScreen") },
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(Color.Gray),
+                modifier = Modifier.size(48.dp).clip(CircleShape).background(Color.Gray),
                 contentPadding = PaddingValues(12.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Filled.SwapVert,
-                    contentDescription = "Swap",
-                    tint = Color.White
+                    imageVector = Icons.Filled.SwapVert, contentDescription = "Swap", tint = Color.White
                 )
             }
         }
@@ -144,11 +118,7 @@ fun RecipeInfo(recipe: Recipe) {
     AsyncImage(
         model = recipe.imageUrl,
         contentDescription = "Translated description of what the image contains",
-        modifier = Modifier
-            .padding(horizontal = 20.dp, vertical = 0.dp)
-            .height(200.dp)
-            .fillMaxWidth()
-        // TODO: add a placeholder and error image
+        modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp).height(200.dp).fillMaxWidth()
     )
     Row(Modifier.padding(15.dp, 0.dp)) {
         Icon(Icons.Filled.Fastfood, contentDescription = null, modifier = Modifier.size(25.dp), tint = TasteBudGreen)
@@ -179,11 +149,7 @@ fun RecipeInfo(recipe: Recipe) {
 @Composable
 fun IngredientsCard(ingredients: List<Ingredient>) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(175.dp)
-            .padding(15.dp, 5.dp)
-            .clickable { },
+        modifier = Modifier.fillMaxWidth().height(175.dp).padding(15.dp, 5.dp).clickable { },
         colors = CardDefaults.cardColors(TasteBudAccent)
     ) {
         Column(modifier = Modifier.padding(10.dp)) {

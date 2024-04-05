@@ -1,25 +1,23 @@
 package com.example.tastebud.screens.reciperoad
 
 import NavBarScaffold
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.tastebud.R
-import com.example.tastebud.data.*
+import com.example.tastebud.data.Cuisine
 import com.example.tastebud.screens.SharedViewModel
 
 @Composable
@@ -56,19 +54,26 @@ val AmericanCuisine = Cuisine(
     disabledImage = "https://media.distractify.com/brand-img/WazSDFK3Z/0x0/black-us-american-flag-1618841105755.jpg"
 )
 val sampleCuisines = listOf(IndianCuisine, AmericanCuisine, ItalianCuisine, ChineseCuisine)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CuisineSelectionContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
-    Column(modifier = Modifier
-        .padding(innerPadding)) {
-        Text(modifier = Modifier.padding(10.dp),text = "Choose Your Path", fontSize = 36.sp,
-            fontWeight = FontWeight.Bold)
-        LazyColumn() {
+fun CuisineSelectionContent(
+    navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel
+) {
+    Column(
+        modifier = Modifier.padding(innerPadding)
+    ) {
+        Text(
+            modifier = Modifier.padding(10.dp),
+            text = "Choose Your Path",
+            fontSize = 36.sp,
+            fontWeight = FontWeight.Bold
+        )
+        LazyColumn {
             items(sampleCuisines) { cuisine ->
                 CuisineCard(cuisine = cuisine, navController, sharedViewModel)
             }
         }
-
     }
 }
 
@@ -77,29 +82,22 @@ fun CuisineSelectionContent(navController: NavController, innerPadding: PaddingV
 @Composable
 fun CuisineCard(cuisine: Cuisine, navController: NavController, sharedViewModel: SharedViewModel) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .height(200.dp),
+        modifier = Modifier.fillMaxWidth().padding(8.dp).height(200.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         enabled = !cuisine.disabled,
         onClick = {
             sharedViewModel.addCuisine(cuisine.title, cuisine.country)
-                navController.navigate("RecipeRoadScreen")
+            navController.navigate("RecipeRoadScreen")
         },
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
                 model = if (cuisine.disabled) cuisine.disabledImage else cuisine.image,
                 contentDescription = "Translated description of what the image contains",
-                modifier = Modifier
-                    .padding(15.dp, 0.dp)
-                    .size(175.dp)
-                    .align(Alignment.CenterVertically)
-                // TODO: add a placeholder and error image
+                modifier = Modifier.padding(15.dp, 0.dp).size(175.dp).align(Alignment.CenterVertically)
             )
-            Column (
+            Column(
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
                 Text(
@@ -108,29 +106,14 @@ fun CuisineCard(cuisine: Cuisine, navController: NavController, sharedViewModel:
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier.padding(horizontal = 10.dp)
                 )
-                if(cuisine.disabled){
+                if (cuisine.disabled) {
                     Text(
-                    text = "LOCKED",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(horizontal = 10.dp)
-                )
+                        text = "LOCKED",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.padding(horizontal = 10.dp)
+                    )
                 }
-//
-//                Spacer(modifier = Modifier.height(8.dp))
-//                Text(
-//                    text = "Servings: ${recipe.servings}",
-//                    fontSize = 16.sp,
-//                    fontWeight = FontWeight.Medium,
-//                    modifier = Modifier.padding(horizontal = 16.dp)
-//                )
-//                Spacer(modifier = Modifier.height(8.dp))
-//                Text(
-//                    text = "Difficulty: ${recipe.difficulty}",
-//                    fontSize = 16.sp,
-//                    fontWeight = FontWeight.Medium,
-//                    modifier = Modifier.padding(horizontal = 16.dp)
-//                )
             }
         }
     }

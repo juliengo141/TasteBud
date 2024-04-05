@@ -1,7 +1,6 @@
 package com.example.tastebud.data
 
 import SpoonacularAPI
-import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +37,7 @@ fun fetchRecipes(ingredientsList: List<String>, callback: (List<Int>?) -> Unit) 
                     callback(null) // Pass null to indicate failure
                 }
             }
+
             override fun onFailure(call: Call<List<Any?>?>?, t: Throwable?) {
                 callback(null) // Pass null to indicate failure
             }

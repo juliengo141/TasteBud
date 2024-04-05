@@ -1,15 +1,15 @@
 package com.example.tastebud.screens.home
 
 import NavBarScaffold
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +30,7 @@ fun SubstitutionsScreen(navController: NavController, sharedViewModel: SharedVie
         }
     }
 }
+
 @Composable
 fun SubstitutionsContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
     val listItems = listOf(
@@ -50,8 +51,7 @@ fun SubstitutionsContent(navController: NavController, innerPadding: PaddingValu
         "Mayonnaise (1 cup) --> 1 cup sour cream OR 1 cup plain yogurt"
     )
     IconButton(
-        onClick = { navController.popBackStack() },
-        modifier = Modifier.padding(top = 58.dp)
+        onClick = { navController.popBackStack() }, modifier = Modifier.padding(top = 58.dp)
     ) {
         Icon(
             Icons.Default.ArrowBack,
@@ -60,9 +60,7 @@ fun SubstitutionsContent(navController: NavController, innerPadding: PaddingValu
         )
     }
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize().padding(bottom = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        modifier = Modifier.fillMaxSize().padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item {
             Text(
@@ -98,14 +96,10 @@ fun SubstitutionsContent(navController: NavController, innerPadding: PaddingValu
             }
             item {
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(start = 16.dp)
+                    verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 16.dp)
                 ) {
                     Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .background(TasteBudGreen)
-                            .align(Alignment.Top)
+                        modifier = Modifier.size(8.dp).background(TasteBudGreen).align(Alignment.Top)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(

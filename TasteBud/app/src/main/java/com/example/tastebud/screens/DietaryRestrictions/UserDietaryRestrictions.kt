@@ -27,16 +27,29 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 var availableDiets = listOf<String>("Vegetarian", "Vegan", "Gluten Free", "Dairy Free", "Pescatarian", "Keto")
+
 @Composable
 fun UserDietaryRestrictionsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
     GetUserProfile(sharedViewModel)
     val selectedIngredients = remember { mutableStateListOf<String>() }
-    NavBarScaffold(navController, "Dietary Restrictions") { SelectDiet(navController, it, selectedIngredients, sharedViewModel) }
+    NavBarScaffold(navController, "Dietary Restrictions") {
+        SelectDiet(
+            navController,
+            it,
+            selectedIngredients,
+            sharedViewModel
+        )
+    }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SelectDiet(navController: NavController, innerPadding: PaddingValues, selectedDiets: MutableList<String>, sharedViewModel: SharedViewModel) {
+fun SelectDiet(
+    navController: NavController,
+    innerPadding: PaddingValues,
+    selectedDiets: MutableList<String>,
+    sharedViewModel: SharedViewModel
+) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -66,8 +79,8 @@ fun SelectDiet(navController: NavController, innerPadding: PaddingValues, select
             modifier = Modifier
                 .padding(8.dp, 0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ){
-            for(diets in availableDiets){
+        ) {
+            for (diets in availableDiets) {
                 FilterChipExampl(
                     title = diets,
                     onDietSelected = { dietSelected ->
@@ -99,7 +112,15 @@ fun SelectDiet(navController: NavController, innerPadding: PaddingValues, select
                 .padding(16.dp)
                 .height(40.dp)
         ) {
-            Text(text = "Continue", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontFamily = Inter,)
+            Text(
+                text = "Continue",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.White,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontFamily = Inter,
+            )
         }
     }
 }

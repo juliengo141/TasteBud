@@ -6,8 +6,11 @@ import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -33,18 +36,15 @@ fun RecipeRoadScreen(navController: NavController, sharedViewModel: SharedViewMo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeRoadContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
-
     Column(
-        modifier = Modifier
-            .padding(innerPadding)
+        modifier = Modifier.padding(innerPadding)
     ) {
         Text(
-            text = "Road Across " + sharedViewModel.country, fontSize = 36.sp,
-            fontWeight = FontWeight.Bold
+            text = "Road Across " + sharedViewModel.country, fontSize = 36.sp, fontWeight = FontWeight.Bold
         )
         CuisineRecipes(sharedViewModel)
         Log.d("RECIPE_DB_RECIPES", "${sharedViewModel.cuisineRecipes}")
-        LazyColumn() {
+        LazyColumn {
             items(sharedViewModel.cuisineRecipes) { recipe ->
                 if (recipe != null) {
                     RecipeCard(recipe = recipe, navController, sharedViewModel)
@@ -58,10 +58,7 @@ fun RecipeRoadContent(navController: NavController, innerPadding: PaddingValues,
 @Composable
 fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: SharedViewModel) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .height(250.dp),
+        modifier = Modifier.fillMaxWidth().padding(8.dp).height(250.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         onClick = {
@@ -71,10 +68,7 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
-                model = recipe.imageUrl,
-                contentDescription = null,
-                modifier = Modifier.size(200.dp)
-                //
+                model = recipe.imageUrl, contentDescription = null, modifier = Modifier.size(200.dp)
             )
             Column {
                 Text(
@@ -112,15 +106,12 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
     }
 }
 
-fun CuisineRecipes(sharedViewModel: SharedViewModel){
+fun CuisineRecipes(sharedViewModel: SharedViewModel) {
     val db = Firebase.firestore
     val recipes = mutableListOf<Recipe>()
     val testIngredientList = mutableListOf<Ingredient>()
-
     val recipesRef = db.collection("Recipes")
-    recipesRef.whereArrayContains("cuisines", sharedViewModel.cuisine)
-        .orderBy("difficulty")
-        .get()
+    recipesRef.whereArrayContains("cuisines", sharedViewModel.cuisine).orderBy("difficulty").get()
         .addOnSuccessListener { result ->
             val filteredRecipes = mutableListOf<DocumentSnapshot>()
             var countOneStar = 0
@@ -152,10 +143,10 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
                     Log.d("COUNT5", "${countFiveStar}")
                 }
             }
-//            Log.d("COUNT", "${count}")
             Log.d("RECIPE_DB_DIFFICULTY", "${filteredRecipes}")
             for (document in filteredRecipes) {
                 val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
+
                 //For ingredients mapping
                 for (ingredientData in ingredients) {
                     var name = ingredientData["name"] as? String
@@ -164,17 +155,17 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
                     val id = ingredientData["id"].toString()
                     var og = ingredientData["original"] as? String
                     var image = ingredientData["image"] as? String
-                    if(name == null){
-                        name =""
+                    if (name == null) {
+                        name = ""
                     }
-                    if(unit == null){
-                        unit =""
+                    if (unit == null) {
+                        unit = ""
                     }
-                    if(og == null){
-                        og =""
+                    if (og == null) {
+                        og = ""
                     }
-                    if(image == null){
-                        image =""
+                    if (image == null) {
+                        image = ""
                     }
                     val ingredient = Ingredient(id, name, og, image, quantity, unit)
                     testIngredientList.add(ingredient)
@@ -182,14 +173,13 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
                 val steps = mutableListOf<Instruction>()
 
                 val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
-                for(instructionData in instructions) {
+                for (instructionData in instructions) {
                     val stepNum = instructionData["number"] as Long
                     val step = instructionData["step"].toString()
-
                     val equipmentList = mutableListOf<Equipment>()
-                    //val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
                     val equipment = instructionData["equipment"] as List<Map<String, Any>>
-                    for(equipmentData in equipment) {
+
+                    for (equipmentData in equipment) {
                         val id = equipmentData["id"].toString()
                         val name = equipmentData["name"].toString()
                         val image = equipmentData["image"].toString()
@@ -199,7 +189,7 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
 
                     val instructionIngredientsList = mutableListOf<Equipment>()
                     val i = instructionData["ingredients"] as List<Map<String, Any>>
-                    for(instructionIngredientData in i) {
+                    for (instructionIngredientData in i) {
                         val id = instructionIngredientData["id"].toString()
                         val name = instructionIngredientData["name"].toString()
                         val image = instructionIngredientData["image"].toString()
@@ -230,14 +220,10 @@ fun CuisineRecipes(sharedViewModel: SharedViewModel){
                     testIngredientList,
                     steps
                 )
-                Log.d("RECIPE_DB", "${recipe}")
                 recipes.add(recipe)
-                Log.d("RECIPE_DB1", "${recipes}")
             }
             sharedViewModel.addCuisineRecipes(recipes)
-        }
-        .addOnFailureListener { exception ->
+        }.addOnFailureListener { exception ->
             Log.w("RECIPE_DB", "Error getting documents.", exception)
         }
 }
-

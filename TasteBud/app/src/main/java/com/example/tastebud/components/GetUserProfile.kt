@@ -41,4 +41,3 @@ fun GetUserProfile(sharedViewModel: SharedViewModel) {
             }
     }
 }
-

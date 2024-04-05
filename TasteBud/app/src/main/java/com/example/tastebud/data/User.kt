@@ -11,4 +11,4 @@ data class User(
     val minsCooked: Long,
     val completedCount: Long,
     val startedCount: Long
-): Parcelable
+) : Parcelable

@@ -11,7 +11,6 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 //Custom TasteBud Colours
-
 val TasteBudGreen = Color(0xFF4C956C)
 val TasteBudDarkGreen = Color(0xFF2C6E49)
 val TasteBudBackground = Color(0xFFFFFFFF)

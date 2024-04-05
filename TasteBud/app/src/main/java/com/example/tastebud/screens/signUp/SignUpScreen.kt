@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(navController: NavController, sharedViewModel: SharedViewModel) {
-     SignUpContent(navController, sharedViewModel)
+    SignUpContent(navController, sharedViewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,8 +51,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
     Column(
         modifier = Modifier.background(TasteBudBackground).fillMaxHeight(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-
-    ) {
+        ) {
         Image(
             painterResource(R.drawable.tastebud),
             contentDescription = "",
@@ -68,7 +67,8 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
 
         // Update the allFieldsFilled variable whenever any field changes
         LaunchedEffect(fullName.value, emailValue.value, passwordValue.value) {
-            allFieldsFilled = fullName.value.text.isNotBlank() && emailValue.value.text.isNotBlank() && passwordValue.value.text.isNotBlank()
+            allFieldsFilled =
+                fullName.value.text.isNotBlank() && emailValue.value.text.isNotBlank() && passwordValue.value.text.isNotBlank()
         }
 
         Text(
@@ -81,7 +81,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
         )
         OutlinedTextField(
             label = {
-                Text(text="Full Name", style = MaterialTheme.typography.bodyLarge)
+                Text(text = "Full Name", style = MaterialTheme.typography.bodyLarge)
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             value = fullName.value,
@@ -98,13 +98,13 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                 )
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = Color.Black,
-            cursorColor = TasteBudDarkGreen,
-            focusedBorderColor = TasteBudDarkGreen,
+                textColor = Color.Black,
+                cursorColor = TasteBudDarkGreen,
+                focusedBorderColor = TasteBudDarkGreen,
                 focusedLeadingIconColor = TasteBudDarkGreen,
-            unfocusedBorderColor = Color.Gray,
-            focusedLabelColor = TasteBudDarkGreen
-        ),
+                unfocusedBorderColor = Color.Gray,
+                focusedLabelColor = TasteBudDarkGreen
+            ),
         )
         OutlinedTextField(
             label = {
@@ -133,7 +133,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                 focusedLabelColor = TasteBudDarkGreen
             ),
 
-        )
+            )
         OutlinedTextField(
             label = {
                 Text("Password")
@@ -164,95 +164,88 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
             ),
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        Button(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = TasteBudGreen,
-                contentColor = Color.White,
-            ),
-            onClick = {
-                if (allFieldsFilled) {
-                    if (!isValidEmail(emailValue.value.text)) {
-                        scope.launch {
-                            snackbarHostState.showSnackbar(
-                                message = "Please enter a valid email address.",
-                                actionLabel = "Dismiss",
-                                duration = SnackbarDuration.Short,
-                            )
-                        }
-                    }
-                    else if (passwordValue.value.text.length < 6) {
-                        scope.launch {
-                            snackbarHostState.showSnackbar(
-                                message = "Password must be at least 6 characters.",
-                                actionLabel = "Dismiss",
-                                duration = SnackbarDuration.Short,
-                            )
-                        }
-                    } else {
-                        auth.createUserWithEmailAndPassword(
-                            emailValue.value.text.trim(),
-                            passwordValue.value.text.trim()
-                        ).addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Log.d("AUTH", "Sign Up Success!")
-                                val user = auth.currentUser
-                                if (user != null) {
-                                    sharedViewModel.addUserId(user)
-                                    Log.d("AUTH", "${sharedViewModel.userId?.email}")
-                                    val db = Firebase.firestore
-                                    val newUser = hashMapOf(
-                                        "email" to user.email,
-                                        "fullName" to fullName.value.text.trim(),
-                                        "dietaryRestrictions" to emptyList<String>(),
-                                        "minsCooked" to 0,
-                                        "completedCount" to 0,
-                                        "startedCount" to 0
-                                    )
-                                    db.collection("Users").document(user.uid)
-                                        .set(newUser)
-                                        .addOnSuccessListener { Log.d("USERS_DB", "DocumentSnapshot successfully written!") }
-                                        .addOnFailureListener { e -> Log.w("USERS_DB", "Error writing document", e) }
-                                }
-                                navController.navigate("UserDietaryRestrictions")
-                            } else {
-                                Log.d("AUTH", "Sign Up Failed: ${task.exception}")
-                                // Handle sign-up failure here
-                                if (task.exception is FirebaseAuthUserCollisionException) {
-                                    scope.launch {
-                                        snackbarHostState.showSnackbar(
-                                            message = "User with this email already exist.",
-                                            actionLabel = "Dismiss",
-                                            duration = SnackbarDuration.Short,
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
+        Button(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp), colors = ButtonDefaults.buttonColors(
+            containerColor = TasteBudGreen,
+            contentColor = Color.White,
+        ), onClick = {
+            if (allFieldsFilled) {
+                if (!isValidEmail(emailValue.value.text)) {
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            message = "Please fill all fields.",
+                            message = "Please enter a valid email address.",
                             actionLabel = "Dismiss",
                             duration = SnackbarDuration.Short,
                         )
                     }
+                } else if (passwordValue.value.text.length < 6) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Password must be at least 6 characters.",
+                            actionLabel = "Dismiss",
+                            duration = SnackbarDuration.Short,
+                        )
+                    }
+                } else {
+                    auth.createUserWithEmailAndPassword(
+                        emailValue.value.text.trim(), passwordValue.value.text.trim()
+                    ).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d("AUTH", "Sign Up Success!")
+                            val user = auth.currentUser
+                            if (user != null) {
+                                sharedViewModel.addUserId(user)
+                                Log.d("AUTH", "${sharedViewModel.userId?.email}")
+                                val db = Firebase.firestore
+                                val newUser = hashMapOf(
+                                    "email" to user.email,
+                                    "fullName" to fullName.value.text.trim(),
+                                    "dietaryRestrictions" to emptyList<String>(),
+                                    "minsCooked" to 0,
+                                    "completedCount" to 0,
+                                    "startedCount" to 0
+                                )
+                                db.collection("Users").document(user.uid).set(newUser).addOnSuccessListener {
+                                        Log.d(
+                                            "USERS_DB",
+                                            "DocumentSnapshot successfully written!"
+                                        )
+                                    }.addOnFailureListener { e -> Log.w("USERS_DB", "Error writing document", e) }
+                            }
+                            navController.navigate("UserDietaryRestrictions")
+                        } else {
+                            Log.d("AUTH", "Sign Up Failed: ${task.exception}")
+                            // Handle sign-up failure here
+                            if (task.exception is FirebaseAuthUserCollisionException) {
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        message = "User with this email already exist.",
+                                        actionLabel = "Dismiss",
+                                        duration = SnackbarDuration.Short,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Please fill all fields.",
+                        actionLabel = "Dismiss",
+                        duration = SnackbarDuration.Short,
+                    )
                 }
             }
-        ) {
+        }) {
             Text(text = "Sign Up", fontWeight = FontWeight.Black, fontFamily = Inter, fontSize = 20.sp)
         }
-        SnackbarHost(
-            hostState = snackbarHostState,
+        SnackbarHost(hostState = snackbarHostState,
             modifier = Modifier.align(Alignment.CenterHorizontally),
-                    snackbar = {
+            snackbar = {
                 Snackbar(
-                    snackbarData = it,
-                    containerColor = Color.hsl(0f,1f,0.64f)
+                    snackbarData = it, containerColor = Color.hsl(0f, 1f, 0.64f)
                 )
-            }
-        )
+            })
         ClickableText(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             text = AnnotatedString("Already have an account? ") + AnnotatedString(
@@ -273,4 +266,3 @@ fun isValidEmail(email: String): Boolean {
     val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
     return email.matches(emailRegex.toRegex())
 }
-

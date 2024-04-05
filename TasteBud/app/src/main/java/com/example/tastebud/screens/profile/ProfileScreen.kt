@@ -5,35 +5,30 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tastebud.R
-import com.example.tastebud.data.*
+import com.example.tastebud.data.User
 import com.example.tastebud.screens.SharedViewModel
-import com.example.tastebud.screens.recipeDetail.IngredientItem
 import com.example.tastebud.ui.theme.TasteBudAccent
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
 
 
 @Composable
@@ -72,12 +67,12 @@ fun ProfileContent(navController: NavController, innerPadding: PaddingValues, sh
 @Composable
 fun GetUserProfile(sharedViewModel: SharedViewModel) {
     val documentId = sharedViewModel.userId?.uid
-    Log.d("USERID", "${documentId}");
+    Log.d("USERID", "${documentId}")
     var currUser: User
 
     val db = FirebaseFirestore.getInstance()
     val docRef = documentId?.let { db.collection("Users").document(it) }
-    Log.d("DOCREF", "${docRef}");
+    Log.d("DOCREF", "${docRef}")
 
     if (docRef != null) {
         docRef.get()
@@ -92,27 +87,10 @@ fun GetUserProfile(sharedViewModel: SharedViewModel) {
                         (document.data?.get("completedCount")) as Long,
                         (document.data?.get("startedCount")) as Long,
                     )
-                    Log.d("CURRUSERID", "currUser: ${currUser}");
-//                    pickedRecipe = Recipe(
-//                        (document.data?.get("id")).toString(),
-//                        (document.data?.get("title")).toString(),
-//                        (document.data?.get("image")).toString(),
-//                        (document.data?.get("readyInMinutes")).toString() + " mins",
-//                        (document.data?.get("servings")) as Long,
-//                        (document.data?.get("cuisines")) as List<String>,
-//                        (document.data?.get("vegetarian")) as Boolean,
-//                        (document.data?.get("vegan")) as Boolean,
-//                        (document.data?.get("glutenFree")) as Boolean,
-//                        (document.data?.get("dairyFree")) as Boolean,
-//                        (document.data?.get("veryHealthy")) as Boolean,
-//                        (document.data?.get("cheap")) as Boolean,
-//                        (document.data?.get("difficulty")).toString(),
-//                        testIngredientList,
-//                        steps
-//                    )
+                    Log.d("CURRUSERID", "currUser: ${currUser}")
                     sharedViewModel.addUser(currUser)
                 } else {
-                    Log.d("ERROR", "No such document");
+                    Log.d("ERROR", "No such document")
                     println("No such document")
                 }
             }
@@ -138,10 +116,18 @@ fun ProfileHeader(sharedViewModel: SharedViewModel) {
             modifier = Modifier.size(50.dp)
         )
 
-        // User's Name and Email (Random for now)
+        // User's Name and Email
         Column {
-            Text("${sharedViewModel.user?.fullName}", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
-            Text("${sharedViewModel.user?.email}", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Medium)
+            Text(
+                "${sharedViewModel.user?.fullName}",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                "${sharedViewModel.user?.email}",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
@@ -210,19 +196,17 @@ fun CircleIcon(icon: Int, diet: String, dietaryList: List<String>) {
         )
     }
 }
+
 @Composable
-fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) {
+fun CardsSection(sharedViewModel: SharedViewModel, navController: NavController) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
-        // First Card
         Card(
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(12.dp),
-            //elevation = 8.dp,
-            //backgroundColor = Color.White,
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
@@ -234,7 +218,7 @@ fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) 
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-                Row(verticalAlignment = Alignment.CenterVertically){
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.CheckBox,
                         contentDescription = "Localized description",
@@ -258,8 +242,6 @@ fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) 
             modifier = Modifier
                 .fillMaxWidth(1f)
                 .padding(12.dp),
-//             elevation = 8.dp,
-//             backgroundColor = Color.White,
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
@@ -272,7 +254,7 @@ fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) 
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
 
-                Row(verticalAlignment = Alignment.CenterVertically){
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.Timer,
                         contentDescription = "Localized description",
@@ -291,6 +273,5 @@ fun CardsSection(sharedViewModel: SharedViewModel,navController: NavController) 
 
             }
         }
-
     }
 }

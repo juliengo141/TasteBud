@@ -12,11 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,14 +24,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.tastebud.screens.SharedViewModel
-import kotlinx.coroutines.launch
 import com.example.tastebud.data.Instruction
+import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.example.tastebud.ui.theme.TasteBudOrange
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 @Composable
 fun FlashcardsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
@@ -58,10 +54,7 @@ fun FlashcardContent(navController: NavController, innerPadding: PaddingValues, 
             )
         }
         Text(
-            "Instructions",
-            modifier = Modifier.padding(15.dp, 0.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            "Instructions", modifier = Modifier.padding(15.dp, 0.dp), fontSize = 20.sp, fontWeight = FontWeight.Bold
         )
         if (sharedViewModel.recipe != null) {
             val steps = sharedViewModel.recipe?.steps
@@ -93,21 +86,15 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp) // Add left and right padding
-        //.height(100.dp)
+        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)
     ) {
         // Horizontal pager for recipe steps
         HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxSize().weight(3f)
+            state = pagerState, modifier = Modifier.fillMaxSize().weight(3f)
 
         ) { page ->
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp)
+                modifier = Modifier.fillMaxSize().padding(8.dp)
                     .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
             ) {
                 Text(
@@ -116,9 +103,7 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(20.dp)
-
+                    modifier = Modifier.padding(20.dp)
                 )
             }
         }
@@ -133,9 +118,7 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
                 val stepNumber = step.stepNumber
                 val color = if (pagerState.currentPage == stepNumber.toInt() - 1) Color.DarkGray else Color.LightGray
                 Box(
-                    modifier = Modifier.padding(8.dp)
-                        .background(color, CircleShape)
-                        .size(10.dp)
+                    modifier = Modifier.padding(8.dp).background(color, CircleShape).size(10.dp)
                 )
             }
         }
@@ -145,8 +128,7 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
             modifier = Modifier.fillMaxWidth().weight(1f),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
-        )
-        {
+        ) {
             if (!pagerState.isScrollInProgress && pagerState.currentPage == pageCount - 1) {
                 Button(
                     onClick = {
@@ -157,16 +139,13 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
                         val incrementMinsCooked =
                             hashMapOf("minsCooked" to (sharedViewModel.user?.minsCooked ?: 0) + additionalMin!!)
                         sharedViewModel.user?.let {
-                            db.collection("Users").document(it.userId)
-                                .set(updatedCompletedCount, SetOptions.merge())
+                            db.collection("Users").document(it.userId).set(updatedCompletedCount, SetOptions.merge())
                         }
                         sharedViewModel.user?.let {
-                            db.collection("Users").document(it.userId)
-                                .set(incrementMinsCooked, SetOptions.merge())
+                            db.collection("Users").document(it.userId).set(incrementMinsCooked, SetOptions.merge())
                         }
                         navController.navigate("homeScreen")
-                    },
-                    colors = ButtonDefaults.buttonColors(
+                    }, colors = ButtonDefaults.buttonColors(
                         containerColor = TasteBudOrange
                     )
                 ) {
@@ -179,25 +158,22 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
             modifier = Modifier.fillMaxWidth().weight(1f),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
-        )
-        {
+        ) {
             val coroutineScope = rememberCoroutineScope()
+
             // Display the "Completed" button when the "Next" button is disabled
             Button(
                 onClick = {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage - 1)
                     }
-                },
-                enabled = pagerState.currentPage > 0,
-                colors = ButtonDefaults.buttonColors(
+                }, enabled = pagerState.currentPage > 0, colors = ButtonDefaults.buttonColors(
                     containerColor = TasteBudGreen
                 )
 
             ) {
                 Text(
-                    "Back", fontSize = 24.sp, modifier = Modifier
-                        .padding(15.dp)
+                    "Back", fontSize = 24.sp, modifier = Modifier.padding(15.dp)
                 )
             }
             Button(
@@ -205,19 +181,15 @@ fun RecipeStepsPager(steps: List<Instruction>, sharedViewModel: SharedViewModel,
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
-                },
-                enabled = pagerState.currentPage < pageCount - 1,
-                colors = ButtonDefaults.buttonColors(
+                }, enabled = pagerState.currentPage < pageCount - 1, colors = ButtonDefaults.buttonColors(
                     containerColor = TasteBudGreen
                 )
 
             ) {
                 Text(
-                    "Next", fontSize = 24.sp, modifier = Modifier
-                        .padding(15.dp)
+                    "Next", fontSize = 24.sp, modifier = Modifier.padding(15.dp)
                 )
             }
         }
     }
 }
-

@@ -16,11 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.tastebud.data.Equipment
-import com.example.tastebud.data.Ingredient
-import com.example.tastebud.data.Instruction
-import com.example.tastebud.data.Recipe
-import com.example.tastebud.data.fetchRecipes
+import com.example.tastebud.data.*
 import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.ui.theme.Inter
 import com.example.tastebud.ui.theme.TasteBudAccent
@@ -29,29 +25,51 @@ import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import kotlin.random.Random
 
-var fridgeIngredients = listOf<String>("Eggs", "Chicken", "Paneer", "Milk", "Onions", "Rice", "Noodles", "Tomato", "Potatoes", "Tuna", "Spinach", "Pasta", "Beef", "Honey" )
+var fridgeIngredients = listOf(
+    "Eggs",
+    "Chicken",
+    "Paneer",
+    "Milk",
+    "Onions",
+    "Rice",
+    "Noodles",
+    "Tomato",
+    "Potatoes",
+    "Tuna",
+    "Spinach",
+    "Pasta",
+    "Beef",
+    "Honey"
+)
+
 @Composable
 fun SelectIngredientScreen(navController: NavController, sharedViewModel: SharedViewModel) {
     val selectedIngredients = remember { mutableStateListOf<String>() }
-    NavBarScaffold(navController, "What's in the Fridge?") { selectContent(navController, it, selectedIngredients, sharedViewModel) }
+    NavBarScaffold(navController, "What's in the Fridge?") {
+        selectContent(
+            navController, it, selectedIngredients, sharedViewModel
+        )
+    }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun selectContent(navController: NavController, innerPadding: PaddingValues, selectedIngredients: MutableList<String>, sharedViewModel: SharedViewModel) {
+fun selectContent(
+    navController: NavController,
+    innerPadding: PaddingValues,
+    selectedIngredients: MutableList<String>,
+    sharedViewModel: SharedViewModel
+) {
     var message by remember { mutableStateOf("") }
     if (sharedViewModel.recipeFound) {
         message = "Choose which ingredients from your fridge you want to use to make your recipe with!"
     } else {
-        message = "No recipes matching your combination of ingredients found. Please try a different set of ingredients!"
+        message =
+            "No recipes matching your combination of ingredients found. Please try a different set of ingredients!"
     }
     Column(
-        modifier = Modifier
-            .padding(innerPadding)
-            .padding(20.dp, 16.dp)
-            .background(TasteBudBackground),
+        modifier = Modifier.padding(innerPadding).padding(20.dp, 16.dp).background(TasteBudBackground),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
@@ -66,25 +84,20 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
         )
 
         FlowRow(
-            modifier = Modifier
-                .padding(8.dp, 0.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ){
-            for(ingredient in fridgeIngredients){
-                FilterChipExample(
-                    title = ingredient,
-                    onIngredientSelected = { ingredientSelected ->
-                        if (ingredientSelected) {
-                            selectedIngredients.add(ingredient)
-                        } else {
-                            selectedIngredients.remove(ingredient)
-                        }
+            modifier = Modifier.padding(8.dp, 0.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            for (ingredient in fridgeIngredients) {
+                FilterChipExample(title = ingredient, onIngredientSelected = { ingredientSelected ->
+                    if (ingredientSelected) {
+                        selectedIngredients.add(ingredient)
+                    } else {
+                        selectedIngredients.remove(ingredient)
                     }
-                )
+                })
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        var isRecipe = Recipe("", "", "", 0L, 2, listOf(), listOf(), false, false, false, false, false, false, "0", listOf(), listOf())
+        var isRecipe: Recipe
         Button(
             onClick = {
                 fetchRecipes(selectedIngredients) { ids ->
@@ -93,7 +106,7 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
                         Log.d("IDs", "$ids")
                         isRecipe = PickIngredientsRecipe(sharedViewModel, ids)
                         Log.d("IS_RECIPE", "${isRecipe}")
-                        if(isRecipe.title != "") {
+                        if (isRecipe.title != "") {
                             sharedViewModel.addRecipe(isRecipe)
                             sharedViewModel.addRecipeFound(true)
                             navController.navigate("recipeDetailsScreen")
@@ -107,19 +120,23 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
                     }
                 }
                 Log.d("SelectedIngredients", selectedIngredients.toString())
-            },
-            colors = ButtonDefaults.buttonColors(
+            }, colors = ButtonDefaults.buttonColors(
                 containerColor = TasteBudGreen
-            ),
-            modifier = Modifier
-                .padding(16.dp)
-                .height(40.dp)
+            ), modifier = Modifier.padding(16.dp).height(40.dp)
         ) {
-            Text(text = "Continue", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontFamily = Inter,)
+            Text(
+                text = "Continue",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.White,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontFamily = Inter,
+            )
         }
         Text(
             modifier = Modifier.padding(8.dp),
-            text= message,
+            text = message,
             fontFamily = Inter,
         )
     }
@@ -142,7 +159,6 @@ fun FilterChipExample(title: String, onIngredientSelected: (Boolean) -> Unit) {
         colors = FilterChipDefaults.filterChipColors(
             selectedContainerColor = TasteBudAccent
         ),
-
         leadingIcon = if (selected) {
             {
                 Icon(
@@ -157,7 +173,7 @@ fun FilterChipExample(title: String, onIngredientSelected: (Boolean) -> Unit) {
     )
 }
 
-fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Recipe{
+fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>): Recipe {
     val db = FirebaseFirestore.getInstance()
     val docRef = db.collection("Recipes")
 
@@ -168,7 +184,7 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
                 val document = docRef.whereEqualTo("id", id).get().await()
                 if (!document.isEmpty) {
                     documentId = document.documents[0].id
-                    break;
+                    break
                 }
             }
 
@@ -186,30 +202,30 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
                     val id = ingredientData["id"].toString()
                     var og = ingredientData["original"] as? String
                     var image = ingredientData["image"] as? String
-                    if(name == null){
-                        name =""
+                    if (name == null) {
+                        name = ""
                     }
-                    if(unit == null){
-                        unit =""
+                    if (unit == null) {
+                        unit = ""
                     }
-                    if(og == null){
-                        og =""
+                    if (og == null) {
+                        og = ""
                     }
-                    if(image == null){
-                        image =""
+                    if (image == null) {
+                        image = ""
                     }
                     val ingredient = Ingredient(id, name, og, image, quantity, unit)
                     testIngredientList.add(ingredient)
                 }
 
                 val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
-                for(instructionData in instructions) {
+                for (instructionData in instructions) {
                     val stepNum = instructionData["number"] as Long
                     val step = instructionData["step"].toString()
 
                     val equipmentList = mutableListOf<Equipment>()
                     val equipment = instructionData["equipment"] as List<Map<String, Any>>
-                    for(equipmentData in equipment) {
+                    for (equipmentData in equipment) {
                         val id = equipmentData["id"].toString()
                         val name = equipmentData["name"].toString()
                         val image = equipmentData["image"].toString()
@@ -219,7 +235,7 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
 
                     val instructionIngredientsList = mutableListOf<Equipment>()
                     val i = instructionData["ingredients"] as List<Map<String, Any>>
-                    for(instructionIngredientData in i) {
+                    for (instructionIngredientData in i) {
                         val id = instructionIngredientData["id"].toString()
                         val name = instructionIngredientData["name"].toString()
                         val image = instructionIngredientData["image"].toString()
@@ -253,11 +269,45 @@ fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Re
 
             } else {
                 Log.d("DocumentNotFound", "error")
-                Recipe("", "", "", 0, 0, listOf(), listOf(),false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+                Recipe(
+                    "",
+                    "",
+                    "",
+                    0,
+                    0,
+                    listOf(),
+                    listOf(),
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    "",
+                    mutableListOf(),
+                    mutableListOf()
+                )
             }
         } catch (e: Exception) {
             Log.e("Error Exception", "Error getting document: $e")
-            Recipe("", "", "", 0, 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+            Recipe(
+                "",
+                "",
+                "",
+                0,
+                0,
+                listOf(),
+                listOf(),
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                "",
+                mutableListOf(),
+                mutableListOf()
+            )
         }
     }
 }

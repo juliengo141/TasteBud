@@ -97,11 +97,13 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                         .padding(8.dp)
                         .border(1.dp, Color.Black)
                 )
-                Column(horizontalAlignment = Alignment.CenterHorizontally,
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .fillMaxSize() 
-                        .padding(16.dp) ){
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
                     Text(
                         text = "RECIPE ROAD:",
                         fontFamily = Inter,
@@ -136,7 +138,8 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 8.dp, top = 8.dp),
-            textAlign = TextAlign.Center)
+            textAlign = TextAlign.Center
+        )
 
 
         dishes.forEachIndexed() { index, dish ->
@@ -146,7 +149,6 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                 onClick = {
                     sharedViewModel.addRecipe(dish)
                     navController.navigate("recipeDetailsScreen")
-
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -156,7 +158,6 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start,
                     modifier = Modifier.fillMaxWidth(),
-
                 ) {
                     Box(
                         modifier = Modifier
@@ -179,10 +180,12 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = dish.title,
+                        Text(
+                            text = dish.title,
                             style = MaterialTheme.typography.bodyLarge,
-                                    fontFamily = Inter,
-                                    fontWeight = FontWeight.Bold,)
+                            fontFamily = Inter,
+                            fontWeight = FontWeight.Bold,
+                        )
                         Text(
                             text = dish.cuisines[0],
                             fontFamily = Inter,
@@ -209,7 +212,6 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
 fun getRecipe(documentId: Int): Recipe {
     val db = FirebaseFirestore.getInstance()
     val docRef = db.collection("Recipes").document(documentId.toString())
-    // var pickedRecipe: Recipe = recipePaniPuri
     return runBlocking {
         try {
             val document = docRef.get().await()
@@ -225,30 +227,30 @@ fun getRecipe(documentId: Int): Recipe {
                     val id = ingredientData["id"].toString()
                     var og = ingredientData["original"] as? String
                     var image = ingredientData["image"] as? String
-                    if(name == null){
-                        name =""
+                    if (name == null) {
+                        name = ""
                     }
-                    if(unit == null){
-                        unit =""
+                    if (unit == null) {
+                        unit = ""
                     }
-                    if(og == null){
-                        og =""
+                    if (og == null) {
+                        og = ""
                     }
-                    if(image == null){
-                        image =""
+                    if (image == null) {
+                        image = ""
                     }
                     val ingredient = Ingredient(id, name, og, image, quantity, unit)
                     testIngredientList.add(ingredient)
                 }
 
                 val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
-                for(instructionData in instructions) {
+                for (instructionData in instructions) {
                     val stepNum = instructionData["number"] as Long
                     val step = instructionData["step"].toString()
 
                     val equipmentList = mutableListOf<Equipment>()
                     val equipment = instructionData["equipment"] as List<Map<String, Any>>
-                    for(equipmentData in equipment) {
+                    for (equipmentData in equipment) {
                         val id = equipmentData["id"].toString()
                         val name = equipmentData["name"].toString()
                         val image = equipmentData["image"].toString()
@@ -258,7 +260,7 @@ fun getRecipe(documentId: Int): Recipe {
 
                     val instructionIngredientsList = mutableListOf<Equipment>()
                     val i = instructionData["ingredients"] as List<Map<String, Any>>
-                    for(instructionIngredientData in i) {
+                    for (instructionIngredientData in i) {
                         val id = instructionIngredientData["id"].toString()
                         val name = instructionIngredientData["name"].toString()
                         val image = instructionIngredientData["image"].toString()
@@ -291,11 +293,45 @@ fun getRecipe(documentId: Int): Recipe {
                 )
             } else {
                 Log.d("DocumentNotFound", "error")
-                Recipe("", "", "", 0, 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+                Recipe(
+                    "",
+                    "",
+                    "",
+                    0,
+                    0,
+                    listOf(),
+                    listOf(),
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    "",
+                    mutableListOf(),
+                    mutableListOf()
+                )
             }
         } catch (e: Exception) {
             Log.e("Error Exception", "Error getting document: $e")
-            Recipe("", "", "", 0, 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+            Recipe(
+                "",
+                "",
+                "",
+                0,
+                0,
+                listOf(),
+                listOf(),
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                "",
+                mutableListOf(),
+                mutableListOf()
+            )
         }
     }
 }
