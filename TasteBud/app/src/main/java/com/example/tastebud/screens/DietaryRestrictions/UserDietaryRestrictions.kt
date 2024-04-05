@@ -10,29 +10,33 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.tastebud.components.GetUserProfile
 import com.example.tastebud.screens.SharedViewModel
 import com.example.tastebud.ui.theme.Inter
 import com.example.tastebud.ui.theme.TasteBudAccent
 import com.example.tastebud.ui.theme.TasteBudBackground
 import com.example.tastebud.ui.theme.TasteBudGreen
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-var fridgeIngredient = listOf<String>("Vegatarian", "Vegan", "Gluten-free", "Lactose-Intolerance", "Diabetes", "Dairy-free")
+var availableDiets = listOf<String>("Vegetarian", "Vegan", "Gluten Free", "Dairy Free", "Pescatarian", "Keto")
 @Composable
 fun UserDietaryRestrictionsScreen(navController: NavController, sharedViewModel: SharedViewModel) {
+    GetUserProfile(sharedViewModel)
     val selectedIngredients = remember { mutableStateListOf<String>() }
-    NavBarScaffold(navController, "Dietary Restrictations") { selectContent1(navController, it, selectedIngredients) }
+    NavBarScaffold(navController, "Dietary Restrictions") { SelectDiet(navController, it, selectedIngredients, sharedViewModel) }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun selectContent1(navController: NavController, innerPadding: PaddingValues, selectedIngredients: MutableList<String>) {
+fun SelectDiet(navController: NavController, innerPadding: PaddingValues, selectedDiets: MutableList<String>, sharedViewModel: SharedViewModel) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -63,14 +67,14 @@ fun selectContent1(navController: NavController, innerPadding: PaddingValues, se
                 .padding(8.dp, 0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ){
-            for(ingredient in fridgeIngredient){
+            for(diets in availableDiets){
                 FilterChipExampl(
-                    title = ingredient,
-                    onIngredientSelected = { ingredientSelected ->
-                        if (ingredientSelected) {
-                            selectedIngredients.add(ingredient)
+                    title = diets,
+                    onDietSelected = { dietSelected ->
+                        if (dietSelected) {
+                            selectedDiets.add(diets)
                         } else {
-                            selectedIngredients.remove(ingredient)
+                            selectedDiets.remove(diets)
                         }
                     }
                 )
@@ -79,7 +83,14 @@ fun selectContent1(navController: NavController, innerPadding: PaddingValues, se
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {
-                Log.d("SelectedIngredients", selectedIngredients.toString())
+                Log.d("DIET", selectedDiets.toString())
+                val db = Firebase.firestore
+                val updatedDiets = hashMapOf("dietaryRestrictions" to selectedDiets)
+                sharedViewModel.user?.let {
+                    db.collection("Users").document(it.userId)
+                        .set(updatedDiets, SetOptions.merge())
+                }
+                navController.navigate("homeScreen")
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = TasteBudGreen
@@ -95,13 +106,13 @@ fun selectContent1(navController: NavController, innerPadding: PaddingValues, se
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FilterChipExampl(title: String, onIngredientSelected: (Boolean) -> Unit) {
+fun FilterChipExampl(title: String, onDietSelected: (Boolean) -> Unit) {
     var selected by remember { mutableStateOf(false) }
 
     FilterChip(
         onClick = {
             selected = !selected
-            onIngredientSelected(selected)
+            onDietSelected(selected)
         },
         label = {
             Text(text = title, modifier = Modifier.padding(vertical = 8.dp, horizontal = 10.dp))
