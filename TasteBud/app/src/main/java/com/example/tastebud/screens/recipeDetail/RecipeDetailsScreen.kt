@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
@@ -24,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -99,6 +101,20 @@ fun RecipeDetailContent(navController: NavController, innerPadding: PaddingValue
                     contentDescription = "Check",
                     tint = Color.White,
                     modifier = Modifier.size(28.dp)
+                )
+            }
+            Button(
+                onClick = { navController.navigate("SubstitutionsScreen") },
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .background(Color.Gray),
+                contentPadding = PaddingValues(12.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.SwapVert,
+                    contentDescription = "Swap",
+                    tint = Color.White
                 )
             }
 

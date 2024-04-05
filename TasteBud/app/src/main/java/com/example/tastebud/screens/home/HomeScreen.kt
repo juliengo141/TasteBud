@@ -284,6 +284,7 @@ fun getRecipe(documentId: Int): Recipe {
                     (document.data?.get("readyInMinutes")).toString() + " mins",
                     (document.data?.get("servings")) as Long,
                     (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("diets")) as List<String>,
                     (document.data?.get("vegetarian")) as Boolean,
                     (document.data?.get("vegan")) as Boolean,
                     (document.data?.get("glutenFree")) as Boolean,
@@ -296,11 +297,11 @@ fun getRecipe(documentId: Int): Recipe {
                 )
             } else {
                 Log.d("DocumentNotFound", "error")
-                Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+                Recipe("", "", "", "", 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
             }
         } catch (e: Exception) {
             Log.e("Error Exception", "Error getting document: $e")
-            Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+            Recipe("", "", "", "", 0, listOf(), listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
         }
     }
 }

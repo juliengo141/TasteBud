@@ -205,7 +205,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                                     sharedViewModel.addUser(user)
                                     Log.d("AUTH", "${sharedViewModel.user?.email}")
                                 }
-                                navController.navigate("profileScreen")
+                                navController.navigate("HomeScreen")
                             } else {
                                 Log.d("AUTH", "Sign Up Failed: ${task.exception}")
                                 // Handle sign-up failure here
