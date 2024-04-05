@@ -214,7 +214,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                                         .addOnSuccessListener { Log.d("USERS_DB", "DocumentSnapshot successfully written!") }
                                         .addOnFailureListener { e -> Log.w("USERS_DB", "Error writing document", e) }
                                 }
-                                navController.navigate("HomeScreen")
+                                navController.navigate("UserDietaryRestrictions")
                             } else {
                                 Log.d("AUTH", "Sign Up Failed: ${task.exception}")
                                 // Handle sign-up failure here
