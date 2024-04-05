@@ -199,6 +199,7 @@ fun SignUpContent(navController: NavController, sharedViewModel: SharedViewModel
                                 val user = auth.currentUser
                                 if (user != null) {
                                     sharedViewModel.addUserId(user)
+                                    Log.d("AUTH", "${sharedViewModel.userId?.email}")
                                     val db = Firebase.firestore
                                     val newUser = hashMapOf(
                                         "email" to user.email,
