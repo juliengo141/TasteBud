@@ -69,11 +69,13 @@ fun NavBarScaffold(navController: NavController, title: String, createContent: @
         BottomAppBar(
             containerColor = TasteBudAccent,
             contentColor = TasteBudDarkGreen,
+            modifier = Modifier
+                .height(60.dp),
         ){
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp), // Adjust the height of the bottom bar as needed
+                    .height(30.dp), // Adjust the height of the bottom bar as needed
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
