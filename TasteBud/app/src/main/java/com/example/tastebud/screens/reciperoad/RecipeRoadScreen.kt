@@ -2,8 +2,7 @@ package com.example.tastebud.screens.reciperoad
 
 
 import NavBarScaffold
-import androidx.compose.foundation.Image
-
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,43 +10,48 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.tastebud.R
+import coil.compose.AsyncImage
+import com.example.tastebud.components.DifficultyStars
 import com.example.tastebud.data.Equipment
 import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 import com.example.tastebud.screens.SharedViewModel
-
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.firestore
 
 @Composable
 fun RecipeRoadScreen(navController: NavController, sharedViewModel: SharedViewModel) {
     NavBarScaffold(navController, "Recipe Road") { RecipeRoadContent(navController, it, sharedViewModel) }
 }
 
-
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeRoadContent(navController: NavController, innerPadding: PaddingValues, sharedViewModel: SharedViewModel) {
 
-    Column(modifier = Modifier
-        .padding(innerPadding)) {
-        Text(text = "Road Across India", fontSize = 36.sp,
-            fontWeight = FontWeight.Bold)
+    Column(
+        modifier = Modifier
+            .padding(innerPadding)
+    ) {
+        Text(
+            text = "Road Across " + sharedViewModel.country, fontSize = 36.sp,
+            fontWeight = FontWeight.Bold
+        )
+        CuisineRecipes(sharedViewModel)
+        Log.d("RECIPE_DB_RECIPES", "${sharedViewModel.cuisineRecipes}")
         LazyColumn() {
-            items(CuisineRecipes(sharedViewModel.cuisine)) { recipe ->
-                RecipeCard(recipe = recipe, navController, sharedViewModel)
+            items(sharedViewModel.cuisineRecipes) { recipe ->
+                if (recipe != null) {
+                    RecipeCard(recipe = recipe, navController, sharedViewModel)
+                }
             }
         }
-
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +61,7 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .height(200.dp),
+            .height(250.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         onClick = {
@@ -66,8 +70,8 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
         },
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
-            Image(
-                painter = painterResource(id = R.drawable.chickentikka),
+            AsyncImage(
+                model = recipe.imageUrl,
                 contentDescription = null,
                 modifier = Modifier.size(200.dp)
                 //
@@ -94,250 +98,145 @@ fun RecipeCard(recipe: Recipe, navController: NavController, sharedViewModel: Sh
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Difficulty: ${recipe.difficulty}",
+                    text = "Difficulty: ",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(Modifier.padding(15.dp, 0.dp)) {
+                    DifficultyStars(recipe.difficulty.toFloatOrNull()?.toInt() ?: 0)
+                }
             }
         }
     }
 }
 
-fun CuisineRecipes(cuisine: String) : List<Recipe>{
-    var recipes = setIndianRecipes()
-    when (cuisine) {
-        "Indian" -> recipes = setIndianRecipes()
-        //Add more cuisines
-    }
-    return recipes;
+fun CuisineRecipes(sharedViewModel: SharedViewModel){
+    val db = Firebase.firestore
+    var recipes = mutableListOf<Recipe>()
+    val testIngredientList = mutableListOf<Ingredient>()
 
+    val recipesRef = db.collection("Recipes")
+    recipesRef.whereArrayContains("cuisines", sharedViewModel.cuisine)
+        .orderBy("difficulty")
+        .get()
+        .addOnSuccessListener { result ->
+            val filteredRecipes = mutableListOf<DocumentSnapshot>()
+            var countOneStar = 0
+            var countTwoStar = 0
+            var countThreeStar = 0
+            var countFourStar = 0
+            var countFiveStar = 0
+            for (document in result) {
+                val difficulty = document.getDouble("difficulty") ?: 0.0
+                if (countOneStar < 1 && difficulty <= 5) {
+                    filteredRecipes.add(document)
+                    countOneStar++
+                    Log.d("COUNT1", "${countOneStar}")
+                } else if (countTwoStar < 1 && difficulty in 5.1..10.0) {
+                    filteredRecipes.add(document)
+                    countTwoStar++
+                    Log.d("COUNT2", "${countTwoStar}")
+                } else if (countThreeStar < 1 && difficulty in 11.1..15.0) {
+                    filteredRecipes.add(document)
+                    countThreeStar++
+                    Log.d("COUNT3", "${countThreeStar}")
+                } else if (countFourStar < 1 && difficulty in 15.1..20.0) {
+                    filteredRecipes.add(document)
+                    countFourStar++
+                    Log.d("COUNT4", "${countFourStar}")
+                } else if (countFiveStar < 1 && difficulty > 20) {
+                    filteredRecipes.add(document)
+                    countFiveStar++
+                    Log.d("COUNT5", "${countFiveStar}")
+                }
+            }
+//            Log.d("COUNT", "${count}")
+            Log.d("RECIPE_DB_DIFFICULTY", "${filteredRecipes}")
+            for (document in filteredRecipes) {
+                val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
+                //For ingredients mapping
+                for (ingredientData in ingredients) {
+                    var name = ingredientData["name"] as? String
+                    val quantity = ingredientData["amount"].toString()
+                    var unit = ingredientData["unit"] as? String
+                    val id = ingredientData["id"].toString()
+                    var og = ingredientData["original"] as? String
+                    var image = ingredientData["image"] as? String
+                    if(name == null){
+                        name =""
+                    }
+                    if(unit == null){
+                        unit =""
+                    }
+                    if(og == null){
+                        og =""
+                    }
+                    if(image == null){
+                        image =""
+                    }
+                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
+                    testIngredientList.add(ingredient)
+                }
+                val steps = mutableListOf<Instruction>()
+
+                val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
+                for(instructionData in instructions) {
+                    val stepNum = instructionData["number"] as Long
+                    val step = instructionData["step"].toString()
+
+                    val equipmentList = mutableListOf<Equipment>()
+                    //val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
+                    val equipment = instructionData["equipment"] as List<Map<String, Any>>
+                    for(equipmentData in equipment) {
+                        val id = equipmentData["id"].toString()
+                        val name = equipmentData["name"].toString()
+                        val image = equipmentData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        equipmentList.add(e)
+                    }
+
+                    val instructionIngredientsList = mutableListOf<Equipment>()
+                    val i = instructionData["ingredients"] as List<Map<String, Any>>
+                    for(instructionIngredientData in i) {
+                        val id = instructionIngredientData["id"].toString()
+                        val name = instructionIngredientData["name"].toString()
+                        val image = instructionIngredientData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        instructionIngredientsList.add(e)
+                    }
+
+                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+                    steps.add(instruction)
+
+                }
+
+                var recipe = Recipe(
+                    (document.data?.get("id")).toString(),
+                    (document.data?.get("title")).toString(),
+                    (document.data?.get("image")).toString(),
+                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("servings")) as Long,
+                    (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("vegetarian")) as Boolean,
+                    (document.data?.get("vegan")) as Boolean,
+                    (document.data?.get("glutenFree")) as Boolean,
+                    (document.data?.get("dairyFree")) as Boolean,
+                    (document.data?.get("veryHealthy")) as Boolean,
+                    (document.data?.get("cheap")) as Boolean,
+                    (document.data?.get("difficulty")).toString(),
+                    testIngredientList,
+                    steps
+                )
+                Log.d("RECIPE_DB", "${recipe}")
+                recipes.add(recipe)
+                Log.d("RECIPE_DB1", "${recipes}")
+            }
+            sharedViewModel.addCuisineRecipes(recipes)
+        }
+        .addOnFailureListener { exception ->
+            Log.w("RECIPE_DB", "Error getting documents.", exception)
+        }
 }
 
-fun setIndianRecipes() : List<Recipe>{
-    val ingredientList1 = listOf(
-        Ingredient("1", "Basmati Rice", "2 cups of basmati rice", "", "2 cups", "cups"),
-        Ingredient("2", "Water", "4 cups of water", "", "4 cups", "cups"),
-        Ingredient("3", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-        Ingredient("4", "Cumin Seeds", "1 tablespoon of cumin seeds", "", "1 tablespoon", "tablespoon"),
-        Ingredient("5", "Ghee", "1 tablespoon of ghee", "", "1 tablespoon", "tablespoon")
-    )
-
-    val steps1 = listOf(
-        Instruction(1, "Rinse the rice under cold water until the water runs clear.", listOf(
-            Equipment("1", "Strainer", "")
-        ), listOf(
-            Equipment("1", "Strainer", "")
-        )),
-        Instruction(2, "In a large saucepan, heat ghee over medium heat. Add cumin seeds and let them sizzle for 1 minute.", listOf(
-            Equipment("1", "Strainer", ""),
-                    Equipment("1", "Strainer", "")
-        ), listOf(
-            Equipment("2", "Saucepan", "")
-        ))
-    )
-
-    val recipe1 = Recipe(
-        "1",
-        "Cumin Rice (Jeera Rice)",
-        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-        "25 min",
-        4,
-        listOf("Indian"),
-        true,
-        false,
-        true,
-        false,
-        false,
-        true,
-        "Easy",
-        ingredientList1,
-        steps1
-    )
-
-    val ingredientList2 = listOf(
-        Ingredient("1", "Chickpeas", "1 can of chickpeas, drained and rinsed", "", "1 can", "can"),
-        Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", ""),
-        Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
-        Ingredient("4", "Ginger", "1 tablespoon of grated ginger", "", "1 tablespoon", "tablespoon"),
-        Ingredient("5", "Garlic", "3 cloves of garlic, minced", "", "3 cloves", "")
-    )
-
-    val steps2 = listOf(
-        Instruction(1, "Heat oil in a pan over medium heat. Add onions and cook until golden brown.", listOf(
-            Equipment("1", "Strainer", "")
-        ), listOf(
-            Equipment("1", "Pan", "")
-        )),
-        Instruction(2, "Add ginger and garlic, cook for another minute until fragrant.", listOf(
-            Equipment("1", "Strainer", ""),
-                    Equipment("1", "Strainer", "")
-        ), emptyList())
-    )
-
-    val recipe2 = Recipe(
-        "2",
-        "Chana Masala",
-        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-        "40 min",
-        4,
-        listOf("Indian"),
-        true,
-        false,
-        true,
-        false,
-        false,
-        true,
-        "Easy",
-        ingredientList2,
-        steps2
-    )
-
-    val ingredientList3 = listOf(
-        Ingredient("1", "Paneer", "250g paneer, cubed", "", "250g", "grams"),
-        Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-        Ingredient("3", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-        Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon"),
-        Ingredient("5", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
-    )
-
-    val steps3 = listOf(
-        Instruction(1, "Marinate paneer cubes with yogurt, garam masala, turmeric powder, and salt. Let it sit for 30 minutes.", listOf(
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-                    Equipment("1", "Strainer", "")
-        ), emptyList()),
-        Instruction(2, "Heat oil in a pan over medium heat. Add marinated paneer and cook until golden brown.", listOf(
-            Equipment("1", "Strainer", "")
-        ), listOf(
-            Equipment("1", "Pan", "")
-        ))
-    )
-
-    val recipe3 = Recipe(
-        "3",
-        "Paneer Tikka",
-        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-        "40 min",
-        4,
-        listOf("Indian"),
-        true,
-        false,
-        true,
-        false,
-        false,
-        true,
-        "Medium",
-        ingredientList3,
-        steps3
-    )
-    val ingredientList4 = listOf(
-        Ingredient("1", "Lentils", "1 cup of lentils (masoor dal)", "", "1 cup", "cup"),
-        Ingredient("2", "Onion", "1 large onion, finely chopped", "", "1", ""),
-        Ingredient("3", "Tomatoes", "2 tomatoes, chopped", "", "2", ""),
-        Ingredient("4", "Turmeric Powder", "1/2 teaspoon of turmeric powder", "", "1/2 teaspoon", "teaspoon"),
-        Ingredient("5", "Cumin Seeds", "1 teaspoon of cumin seeds", "", "1 teaspoon", "teaspoon")
-    )
-
-    val steps4 = listOf(
-        Instruction(1, "Rinse the lentils under cold water until the water runs clear. Drain and set aside.", listOf(
-            Equipment("1", "Strainer", "")
-        ), emptyList()),
-        Instruction(2, "Heat oil in a pressure cooker. Add cumin seeds and let them sizzle for a few seconds.", listOf(
-            Equipment("1", "Strainer", "")
-        ), listOf(
-            Equipment("1", "Pressure Cooker", "")
-        )),
-        Instruction(3, "Add chopped onions and sauté until golden brown.", listOf(
-            Equipment("1", "Strainer", "")
-        ), emptyList()),
-        Instruction(4, "Add chopped tomatoes, turmeric powder, and salt. Cook until tomatoes are soft and oil separates.", listOf(
-            Equipment("1", "Strainer", ""),
-                    Equipment("1", "Strainer", "")
-        ), emptyList()),
-        Instruction(5, "Add rinsed lentils and water. Close the lid and pressure cook for 4 whistles.", listOf(
-            Equipment("1", "Strainer", "")
-        ), listOf(
-            Equipment("1", "Pressure Cooker", "")
-        )),
-        Instruction(6, "Once done, let the pressure release naturally. Serve hot with rice or roti.", emptyList(), emptyList())
-    )
-
-    val recipe4 = Recipe(
-        "5",
-        "Masoor Dal (Red Lentil Curry)",
-        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-        "35 min",
-        4,
-        listOf("Indian"),
-        true,
-        false,
-        true,
-        false,
-        false,
-        true,
-        "Medium",
-        ingredientList4,
-        steps4
-    )
-
-    val ingredientList5 = listOf(
-        Ingredient("1", "Chicken", "500g chicken breast, diced", "", "500g", "grams"),
-        Ingredient("2", "Yogurt", "1/2 cup of yogurt", "", "1/2 cup", "cup"),
-        Ingredient("3", "Ginger-Garlic Paste", "2 tablespoons of ginger-garlic paste", "", "2 tablespoons", "tablespoons"),
-        Ingredient("4", "Turmeric Powder", "1 teaspoon of turmeric powder", "", "1 teaspoon", "teaspoon"),
-        Ingredient("5", "Red Chili Powder", "1 teaspoon of red chili powder", "", "1 teaspoon", "teaspoon"),
-        Ingredient("6", "Garam Masala", "1 teaspoon of garam masala", "", "1 teaspoon", "teaspoon"),
-        Ingredient("7", "Coriander Powder", "1 teaspoon of coriander powder", "", "1 teaspoon", "teaspoon"),
-        Ingredient("8", "Salt", "1 teaspoon of salt", "", "1 teaspoon", "teaspoon"),
-        Ingredient("9", "Lemon Juice", "2 tablespoons of lemon juice", "", "2 tablespoons", "tablespoons"),
-        Ingredient("10", "Cooking Oil", "2 tablespoons of cooking oil", "", "2 tablespoons", "tablespoons"),
-        Ingredient("11", "Coriander Leaves", "2 tablespoons of chopped coriander leaves", "", "2 tablespoons", "tablespoons")
-    )
-
-    val steps5 = listOf(
-        Instruction(1, "In a large bowl, mix yogurt, ginger-garlic paste, turmeric powder, red chili powder, garam masala, coriander powder, salt, and lemon juice.", listOf(
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-            Equipment("1", "Strainer", ""),
-        ), emptyList()),
-        Instruction(2, "Add diced chicken pieces to the marinade. Coat the chicken well with the marinade. Cover and refrigerate for at least 1 hour, or overnight for best results.", listOf(
-            Equipment("1", "Strainer", ""),
-        ), emptyList()),
-        Instruction(3, "Heat oil in a pan over medium-high heat. Add marinated chicken pieces and cook until golden brown and cooked through, about 8-10 minutes.", listOf(
-            Equipment("1", "Strainer", ""),
-        ), listOf(
-            Equipment("1", "Pan", "")
-        )),
-        Instruction(4, "Garnish with chopped coriander leaves before serving. Serve hot with rice, naan, or roti.", listOf(
-            Equipment("1", "Strainer", ""),
-        ), emptyList())
-    )
-
-    val recipe5 = Recipe(
-        "6",
-        "Chicken Tikka",
-        "https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-square-FS-77.jpg",
-        "1 hr 20 min",
-        4,
-        listOf("Indian"),
-        true,
-        false,
-        true,
-        false,
-        false,
-        true,
-        "Hard",
-        ingredientList5,
-        steps5
-    )
-
-    val sampleRecipes = listOf(recipe1, recipe2, recipe3, recipe4, recipe5)
-    return sampleRecipes
-}
