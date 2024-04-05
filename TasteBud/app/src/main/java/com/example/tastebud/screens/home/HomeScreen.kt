@@ -129,14 +129,14 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(innerPadding),
+            .padding(horizontal = 16.dp, vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         SearchBar(onSearch = handleSearch)
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp)
+                .padding(horizontal = 18.dp, vertical = 12.dp)
                 .height(190.dp),
             colors = CardDefaults.cardColors(containerColor = TasteBudGreen),
             onClick = {
@@ -209,7 +209,7 @@ fun HomeContent(navController: NavController, innerPadding: PaddingValues, share
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp, 3.dp),
+                    .padding(10.dp, 6.dp),
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

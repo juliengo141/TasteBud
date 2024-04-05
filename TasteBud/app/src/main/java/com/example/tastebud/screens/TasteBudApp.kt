@@ -18,7 +18,7 @@ import com.example.tastebud.screens.signUp.SignUpScreen
 fun TasteBudApp() {
     val sharedViewModel: SharedViewModel = viewModel()
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "homeScreen") {
+    NavHost(navController = navController, startDestination = "RandomRecipeScreen") {
         composable("signUpScreen") {
             SignUpScreen(navController = navController, sharedViewModel)
         }
