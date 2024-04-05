@@ -24,9 +24,7 @@ import com.example.tastebud.data.Ingredient
 import com.example.tastebud.data.Instruction
 import com.example.tastebud.data.Recipe
 import com.example.tastebud.ui.theme.TasteBudGreen
-import com.example.tastebud.ui.theme.TasteBudOrange
 import com.google.firebase.firestore.FirebaseFirestore
-import java.time.format.TextStyle
 import kotlin.random.Random
 
 
@@ -161,7 +159,7 @@ fun PickRandomRecipe(sharedViewModel: SharedViewModel){
                     (document.data?.get("id")).toString(),
                     (document.data?.get("title")).toString(),
                     (document.data?.get("image")).toString(),
-                    (document.data?.get("readyInMinutes")).toString() + " minutes",
+                    (document.data?.get("readyInMinutes")) as Long,
                     (document.data?.get("servings")) as Long,
                     (document.data?.get("cuisines")) as List<String>,
                     (document.data?.get("diets")) as List<String>,

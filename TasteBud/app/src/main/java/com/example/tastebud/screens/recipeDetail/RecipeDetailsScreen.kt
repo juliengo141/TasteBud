@@ -162,7 +162,7 @@ fun RecipeInfo(recipe: Recipe) {
     Row(Modifier.padding(15.dp, 0.dp)) {
         Icon(Icons.Filled.Timer, contentDescription = null, modifier = Modifier.size(25.dp), tint = TasteBudGreen)
         Text(
-            "Time to Cook: " + recipe.estimatedTime,
+            "Time to Cook: " + recipe.estimatedMins + " mins",
             modifier = Modifier.padding(start = 10.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp
