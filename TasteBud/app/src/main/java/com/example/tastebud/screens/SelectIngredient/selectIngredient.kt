@@ -28,6 +28,8 @@ import com.example.tastebud.ui.theme.TasteBudAccent
 import com.example.tastebud.ui.theme.TasteBudBackground
 import com.example.tastebud.ui.theme.TasteBudGreen
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import retrofit2.Call
 import kotlin.random.Random
 
@@ -91,7 +93,8 @@ fun selectContent(navController: NavController, innerPadding: PaddingValues, sel
                     if (ids != null) {
                         // Successfully fetched IDs
                         Log.d("IDs", "$ids")
-                        PickIngredientsRecipe(sharedViewModel, ids)
+                        //PickIngredientsRecipe(sharedViewModel, ids)
+                        PickIngredientsRecipe(sharedViewModel, listOf(716202, 648176, 1111111))
                         // Now you can use the IDs as needed
                     } else {
                         // Failed to fetch IDs
@@ -145,102 +148,188 @@ fun FilterChipExample(title: String, onIngredientSelected: (Boolean) -> Unit) {
 }
 
 
-fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>){
+fun PickIngredientsRecipe(sharedViewModel: SharedViewModel, ids: List<Int>) : Recipe{
+    val db = FirebaseFirestore.getInstance()
+    val docRef = db.collection("Recipes")
 
-    for (id in ids) {
-        val documentId = id.toString() // Convert ID to string
-        val testIngredientList = mutableListOf<Ingredient>()
-        var pickedRecipe: Recipe
+    return runBlocking {
+        try {
+            for (id in ids){}
+            val document = docRef.get().await()
+            if (document.exists()) {
+                val steps = mutableListOf<Instruction>()
+                val testIngredientList = mutableListOf<Ingredient>()
+                val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
 
-        val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection("Recipes").document(documentId)
-
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val ingredients = document.data?.get("extendedIngredients") as List<Map<String, Any>>
-                    //For ingredients mapping
-                    for (ingredientData in ingredients) {
-                        var name = ingredientData["name"] as? String
-                        val quantity = ingredientData["amount"].toString()
-                        var unit = ingredientData["unit"] as? String
-                        val id = ingredientData["id"].toString()
-                        var og = ingredientData["original"] as? String
-                        var image = ingredientData["image"] as? String
-                        if(name == null){
-                            name =""
-                        }
-                        if(unit == null){
-                            unit =""
-                        }
-                        if(og == null){
-                            og =""
-                        }
-                        if(image == null){
-                            image =""
-                        }
-                        val ingredient = Ingredient(id, name, og, image, quantity, unit)
-                        testIngredientList.add(ingredient)
+                for (ingredientData in ingredients) {
+                    var name = ingredientData["name"] as? String
+                    val quantity = ingredientData["amount"].toString()
+                    var unit = ingredientData["unit"] as? String
+                    val id = ingredientData["id"].toString()
+                    var og = ingredientData["original"] as? String
+                    var image = ingredientData["image"] as? String
+                    if(name == null){
+                        name =""
                     }
-                    val steps = mutableListOf<Instruction>()
-
-                    val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
-                    for(instructionData in instructions) {
-                        val stepNum = instructionData["number"] as Long
-                        val step = instructionData["step"].toString()
-
-                        val equipmentList = mutableListOf<Equipment>()
-                        //val equipment = instructionData.data?.get("equipment") as List<Map<String, Any>>
-                        val equipment = instructionData["equipment"] as List<Map<String, Any>>
-                        for(equipmentData in equipment) {
-                            val id = equipmentData["id"].toString()
-                            val name = equipmentData["name"].toString()
-                            val image = equipmentData["image"].toString()
-                            val e = Equipment(id, name, image)
-                            equipmentList.add(e)
-                        }
-
-                        val instructionIngredientsList = mutableListOf<Equipment>()
-                        val i = instructionData["ingredients"] as List<Map<String, Any>>
-                        for(instructionIngredientData in i) {
-                            val id = instructionIngredientData["id"].toString()
-                            val name = instructionIngredientData["name"].toString()
-                            val image = instructionIngredientData["image"].toString()
-                            val e = Equipment(id, name, image)
-                            instructionIngredientsList.add(e)
-                        }
-
-                        val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
-                        steps.add(instruction)
-
+                    if(unit == null){
+                        unit =""
                     }
-
-                    pickedRecipe = Recipe(
-                        (document.data?.get("id")).toString(),
-                        (document.data?.get("title")).toString(),
-                        (document.data?.get("image")).toString(),
-                        (document.data?.get("readyInMinutes")).toString() + " mins",
-                        (document.data?.get("servings")) as Long,
-                        (document.data?.get("cuisines")) as List<String>,
-                        (document.data?.get("vegetarian")) as Boolean,
-                        (document.data?.get("vegan")) as Boolean,
-                        (document.data?.get("glutenFree")) as Boolean,
-                        (document.data?.get("dairyFree")) as Boolean,
-                        (document.data?.get("veryHealthy")) as Boolean,
-                        (document.data?.get("cheap")) as Boolean,
-                        (document.data?.get("difficulty")).toString(),
-                        testIngredientList,
-                        steps
-                    )
-                    sharedViewModel.addRecipe(pickedRecipe)
-                } else {
-                    println("No such document for ID: $documentId")
+                    if(og == null){
+                        og =""
+                    }
+                    if(image == null){
+                        image =""
+                    }
+                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
+                    testIngredientList.add(ingredient)
                 }
+
+                val instructions = document.data?.get("analyzedInstructions") as List<Map<String, Any>>
+                for(instructionData in instructions) {
+                    val stepNum = instructionData["number"] as Long
+                    val step = instructionData["step"].toString()
+
+                    val equipmentList = mutableListOf<Equipment>()
+                    val equipment = instructionData["equipment"] as List<Map<String, Any>>
+                    for(equipmentData in equipment) {
+                        val id = equipmentData["id"].toString()
+                        val name = equipmentData["name"].toString()
+                        val image = equipmentData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        equipmentList.add(e)
+                    }
+
+                    val instructionIngredientsList = mutableListOf<Equipment>()
+                    val i = instructionData["ingredients"] as List<Map<String, Any>>
+                    for(instructionIngredientData in i) {
+                        val id = instructionIngredientData["id"].toString()
+                        val name = instructionIngredientData["name"].toString()
+                        val image = instructionIngredientData["image"].toString()
+                        val e = Equipment(id, name, image)
+                        instructionIngredientsList.add(e)
+                    }
+
+                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+                    steps.add(instruction)
+
+                }
+
+                Recipe(
+                    (document.data?.get("id")).toString(),
+                    (document.data?.get("title")).toString(),
+                    (document.data?.get("image")).toString(),
+                    (document.data?.get("readyInMinutes")).toString() + " mins",
+                    (document.data?.get("servings")) as Long,
+                    (document.data?.get("cuisines")) as List<String>,
+                    (document.data?.get("vegetarian")) as Boolean,
+                    (document.data?.get("vegan")) as Boolean,
+                    (document.data?.get("glutenFree")) as Boolean,
+                    (document.data?.get("dairyFree")) as Boolean,
+                    (document.data?.get("veryHealthy")) as Boolean,
+                    (document.data?.get("cheap")) as Boolean,
+                    (document.data?.get("difficulty")).toString(),
+                    testIngredientList,
+                    steps
+                )
+            } else {
+                Log.d("DocumentNotFound", "error")
+                Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
             }
-            .addOnFailureListener { exception ->
-                println("Error getting document with ID $documentId: $exception")
-            }
+        } catch (e: Exception) {
+            Log.e("Error Exception", "Error getting document: $e")
+            Recipe("", "", "", "", 0, listOf(), false, false, false, false, false, false, "", mutableListOf(), mutableListOf())
+        }
     }
-    Log.d("DID", "FAILUREEEE")
+}
+
+//    return runBlocking {
+//        try {
+//            for (id in ids) {
+//                val documentId = id // Convert ID to string
+//                val testIngredientList = mutableListOf<Ingredient>()
+//               val document = docRef.whereEqualTo("id", documentId).get().await()
+//
+//                            val ingredients = document["extendedIngredients"] as? List<Map<String, Any>>
+//                            ingredients?.let {
+//                                for (ingredientData in it) {
+//                                    val name = ingredientData["name"] as? String ?: ""
+//                                    val quantity = ingredientData["amount"].toString()
+//                                    val unit = ingredientData["unit"] as? String ?: ""
+//                                    val id = ingredientData["id"].toString()
+//                                    val og = ingredientData["original"] as? String ?: ""
+//                                    val image = ingredientData["image"] as? String ?: ""
+//                                    val ingredient = Ingredient(id, name, og, image, quantity, unit)
+//                                    testIngredientList.add(ingredient)
+//                                }
+//                            }
+//
+//                            val steps = mutableListOf<Instruction>()
+//                            val instructions = document["analyzedInstructions"] as? List<Map<String, Any>>
+//                            instructions?.let {
+//                                for (instructionData in it) {
+//                                    val stepNum = instructionData["number"] as? Long ?: 0
+//                                    val step = instructionData["step"].toString()
+//
+//                                    val equipmentList = mutableListOf<Equipment>()
+//                                    val equipment = instructionData["equipment"] as? List<Map<String, Any>>
+//                                    equipment?.let {
+//                                        for (equipmentData in it) {
+//                                            val id = equipmentData["id"].toString()
+//                                            val name = equipmentData["name"].toString()
+//                                            val image = equipmentData["image"].toString()
+//                                            val e = Equipment(id, name, image)
+//                                            equipmentList.add(e)
+//                                        }
+//                                    }
+//
+//                                    val instructionIngredientsList = mutableListOf<Equipment>()
+//                                    val ingredients = instructionData["ingredients"] as? List<Map<String, Any>>
+//                                    ingredients?.let {
+//                                        for (instructionIngredientData in it) {
+//                                            val id = instructionIngredientData["id"].toString()
+//                                            val name = instructionIngredientData["name"].toString()
+//                                            val image = instructionIngredientData["image"].toString()
+//                                            val e = Equipment(id, name, image)
+//                                            instructionIngredientsList.add(e)
+//                                        }
+//                                    }
+//
+//                                    val instruction = Instruction(stepNum, step, instructionIngredientsList, equipmentList)
+//                                    steps.add(instruction)
+//                                }
+//                            }
+//
+//                            pickedRecipe = Recipe(
+//                                document["id"].toString(),
+//                                document["title"].toString(),
+//                                document["image"].toString(),
+//                                "${document["readyInMinutes"]} mins",
+//                                document["servings"] as Long,
+//                                document["cuisines"] as? List<String> ?: listOf(),
+//                                document["vegetarian"] as? Boolean ?: false,
+//                                document["vegan"] as? Boolean ?: false,
+//                                document["glutenFree"] as? Boolean ?: false,
+//                                document["dairyFree"] as? Boolean ?: false,
+//                                document["veryHealthy"] as? Boolean ?: false,
+//                                document["cheap"] as? Boolean ?: false,
+//                                document["difficulty"].toString(),
+//                                testIngredientList,
+//                                steps
+//                            )
+//                            sharedViewModel.addRecipe(pickedRecipe!!)
+//                        }
+//                        if (pickedRecipe == null) {
+//                            println("No such document for ID: $documentId")
+//                        }
+//                    }
+//                    .addOnFailureListener { exception ->
+//                        println("Error getting document with ID $documentId: $exception")
+//                    }
+//            }
+//
+//        }catch {
+//
+//        }
+//    }
 
 }
