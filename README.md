@@ -55,7 +55,7 @@ V1.1.0
 - Loaded recipes to database for each cuisine
 
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
-- [Taste Bud Sprint 1 Installer](./TasteBudSprint2.apk)
+- [Taste Bud Sprint 2 Installer](./TasteBudSprint2.apk)
 
 22-Mar-2023
 V1.2.0
@@ -68,7 +68,7 @@ V1.2.0
 
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
 
-- [Taste Bud Sprint 2 Installer](./TasteBudSprint3.apk)
+- [Taste Bud Sprint 3 Installer](./TasteBudSprint3.apk)
 
 5-April-2023
 V2.0.0
@@ -115,6 +115,6 @@ V2.0.0
 - Expanded our collection of recipes! 
 
 Link to issues list: https://git.uwaterloo.ca/j33ngo/team-102-8/-/issues
-- [Taste Bud Installer](./TasteBud.apk)
+- [Taste Bud Sprint 4 Installer](./TasteBud.apk)
 
 
