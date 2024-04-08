@@ -37,6 +37,8 @@ https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/User-Documentation
 
 
 ## Links to design documentation:
+https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Design-Documentation
+
 
 ## Reflections:
 https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/End-of-Term-Reflection
