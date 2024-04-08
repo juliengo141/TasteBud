@@ -26,6 +26,9 @@ TasteBud is an application that teaches beginner cooks how to cook recipes from 
 ## Project Proposal
 https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Proposal
 
+## Project Submission
+https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Submission
+
 ## User Documentation
 https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/User-Documentation
 
