@@ -47,7 +47,7 @@ https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/End-of-Term-Reflection
 [Release v1.0.0](https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Release-v1.0.0)\
 [Release v1.1.0](https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Release-v1.1.0)\
 [Release v1.2.0](https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Release-v1.2.0)\
-[Release v2.0.0](https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Release-v2.0.0)\
+[Release v2.0.0](https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Release-v2.0.0)
 
 ## Links to meeting minutes and individual developer journals:
 ### Meeting Minutes:
