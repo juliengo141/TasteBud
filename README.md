@@ -18,6 +18,9 @@ TasteBud is an application that teaches beginner cooks how to cook recipes from 
  9. List of ingredient substitutions
 10. Weekly recipe picks on homepage
 
+## Project Proposal
+https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Proposal
+
 ## Screenshot and/or introduction video:
 [TasteBud Intro Video](https://git.uwaterloo.ca/j33ngo/team-102-8/-/raw/main/TasteBudDemo.mp4)
 
