@@ -29,9 +29,6 @@ https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Proposal
 ## Project Submission
 https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/Project-Submission
 
-## User Documentation
-https://git.uwaterloo.ca/j33ngo/team-102-8/-/wikis/User-Documentation
-
 ## App Intro Video
 - [Taste Bud App Intro Video](./TasteBudDemo.mp4)
 
