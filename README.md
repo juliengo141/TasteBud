@@ -7,17 +7,15 @@ TasteBud is an application that teaches beginner cooks how to cook recipes from 
 
 ## Essential Product Features
 1. Developed for the Android platform
-2. Progression story and search
-3. Random recipe generator 
+2. Progression story - Recipe Road
+3. Random recipe generator
 4. Select ingredients generator
-5. User profile 
+5. User profile
 6. Information flashcards
 7. Transition animations
-8. Visuals of cooking steps
-9. Post and share pictures of food
-10. Dietary restrictions on user profile
-11. List of ingredient substitutions
-12. Trending and seasonal food page
+8. Dietary restrictions on user profile
+9. List of ingredient substitutions
+10. Weekly recipe picks on homepage
 
 ## Team Members
 - Ayush Shah, a248shah@uwaterloo.ca
